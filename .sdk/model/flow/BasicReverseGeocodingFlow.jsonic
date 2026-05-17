@@ -1,0 +1,33 @@
+# BasicReverseGeocodingFlow
+
+main: kit: flow: BasicReverseGeocodingFlow:
+{
+  entity: "reverse_geocoding",
+  kind: "basic",
+  name: "BasicReverseGeocodingFlow",
+  step: [
+    {
+      input: {
+        ref: "reverse_geocoding_ref01",
+        srcdatavar: "reverse_geocoding_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        latitude: "latitude01",
+        longitude: "longitude01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-reverse_geocoding_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicReverseGeocodingFlow"
+}

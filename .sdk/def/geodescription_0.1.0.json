@@ -1,0 +1,432 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GeoDescription API",
+    "description": "This API provides a service for reverse geocoding, converting geographic coordinates into human-readable address-like location descriptions. Users can access this functionality for both free and paid usage, accommodating various commercial needs.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "contact@geodescription.com"
+    },
+    "termsOfService": "https://geodescription.com"
+  },
+  "servers": [
+    {
+      "url": "https://free.geodescription.com",
+      "description": "Free tier server (rate limited to 1 request/second)"
+    },
+    {
+      "url": "https://api.geodescription.com",
+      "description": "Paid tier server (prepaid or subscription)"
+    }
+  ],
+  "paths": {
+    "/text/lat={latitude}/lon={longitude}": {
+      "get": {
+        "summary": "Get location description as text (path parameters)",
+        "description": "Returns a human-readable address-like location description as plain text for the given coordinates",
+        "operationId": "getTextDescriptionPath",
+        "tags": [
+          "Reverse Geocoding"
+        ],
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "path",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "example": 51.3034
+          },
+          {
+            "name": "longitude",
+            "in": "path",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "example": -0.3063
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with location description",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/text": {
+      "get": {
+        "summary": "Get location description as text (query parameters)",
+        "description": "Returns a human-readable address-like location description as plain text for the given coordinates",
+        "operationId": "getTextDescriptionQuery",
+        "tags": [
+          "Reverse Geocoding"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "example": 51.3034
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "example": -0.3063
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with location description",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/textParts/lat={latitude}/lon={longitude}": {
+      "get": {
+        "summary": "Get location description as JSON parts (path parameters)",
+        "description": "Returns a structured JSON array containing separate components of the location description",
+        "operationId": "getTextPartsPath",
+        "tags": [
+          "Reverse Geocoding"
+        ],
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "path",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "example": 51.3034
+          },
+          {
+            "name": "longitude",
+            "in": "path",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "example": -0.3063
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with structured location components",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationPart"
+                  }
+                },
+                "example": [
+                  {
+                    "wayName": "Leatherhead Road",
+                    "wayRef": "A24"
+                  },
+                  {
+                    "place": "Ashtead",
+                    "type": "village"
+                  },
+                  {
+                    "boundary": "Mole Valley",
+                    "level": "-6"
+                  },
+                  {
+                    "boundary": "Surrey",
+                    "level": "-4"
+                  },
+                  {
+                    "boundary": "England",
+                    "level": "-2"
+                  },
+                  {
+                    "boundary": "United Kingdom",
+                    "level": "top"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/textParts": {
+      "get": {
+        "summary": "Get location description as JSON parts (query parameters)",
+        "description": "Returns a structured JSON array containing separate components of the location description",
+        "operationId": "getTextPartsQuery",
+        "tags": [
+          "Reverse Geocoding"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "example": 51.3034
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "example": -0.3063
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with structured location components",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationPart"
+                  }
+                },
+                "example": [
+                  {
+                    "wayName": "Leatherhead Road",
+                    "wayRef": "A24"
+                  },
+                  {
+                    "place": "Ashtead",
+                    "type": "village"
+                  },
+                  {
+                    "boundary": "Mole Valley",
+                    "level": "-6"
+                  },
+                  {
+                    "boundary": "Surrey",
+                    "level": "-4"
+                  },
+                  {
+                    "boundary": "England",
+                    "level": "-2"
+                  },
+                  {
+                    "boundary": "United Kingdom",
+                    "level": "top"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LocationPart": {
+        "type": "object",
+        "description": "A component of a location description",
+        "properties": {
+          "wayName": {
+            "type": "string",
+            "description": "Name of the street or road"
+          },
+          "wayRef": {
+            "type": "string",
+            "description": "Reference identifier for the way (e.g., road number)"
+          },
+          "place": {
+            "type": "string",
+            "description": "Name of the place"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of place (e.g., village, city, town)"
+          },
+          "boundary": {
+            "type": "string",
+            "description": "Name of the administrative boundary"
+          },
+          "level": {
+            "type": "string",
+            "description": "Administrative level of the boundary (e.g., -6, -4, -2, top)"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "key",
+        "description": "API key for paid tier access (prepaid or subscription). Not required for free tier."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Reverse Geocoding",
+      "description": "Convert geographic coordinates to human-readable location descriptions"
+    }
+  ],
+  "externalDocs": {
+    "description": "Full API Documentation",
+    "url": "https://geodescription.com"
+  }
+}

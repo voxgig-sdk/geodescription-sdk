@@ -1,0 +1,100 @@
+# Entity: lonlongitude
+
+main: kit: entity: lonlongitude: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "boundary"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "level"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "place"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "way_name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "way_ref"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "lonlongitude"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: 51.3034
+                kind: "param"
+                name: "latitude"
+                orig: "latitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: -0.3063
+                kind: "param"
+                name: "longitude"
+                orig: "longitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/textParts/lat={latitude}/lon={longitude}"
+          parts: [
+            "textParts"
+            "lat={latitude}"
+            "lon={longitude}"
+          ]
+          select: {
+            exist: [
+              "key"
+              "latitude"
+              "longitude"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

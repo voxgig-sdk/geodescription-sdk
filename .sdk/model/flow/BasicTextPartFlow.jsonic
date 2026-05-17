@@ -1,0 +1,22 @@
+# BasicTextPartFlow
+
+main: kit: flow: BasicTextPartFlow:
+{
+  entity: "text_part",
+  kind: "basic",
+  name: "BasicTextPartFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "text_part_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicTextPartFlow"
+}

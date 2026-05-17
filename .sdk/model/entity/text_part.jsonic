@@ -1,0 +1,96 @@
+# Entity: text_part
+
+main: kit: entity: text_part: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "boundary"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "level"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "place"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "way_name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "way_ref"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "text_part"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 51.3034
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: -0.3063
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/textParts"
+          parts: [
+            "textParts"
+          ]
+          select: {
+            exist: [
+              "key"
+              "lat"
+              "lon"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -1,0 +1,42 @@
+{
+  "existing": {
+    "text_part": {
+      "TEXT_PART00": {
+        "boundary": "s3c",
+        "level": "s3d",
+        "place": "s3e",
+        "type": "s3f",
+        "way_name": "s40",
+        "way_ref": "s41"
+      },
+      "TEXT_PART01": {
+        "boundary": "s78",
+        "level": "s79",
+        "place": "s7a",
+        "type": "s7b",
+        "way_name": "s7c",
+        "way_ref": "s7d"
+      },
+      "TEXT_PART02": {
+        "boundary": "sb4",
+        "level": "sb5",
+        "place": "sb6",
+        "type": "sb7",
+        "way_name": "sb8",
+        "way_ref": "sb9"
+      }
+    }
+  },
+  "new": {
+    "text_part": {
+      "text_part_ref01": {
+        "boundary": "sf0",
+        "level": "sf1",
+        "place": "sf2",
+        "type": "sf3",
+        "way_name": "sf4",
+        "way_ref": "sf5"
+      }
+    }
+  }
+}

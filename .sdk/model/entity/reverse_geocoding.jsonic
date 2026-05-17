@@ -1,0 +1,112 @@
+# Entity: reverse_geocoding
+
+main: kit: entity: reverse_geocoding: {
+
+  alias: field: {}
+
+  name: "reverse_geocoding"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 51.3034
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: -0.3063
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/text"
+          parts: [
+            "text"
+          ]
+          select: {
+            exist: [
+              "key"
+              "lat"
+              "lon"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                example: 51.3034
+                kind: "param"
+                name: "latitude"
+                orig: "latitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: -0.3063
+                kind: "param"
+                name: "longitude"
+                orig: "longitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/text/lat={latitude}/lon={longitude}"
+          parts: [
+            "text"
+            "lat={latitude}"
+            "lon={longitude}"
+          ]
+          select: {
+            exist: [
+              "key"
+              "latitude"
+              "longitude"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

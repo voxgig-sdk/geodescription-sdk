@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "reverse_geocoding": {
+      "REVERSE_GEOCODING00": {
+        "latitude": "LATITUDE01",
+        "longitude": "LONGITUDE01",
+        "id": "REVERSE_GEOCODING00"
+      },
+      "REVERSE_GEOCODING01": {
+        "latitude": "LATITUDE01",
+        "longitude": "LONGITUDE01",
+        "id": "REVERSE_GEOCODING01"
+      },
+      "REVERSE_GEOCODING02": {
+        "latitude": "LATITUDE01",
+        "longitude": "LONGITUDE01",
+        "id": "REVERSE_GEOCODING02"
+      }
+    }
+  },
+  "new": {
+    "reverse_geocoding": {
+      "reverse_geocoding_ref01": {}
+    }
+  }
+}
