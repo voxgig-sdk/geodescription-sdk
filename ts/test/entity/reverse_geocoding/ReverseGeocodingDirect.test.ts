@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID': {},
     'GEODESCRIPTION_TEST_LIVE': 'FALSE',
-    'GEODESCRIPTION_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.GEODESCRIPTION_TEST_LIVE
 
   if (live) {
     const client = new GeodescriptionSDK({
-      apikey: env.GEODESCRIPTION_APIKEY,
     })
 
     let idmap: any = env['GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID']

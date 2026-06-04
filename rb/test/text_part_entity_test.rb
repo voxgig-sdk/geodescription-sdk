@@ -83,7 +83,6 @@ def text_part_basic_setup(extra)
     "GEODESCRIPTION_TEST_TEXT_PART_ENTID" => idmap,
     "GEODESCRIPTION_TEST_LIVE" => "FALSE",
     "GEODESCRIPTION_TEST_EXPLAIN" => "FALSE",
-    "GEODESCRIPTION_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +94,6 @@ def text_part_basic_setup(extra)
   if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GEODESCRIPTION_APIKEY"],
       },
       extra || {},
     ])

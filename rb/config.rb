@@ -15,9 +15,6 @@ module GeodescriptionConfig
       },
       "options" => {
         "base" => "https://free.geodescription.com",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },

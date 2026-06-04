@@ -91,7 +91,6 @@ def _reverse_geocoding_basic_setup(extra):
         "GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID": idmap,
         "GEODESCRIPTION_TEST_LIVE": "FALSE",
         "GEODESCRIPTION_TEST_EXPLAIN": "FALSE",
-        "GEODESCRIPTION_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +101,6 @@ def _reverse_geocoding_basic_setup(extra):
     if env.get("GEODESCRIPTION_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GEODESCRIPTION_APIKEY"),
             },
             extra or {},
         ])

@@ -119,7 +119,6 @@ func text_partBasicSetup(extra map[string]any) *entityTestSetup {
 		"GEODESCRIPTION_TEST_TEXT_PART_ENTID": idmap,
 		"GEODESCRIPTION_TEST_LIVE":      "FALSE",
 		"GEODESCRIPTION_TEST_EXPLAIN":   "FALSE",
-		"GEODESCRIPTION_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["GEODESCRIPTION_TEST_TEXT_PART_ENTID"])
@@ -130,7 +129,6 @@ func text_partBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["GEODESCRIPTION_APIKEY"],
 			},
 			extra,
 		})

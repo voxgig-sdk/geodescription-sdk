@@ -68,14 +68,12 @@ def reverse_geocoding_direct_setup(mockres)
   env = Runner.env_override({
     "GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID" => {},
     "GEODESCRIPTION_TEST_LIVE" => "FALSE",
-    "GEODESCRIPTION_APIKEY" => "NONE",
   })
 
   live = env["GEODESCRIPTION_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["GEODESCRIPTION_APIKEY"],
     }
     client = GeodescriptionSDK.new(merged_opts)
     return {

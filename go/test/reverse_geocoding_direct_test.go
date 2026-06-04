@@ -106,14 +106,12 @@ func reverse_geocodingDirectSetup(mockres any) *reverse_geocodingDirectSetupResu
 	env := envOverride(map[string]any{
 		"GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID": map[string]any{},
 		"GEODESCRIPTION_TEST_LIVE":    "FALSE",
-		"GEODESCRIPTION_APIKEY":       "NONE",
 	})
 
 	live := env["GEODESCRIPTION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["GEODESCRIPTION_APIKEY"],
 		}
 		client := sdk.NewGeodescriptionSDK(mergedOpts)
 

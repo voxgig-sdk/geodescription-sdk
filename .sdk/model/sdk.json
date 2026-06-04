@@ -21,7 +21,19 @@
         ],
         "termsOfService": "https://geodescription.com",
         "title": "GeoDescription API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Reverse geocoding that turns latitude/longitude into human-readable address-style descriptions",
+        "homepage": "https://geodescription.com/",
+        "docs_url": "https://geodescription.com/docs",
+        "license_short": "Location data sourced from OpenStreetMap (c) OpenStreetMap contributors",
+        "license_md": "- Location data is derived from OpenStreetMap and remains (c) OpenStreetMap contributors.\n- Attribution to OpenStreetMap is expected when displaying results.\n- The free tier at `https://free.geodescription.com` is rate-limited; paid tiers require an API key.\n- Service is operated by GMAC SYSTEMS LTD (registered in England and Wales).",
+        "about_md": "GeoDescription is a reverse geocoding API run by [GMAC SYSTEMS LTD](https://geodescription.com/), a company registered in England and Wales. Given a pair of geographic coordinates, it returns a human-readable description of the place, assembled from OpenStreetMap data.\n\nWhat you get from the API:\n\n- A single-string description of a coordinate, e.g. `\"Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom\"` (`/text/lat={lat}/lon={lon}`).\n- A structured JSON breakdown of the same description split into parts such as `wayName`, `wayRef`, `place`, `type`, `boundary`, and `level` (`/textParts/lat={lat}/lon={lon}`).\n\nOperational notes:\n\n- The free host `https://free.geodescription.com` allows roughly 1 request per second and does not require an API key.\n- Paid tiers are served from `https://api.geodescription.com` and accept a `key={APIKEY}` path segment, with higher published rate limits.\n- CORS is disabled on the free endpoint, so browser-side calls may need a proxy.",
+        "entity_desc": {
+          "lonlongitude": "Coordinate input pair (latitude and longitude) used as path parameters on every reverse-geocoding call, e.g. `/text/lat={lat}/lon={lon}`.",
+          "reverse_geocoding": "The core lookup operation that turns a coordinate into a single human-readable location description via `GET /text/lat={lat}/lon={lon}`.",
+          "text_part": "Structured component of a location description (e.g. `wayName`, `wayRef`, `place`, `type`, `boundary`, `level`) returned by `GET /textParts/lat={lat}/lon={lon}`."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -29,7 +41,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "lonlongitude": {
