@@ -10,13 +10,13 @@ The Ruby SDK for the Geodescription API — an entity-oriented client using idio
 
 ## Install
 ```bash
-gem install geodescription-sdk
+gem install voxgig-sdk-geodescription
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "geodescription-sdk"
+gem "voxgig-sdk-geodescription"
 ```
 
 Then run:

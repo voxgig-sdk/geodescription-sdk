@@ -10,7 +10,7 @@ The Lua SDK for the Geodescription API — an entity-oriented client using Lua c
 
 ## Install
 ```bash
-luarocks install geodescription-sdk
+luarocks install voxgig-sdk-geodescription
 ```
 
 If the module is not yet published, add the source directory to

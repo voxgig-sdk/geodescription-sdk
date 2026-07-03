@@ -10,7 +10,7 @@ The Python SDK for the Geodescription API — an entity-oriented client followin
 
 ## Install
 ```bash
-pip install geodescription-sdk
+pip install voxgig-sdk-geodescription
 ```
 
 Or install from source:

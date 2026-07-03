@@ -10,7 +10,7 @@ The TypeScript SDK for the Geodescription API — a type-safe, entity-oriented c
 
 ## Install
 ```bash
-npm install geodescription
+npm install @voxgig-sdk/geodescription
 ```
 ## Tutorial: your first API call
 

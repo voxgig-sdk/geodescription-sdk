@@ -10,7 +10,7 @@ The PHP SDK for the Geodescription API — an entity-oriented client using PHP c
 
 ## Install
 ```bash
-composer require voxgig/geodescription-sdk
+composer require voxgig-sdk/geodescription
 ```
 
 
