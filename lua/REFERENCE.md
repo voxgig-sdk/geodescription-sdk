@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -113,7 +113,7 @@ local lonlongitude = client:Lonlongitude(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Lonlongitude(nil):list(nil, nil)
+local results, err = client:Lonlongitude():list()
 ```
 
 ### Common Methods
@@ -159,7 +159,7 @@ local reverse_geocoding = client:ReverseGeocoding(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ReverseGeocoding(nil):load({ id = "reverse_geocoding_id" }, nil)
+local result, err = client:ReverseGeocoding():load({ id = "reverse_geocoding_id" })
 ```
 
 ### Common Methods
@@ -216,7 +216,7 @@ local text_part = client:TextPart(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:TextPart(nil):list(nil, nil)
+local results, err = client:TextPart():list()
 ```
 
 ### Common Methods

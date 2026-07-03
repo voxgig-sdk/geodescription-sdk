@@ -85,6 +85,7 @@ function reverse_geocoding_basic_setup($extra)
         "GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID" => $idmap,
         "GEODESCRIPTION_TEST_LIVE" => "FALSE",
         "GEODESCRIPTION_TEST_EXPLAIN" => "FALSE",
+        "GEODESCRIPTION_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -96,6 +97,7 @@ function reverse_geocoding_basic_setup($extra)
     if ($env["GEODESCRIPTION_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["GEODESCRIPTION_APIKEY"],
             ],
             $extra ?? [],
         ]);

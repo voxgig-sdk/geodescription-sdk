@@ -1,23 +1,8 @@
 # Geodescription SDK
 
-Reverse geocoding that turns latitude/longitude into human-readable address-style descriptions
+GeoDescription API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About GeoDescription API
-
-GeoDescription is a reverse geocoding API run by [GMAC SYSTEMS LTD](https://geodescription.com/), a company registered in England and Wales. Given a pair of geographic coordinates, it returns a human-readable description of the place, assembled from OpenStreetMap data.
-
-What you get from the API:
-
-- A single-string description of a coordinate, e.g. `"Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom"` (`/text/lat={lat}/lon={lon}`).
-- A structured JSON breakdown of the same description split into parts such as `wayName`, `wayRef`, `place`, `type`, `boundary`, and `level` (`/textParts/lat={lat}/lon={lon}`).
-
-Operational notes:
-
-- The free host `https://free.geodescription.com` allows roughly 1 request per second and does not require an API key.
-- Paid tiers are served from `https://api.geodescription.com` and accept a `key={APIKEY}` path segment, with higher published rate limits.
-- CORS is disabled on the free endpoint, so browser-side calls may need a proxy.
 
 ## Try it
 
@@ -51,29 +36,31 @@ gem install geodescription-sdk
 luarocks install geodescription-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { GeodescriptionSDK } from 'geodescription'
 
-const client = new GeodescriptionSDK({})
+const client = new GeodescriptionSDK({
+  apikey: process.env.GEODESCRIPTION_APIKEY,
+})
 
 // List all lonlongitudes
 const lonlongitudes = await client.Lonlongitude().list()
+console.log(lonlongitudes.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -103,9 +90,9 @@ The API exposes 3 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Lonlongitude** | Coordinate input pair (latitude and longitude) used as path parameters on every reverse-geocoding call, e.g. `/text/lat={lat}/lon={lon}`. | `/textParts/lat={latitude}/lon={longitude}` |
-| **ReverseGeocoding** | The core lookup operation that turns a coordinate into a single human-readable location description via `GET /text/lat={lat}/lon={lon}`. | `/text` |
-| **TextPart** | Structured component of a location description (e.g. `wayName`, `wayRef`, `place`, `type`, `boundary`, `level`) returned by `GET /textParts/lat={lat}/lon={lon}`. | `/textParts` |
+| **Lonlongitude** |  | `/textParts/lat={latitude}/lon={longitude}` |
+| **ReverseGeocoding** |  | `/text` |
+| **TextPart** |  | `/textParts` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -115,12 +102,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from geodescription_sdk import GeodescriptionSDK
 
-client = GeodescriptionSDK({})
+client = GeodescriptionSDK({
+    "apikey": os.environ.get("GEODESCRIPTION_APIKEY"),
+})
 
 # List all lonlongitudes
-lonlongitudes, err = client.Lonlongitude(None).list(None, None)
+lonlongitudes, err = client.Lonlongitude().list()
+print(lonlongitudes)
 ```
 
 ### PHP
@@ -129,10 +120,13 @@ lonlongitudes, err = client.Lonlongitude(None).list(None, None)
 <?php
 require_once 'geodescription_sdk.php';
 
-$client = new GeodescriptionSDK([]);
+$client = new GeodescriptionSDK([
+    "apikey" => getenv("GEODESCRIPTION_APIKEY"),
+]);
 
 // List all lonlongitudes
-[$lonlongitudes, $err] = $client->Lonlongitude(null)->list(null, null);
+[$lonlongitudes, $err] = $client->Lonlongitude()->list();
+print_r($lonlongitudes);
 ```
 
 ### Golang
@@ -140,10 +134,13 @@ $client = new GeodescriptionSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/geodescription-sdk/go"
 
-client := sdk.NewGeodescriptionSDK(map[string]any{})
+client := sdk.NewGeodescriptionSDK(map[string]any{
+    "apikey": os.Getenv("GEODESCRIPTION_APIKEY"),
+})
 
 // List all lonlongitudes
 lonlongitudes, err := client.Lonlongitude(nil).List(nil, nil)
+fmt.Println(lonlongitudes)
 ```
 
 ### Ruby
@@ -151,10 +148,13 @@ lonlongitudes, err := client.Lonlongitude(nil).List(nil, nil)
 ```ruby
 require_relative "Geodescription_sdk"
 
-client = GeodescriptionSDK.new({})
+client = GeodescriptionSDK.new({
+  "apikey" => ENV["GEODESCRIPTION_APIKEY"],
+})
 
 # List all lonlongitudes
-lonlongitudes, err = client.Lonlongitude(nil).list(nil, nil)
+lonlongitudes, err = client.Lonlongitude().list
+puts lonlongitudes
 ```
 
 ### Lua
@@ -162,10 +162,13 @@ lonlongitudes, err = client.Lonlongitude(nil).list(nil, nil)
 ```lua
 local sdk = require("geodescription_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("GEODESCRIPTION_APIKEY"),
+})
 
 -- List all lonlongitudes
-local lonlongitudes, err = client:Lonlongitude(nil):list(nil, nil)
+local lonlongitudes, err = client:Lonlongitude():list()
+print(lonlongitudes)
 ```
 
 ## Unit testing in offline mode
@@ -184,25 +187,21 @@ const result = await client.Lonlongitude().load({ id: 'test01' })
 ### Python
 
 ```python
-client = GeodescriptionSDK.test(None, None)
-result, err = client.Lonlongitude(None).load(
-    {"id": "test01"}, None
-)
+client = GeodescriptionSDK.test()
+result, err = client.Lonlongitude().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = GeodescriptionSDK::test(null, null);
-[$result, $err] = $client->Lonlongitude(null)->load(
-    ["id" => "test01"], null
-);
+$client = GeodescriptionSDK::test();
+[$result, $err] = $client->Lonlongitude()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Lonlongitude(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -211,19 +210,15 @@ result, err := client.Lonlongitude(nil).Load(
 ### Ruby
 
 ```ruby
-client = GeodescriptionSDK.test(nil, nil)
-result, err = client.Lonlongitude(nil).load(
-  { "id" => "test01" }, nil
-)
+client = GeodescriptionSDK.test
+result, err = client.Lonlongitude().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Lonlongitude(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Lonlongitude():load({ id = "test01" })
 ```
 
 ## How it works
@@ -327,16 +322,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the GeoDescription API
-
-- Upstream: [https://geodescription.com/](https://geodescription.com/)
-- API docs: [https://geodescription.com/docs](https://geodescription.com/docs)
-
-- Location data is derived from OpenStreetMap and remains (c) OpenStreetMap contributors.
-- Attribution to OpenStreetMap is expected when displaying results.
-- The free tier at `https://free.geodescription.com` is rate-limited; paid tiers require an API key.
-- Service is operated by GMAC SYSTEMS LTD (registered in England and Wales).
 
 ---
 

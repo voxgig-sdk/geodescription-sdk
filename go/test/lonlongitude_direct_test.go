@@ -126,12 +126,14 @@ func lonlongitudeDirectSetup(mockres any) *lonlongitudeDirectSetupResult {
 	env := envOverride(map[string]any{
 		"GEODESCRIPTION_TEST_LONLONGITUDE_ENTID": map[string]any{},
 		"GEODESCRIPTION_TEST_LIVE":    "FALSE",
+		"GEODESCRIPTION_APIKEY":       "NONE",
 	})
 
 	live := env["GEODESCRIPTION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["GEODESCRIPTION_APIKEY"],
 		}
 		client := sdk.NewGeodescriptionSDK(mergedOpts)
 

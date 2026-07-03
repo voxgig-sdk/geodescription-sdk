@@ -95,6 +95,7 @@ function lonlongitude_basic_setup(extra)
     ["GEODESCRIPTION_TEST_LONLONGITUDE_ENTID"] = idmap,
     ["GEODESCRIPTION_TEST_LIVE"] = "FALSE",
     ["GEODESCRIPTION_TEST_EXPLAIN"] = "FALSE",
+    ["GEODESCRIPTION_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -106,6 +107,7 @@ function lonlongitude_basic_setup(extra)
   if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["GEODESCRIPTION_APIKEY"],
       },
       extra or {},
     })

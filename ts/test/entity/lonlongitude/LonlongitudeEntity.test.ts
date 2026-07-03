@@ -115,6 +115,7 @@ function basicSetup(extra?: any) {
     'GEODESCRIPTION_TEST_LONLONGITUDE_ENTID': idmap,
     'GEODESCRIPTION_TEST_LIVE': 'FALSE',
     'GEODESCRIPTION_TEST_EXPLAIN': 'FALSE',
+    'GEODESCRIPTION_APIKEY': 'NONE',
   })
 
   idmap = env['GEODESCRIPTION_TEST_LONLONGITUDE_ENTID']
@@ -124,6 +125,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new GeodescriptionSDK(merge([
       {
+        apikey: env.GEODESCRIPTION_APIKEY,
       },
       extra
     ]))

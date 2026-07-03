@@ -122,6 +122,7 @@ func lonlongitudeBasicSetup(extra map[string]any) *entityTestSetup {
 		"GEODESCRIPTION_TEST_LONLONGITUDE_ENTID": idmap,
 		"GEODESCRIPTION_TEST_LIVE":      "FALSE",
 		"GEODESCRIPTION_TEST_EXPLAIN":   "FALSE",
+		"GEODESCRIPTION_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["GEODESCRIPTION_TEST_LONLONGITUDE_ENTID"])
@@ -132,6 +133,7 @@ func lonlongitudeBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["GEODESCRIPTION_APIKEY"],
 			},
 			extra,
 		})

@@ -63,12 +63,14 @@ function text_part_direct_setup(mockres)
   local env = runner.env_override({
     ["GEODESCRIPTION_TEST_TEXT_PART_ENTID"] = {},
     ["GEODESCRIPTION_TEST_LIVE"] = "FALSE",
+    ["GEODESCRIPTION_APIKEY"] = "NONE",
   })
 
   local live = env["GEODESCRIPTION_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["GEODESCRIPTION_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {
