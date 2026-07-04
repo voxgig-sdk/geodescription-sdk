@@ -34,14 +34,16 @@ client = GeodescriptionSDK({
 })
 ```
 
-### 2. List lonlongitudes
+### 2. List lonlongitude records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.lonlongitude.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    lonlongitudes = client.Lonlongitude().list({})
+    for lonlongitude in lonlongitudes:
+        print(lonlongitude)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -89,8 +91,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GeodescriptionSDK.test()
 
-result = client.lonlongitude.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+lonlongitude = client.Lonlongitude().load({"id": "test01"})
+# lonlongitude contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -256,7 +259,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.lonlongitude`
+Create an instance: `lonlongitude = client.Lonlongitude()`
 
 #### Operations
 
@@ -277,14 +280,14 @@ Create an instance: `const lonlongitude = client.lonlongitude`
 
 #### Example: List
 
-```ts
-const lonlongitudes = await client.lonlongitude.list()
+```python
+lonlongitudes = client.Lonlongitude().list({})
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.reverse_geocoding`
+Create an instance: `reverse_geocoding = client.ReverseGeocoding()`
 
 #### Operations
 
@@ -294,14 +297,14 @@ Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 
 #### Example: Load
 
-```ts
-const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
+```python
+reverse_geocoding = client.ReverseGeocoding().load({"id": "reverse_geocoding_id"})
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.text_part`
+Create an instance: `text_part = client.TextPart()`
 
 #### Operations
 
@@ -322,8 +325,8 @@ Create an instance: `const text_part = client.text_part`
 
 #### Example: List
 
-```ts
-const text_parts = await client.text_part.list()
+```python
+text_parts = client.TextPart().list({})
 ```
 
 
@@ -397,7 +400,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-lonlongitude = client.lonlongitude
+lonlongitude = client.Lonlongitude()
 lonlongitude.load({"id": "example_id"})
 
 # lonlongitude.data_get() now returns the loaded lonlongitude data

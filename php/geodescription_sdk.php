@@ -233,10 +233,10 @@ class GeodescriptionSDK
 
     private $_lonlongitude = null;
 
-    // Idiomatic facade: $client->lonlongitude()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Lonlongitude() (PHP method
-    // names are case-insensitive).
-    public function lonlongitude($data = null)
+    // Canonical facade: $client->Lonlongitude()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->lonlongitude()
+    // resolves here too.
+    public function Lonlongitude($data = null)
     {
         require_once __DIR__ . '/entity/lonlongitude_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class GeodescriptionSDK
 
     private $_reverse_geocoding = null;
 
-    // Idiomatic facade: $client->reverse_geocoding()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias ReverseGeocoding() (PHP method
-    // names are case-insensitive).
-    public function reverse_geocoding($data = null)
+    // Canonical facade: $client->ReverseGeocoding()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->reverse_geocoding()
+    // resolves here too.
+    public function ReverseGeocoding($data = null)
     {
         require_once __DIR__ . '/entity/reverse_geocoding_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class GeodescriptionSDK
 
     private $_text_part = null;
 
-    // Idiomatic facade: $client->text_part()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias TextPart() (PHP method
-    // names are case-insensitive).
-    public function text_part($data = null)
+    // Canonical facade: $client->TextPart()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->text_part()
+    // resolves here too.
+    public function TextPart($data = null)
     {
         require_once __DIR__ . '/entity/text_part_entity.php';
         if ($data === null) {

@@ -206,42 +206,21 @@ class GeodescriptionSDK {
 
 
 
-  _lonlongitude?: LonlongitudeEntity
-
-  // Idiomatic facade: `client.lonlongitude.list()` / `client.lonlongitude.load({ id })`.
-  get lonlongitude(): LonlongitudeEntity {
-    return (this._lonlongitude ??= new LonlongitudeEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.lonlongitude` instead. */
+  // Entity access: `client.Lonlongitude().list()` / `client.Lonlongitude().load({ id })`.
   Lonlongitude(data?: any) {
     const self = this
     return new LonlongitudeEntity(self,data)
   }
 
 
-  _reverse_geocoding?: ReverseGeocodingEntity
-
-  // Idiomatic facade: `client.reverse_geocoding.list()` / `client.reverse_geocoding.load({ id })`.
-  get reverse_geocoding(): ReverseGeocodingEntity {
-    return (this._reverse_geocoding ??= new ReverseGeocodingEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.reverse_geocoding` instead. */
+  // Entity access: `client.ReverseGeocoding().list()` / `client.ReverseGeocoding().load({ id })`.
   ReverseGeocoding(data?: any) {
     const self = this
     return new ReverseGeocodingEntity(self,data)
   }
 
 
-  _text_part?: TextPartEntity
-
-  // Idiomatic facade: `client.text_part.list()` / `client.text_part.load({ id })`.
-  get text_part(): TextPartEntity {
-    return (this._text_part ??= new TextPartEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.text_part` instead. */
+  // Entity access: `client.TextPart().list()` / `client.TextPart().load({ id })`.
   TextPart(data?: any) {
     const self = this
     return new TextPartEntity(self,data)

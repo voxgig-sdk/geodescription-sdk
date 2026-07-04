@@ -208,39 +208,21 @@ class GeodescriptionSDK
   end
 
 
-  # Idiomatic facade: client.lonlongitude.list / client.lonlongitude.load({ "id" => ... })
-  def lonlongitude
-    require_relative 'entity/lonlongitude_entity'
-    @lonlongitude ||= LonlongitudeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.lonlongitude instead.
+  # Canonical facade: client.Lonlongitude.list / client.Lonlongitude.load({ "id" => ... })
   def Lonlongitude(data = nil)
     require_relative 'entity/lonlongitude_entity'
     LonlongitudeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.reverse_geocoding.list / client.reverse_geocoding.load({ "id" => ... })
-  def reverse_geocoding
-    require_relative 'entity/reverse_geocoding_entity'
-    @reverse_geocoding ||= ReverseGeocodingEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.reverse_geocoding instead.
+  # Canonical facade: client.ReverseGeocoding.list / client.ReverseGeocoding.load({ "id" => ... })
   def ReverseGeocoding(data = nil)
     require_relative 'entity/reverse_geocoding_entity'
     ReverseGeocodingEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.text_part.list / client.text_part.load({ "id" => ... })
-  def text_part
-    require_relative 'entity/text_part_entity'
-    @text_part ||= TextPartEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.text_part instead.
+  # Canonical facade: client.TextPart.list / client.TextPart.load({ "id" => ... })
   def TextPart(data = nil)
     require_relative 'entity/text_part_entity'
     TextPartEntity.new(self, data)

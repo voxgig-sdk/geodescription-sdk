@@ -95,7 +95,7 @@ same parameters as `direct()`. Raises on error.
 ## LonlongitudeEntity
 
 ```ruby
-lonlongitude = client.lonlongitude
+lonlongitude = client.Lonlongitude
 ```
 
 ### Fields
@@ -116,7 +116,7 @@ lonlongitude = client.lonlongitude
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.lonlongitude.list(nil)
+results = client.Lonlongitude.list(nil)
 ```
 
 ### Common Methods
@@ -152,7 +152,7 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```ruby
-reverse_geocoding = client.reverse_geocoding
+reverse_geocoding = client.ReverseGeocoding
 ```
 
 ### Operations
@@ -162,7 +162,7 @@ reverse_geocoding = client.reverse_geocoding
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.reverse_geocoding.load({ "id" => "reverse_geocoding_id" })
+result = client.ReverseGeocoding.load({ "id" => "reverse_geocoding_id" })
 ```
 
 ### Common Methods
@@ -198,7 +198,7 @@ Return the entity name.
 ## TextPartEntity
 
 ```ruby
-text_part = client.text_part
+text_part = client.TextPart
 ```
 
 ### Fields
@@ -219,7 +219,7 @@ text_part = client.text_part
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.text_part.list(nil)
+results = client.TextPart.list(nil)
 ```
 
 ### Common Methods

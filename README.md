@@ -28,9 +28,11 @@ const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
 })
 
-// List all lonlongitudes
-const lonlongitudes = await client.lonlongitude.list()
-console.log(lonlongitudes.data)
+// List all lonlongitudes (returns Lonlongitude[])
+const lonlongitudes = await client.Lonlongitude().list()
+for (const lonlongitude of lonlongitudes) {
+  console.log(lonlongitude)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -90,9 +92,10 @@ client = GeodescriptionSDK({
     "apikey": os.environ.get("GEODESCRIPTION_APIKEY"),
 })
 
-# List all lonlongitudes
-lonlongitudes = client.lonlongitude.list()
-print(lonlongitudes)
+# List all lonlongitudes (returns a list, raises on error)
+lonlongitudes = client.Lonlongitude().list({})
+for lonlongitude in lonlongitudes:
+    print(lonlongitude)
 ```
 
 ### PHP
@@ -105,8 +108,8 @@ $client = new GeodescriptionSDK([
     "apikey" => getenv("GEODESCRIPTION_APIKEY"),
 ]);
 
-// List all lonlongitudes (throws on error)
-$lonlongitudes = $client->lonlongitude()->list();
+// List all lonlongitudes (returns an array; throws on error)
+$lonlongitudes = $client->Lonlongitude()->list();
 print_r($lonlongitudes);
 ```
 
@@ -133,8 +136,8 @@ client = GeodescriptionSDK.new({
   "apikey" => ENV["GEODESCRIPTION_APIKEY"],
 })
 
-# List all lonlongitudes
-lonlongitudes = client.lonlongitude.list
+# List all lonlongitudes (returns an Array; raises on error)
+lonlongitudes = client.Lonlongitude.list
 puts lonlongitudes
 ```
 
@@ -148,7 +151,7 @@ local client = sdk.new({
 })
 
 -- List all lonlongitudes
-local lonlongitudes, err = client:lonlongitude():list()
+local lonlongitudes, err = client:Lonlongitude():list()
 print(lonlongitudes)
 ```
 
@@ -161,22 +164,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = GeodescriptionSDK.test()
-const result = await client.lonlongitude.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const lonlongitude = await client.Lonlongitude().load({ id: 'test01' })
+// lonlongitude is a bare Lonlongitude populated with mock data
+console.log(lonlongitude)
 ```
 
 ### Python
 
 ```python
 client = GeodescriptionSDK.test()
-result = client.lonlongitude.load({"id": "test01"})
+lonlongitude = client.Lonlongitude().load({"id": "test01"})
+print(lonlongitude)
 ```
 
 ### PHP
 
 ```php
-$client = GeodescriptionSDK::test();
-$result = $client->lonlongitude()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = GeodescriptionSDK::test([
+    "entity" => ["lonlongitude" => ["test01" => ["id" => "test01"]]],
+]);
+$lonlongitude = $client->Lonlongitude()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -191,15 +199,18 @@ result, err := client.Lonlongitude(nil).Load(
 ### Ruby
 
 ```ruby
-client = GeodescriptionSDK.test
-result = client.lonlongitude.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = GeodescriptionSDK.test({
+  "entity" => { "lonlongitude" => { "test01" => { "id" => "test01" } } },
+})
+lonlongitude = client.Lonlongitude.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:lonlongitude():load({ id = "test01" })
+local result, err = client:Lonlongitude():load({ id = "test01" })
 ```
 
 ## How it works
@@ -247,6 +258,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

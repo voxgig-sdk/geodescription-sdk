@@ -220,57 +220,27 @@ class GeodescriptionSDK:
         }
 
 
-    @property
-    def lonlongitude(self):
-        """Idiomatic facade: client.lonlongitude.list() / client.lonlongitude.load({"id": ...})."""
-        from entity.lonlongitude_entity import LonlongitudeEntity
-        cached = getattr(self, "_lonlongitude", None)
-        if cached is None:
-            cached = LonlongitudeEntity(self, None)
-            self._lonlongitude = cached
-        return cached
-
-    def Lonlongitude(self, data=None):
-        # Deprecated: use client.lonlongitude instead.
+    def Lonlongitude(self, data=None) -> "LonlongitudeEntity":
+        """Entity factory: client.Lonlongitude().list({}) / client.Lonlongitude().load({"id": ...})."""
         from entity.lonlongitude_entity import LonlongitudeEntity
         return LonlongitudeEntity(self, data)
 
 
-    @property
-    def reverse_geocoding(self):
-        """Idiomatic facade: client.reverse_geocoding.list() / client.reverse_geocoding.load({"id": ...})."""
-        from entity.reverse_geocoding_entity import ReverseGeocodingEntity
-        cached = getattr(self, "_reverse_geocoding", None)
-        if cached is None:
-            cached = ReverseGeocodingEntity(self, None)
-            self._reverse_geocoding = cached
-        return cached
-
-    def ReverseGeocoding(self, data=None):
-        # Deprecated: use client.reverse_geocoding instead.
+    def ReverseGeocoding(self, data=None) -> "ReverseGeocodingEntity":
+        """Entity factory: client.ReverseGeocoding().list({}) / client.ReverseGeocoding().load({"id": ...})."""
         from entity.reverse_geocoding_entity import ReverseGeocodingEntity
         return ReverseGeocodingEntity(self, data)
 
 
-    @property
-    def text_part(self):
-        """Idiomatic facade: client.text_part.list() / client.text_part.load({"id": ...})."""
-        from entity.text_part_entity import TextPartEntity
-        cached = getattr(self, "_text_part", None)
-        if cached is None:
-            cached = TextPartEntity(self, None)
-            self._text_part = cached
-        return cached
-
-    def TextPart(self, data=None):
-        # Deprecated: use client.text_part instead.
+    def TextPart(self, data=None) -> "TextPartEntity":
+        """Entity factory: client.TextPart().list({}) / client.TextPart().load({"id": ...})."""
         from entity.text_part_entity import TextPartEntity
         return TextPartEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "GeodescriptionSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -290,3 +260,11 @@ class GeodescriptionSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.lonlongitude_entity import LonlongitudeEntity
+    from entity.reverse_geocoding_entity import ReverseGeocodingEntity
+    from entity.text_part_entity import TextPartEntity

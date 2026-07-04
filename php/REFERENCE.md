@@ -94,7 +94,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## LonlongitudeEntity
 
 ```php
-$lonlongitude = $client->lonlongitude();
+$lonlongitude = $client->Lonlongitude();
 ```
 
 ### Fields
@@ -115,7 +115,7 @@ $lonlongitude = $client->lonlongitude();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->lonlongitude()->list([]);
+$results = $client->Lonlongitude()->list([]);
 ```
 
 ### Common Methods
@@ -151,7 +151,7 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```php
-$reverse_geocoding = $client->reverse_geocoding();
+$reverse_geocoding = $client->ReverseGeocoding();
 ```
 
 ### Operations
@@ -161,7 +161,7 @@ $reverse_geocoding = $client->reverse_geocoding();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->reverse_geocoding()->load(["id" => "reverse_geocoding_id"]);
+$result = $client->ReverseGeocoding()->load(["id" => "reverse_geocoding_id"]);
 ```
 
 ### Common Methods
@@ -197,7 +197,7 @@ Return the entity name.
 ## TextPartEntity
 
 ```php
-$text_part = $client->text_part();
+$text_part = $client->TextPart();
 ```
 
 ### Fields
@@ -218,7 +218,7 @@ $text_part = $client->text_part();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->text_part()->list([]);
+$results = $client->TextPart()->list([]);
 ```
 
 ### Common Methods

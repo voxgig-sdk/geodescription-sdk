@@ -30,15 +30,15 @@ const client = new GeodescriptionSDK({
 })
 ```
 
-### 2. List lonlongitudes
+### 2. List lonlongitude records
+
+`list()` resolves to an array of Lonlongitude objects — iterate it directly:
 
 ```ts
-const result = await client.lonlongitude.list()
+const lonlongitudes = await client.Lonlongitude().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const lonlongitude of lonlongitudes) {
+  console.log(lonlongitude)
 }
 ```
 
@@ -56,6 +56,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -84,9 +87,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GeodescriptionSDK.test()
 
-const result = await client.lonlongitude.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const lonlongitude = await client.Lonlongitude().load({ id: 'test01' })
+// lonlongitude is a bare entity populated with mock response data
+console.log(lonlongitude)
 ```
 
 You can also use the instance method:
@@ -101,7 +104,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.lonlongitude
+const entity = client.Lonlongitude()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -202,29 +205,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): GeodescriptionSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -302,7 +306,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.lonlongitude`
+Create an instance: `const lonlongitude = client.Lonlongitude()`
 
 #### Operations
 
@@ -324,13 +328,13 @@ Create an instance: `const lonlongitude = client.lonlongitude`
 #### Example: List
 
 ```ts
-const lonlongitudes = await client.lonlongitude.list()
+const lonlongitudes = await client.Lonlongitude().list()
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.reverse_geocoding`
+Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
 
 #### Operations
 
@@ -341,13 +345,13 @@ Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 #### Example: Load
 
 ```ts
-const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
+const reverse_geocoding = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.text_part`
+Create an instance: `const text_part = client.TextPart()`
 
 #### Operations
 
@@ -369,7 +373,7 @@ Create an instance: `const text_part = client.text_part`
 #### Example: List
 
 ```ts
-const text_parts = await client.text_part.list()
+const text_parts = await client.TextPart().list()
 ```
 
 
@@ -440,7 +444,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const lonlongitude = client.lonlongitude
+const lonlongitude = client.Lonlongitude()
 await lonlongitude.load({ id: "example_id" })
 
 // lonlongitude.data() now returns the loaded lonlongitude data

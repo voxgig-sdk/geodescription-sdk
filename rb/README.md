@@ -30,16 +30,14 @@ client = GeodescriptionSDK.new({
 })
 ```
 
-### 2. List lonlongitudes
+### 2. List lonlongitude records
 
 ```ruby
 begin
-  result = client.lonlongitude.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Lonlongitude records — iterate directly.
+  lonlongitudes = client.Lonlongitude.list
+  lonlongitudes.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -87,13 +85,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = GeodescriptionSDK.test
+client = GeodescriptionSDK.test({
+  "entity" => { "lonlongitude" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.lonlongitude.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+lonlongitude = client.Lonlongitude.load({ "id" => "test01" })
+puts lonlongitude
 ```
 
 ### Use a custom fetch function
@@ -258,7 +260,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.lonlongitude`
+Create an instance: `lonlongitude = client.Lonlongitude`
 
 #### Operations
 
@@ -279,14 +281,15 @@ Create an instance: `const lonlongitude = client.lonlongitude`
 
 #### Example: List
 
-```ts
-const lonlongitudes = await client.lonlongitude.list()
+```ruby
+# list returns an Array of Lonlongitude records (raises on error).
+lonlongitudes = client.Lonlongitude.list
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.reverse_geocoding`
+Create an instance: `reverse_geocoding = client.ReverseGeocoding`
 
 #### Operations
 
@@ -296,14 +299,15 @@ Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 
 #### Example: Load
 
-```ts
-const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
+```ruby
+# load returns the bare ReverseGeocoding record (raises on error).
+reverse_geocoding = client.ReverseGeocoding.load({ "id" => "reverse_geocoding_id" })
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.text_part`
+Create an instance: `text_part = client.TextPart`
 
 #### Operations
 
@@ -324,8 +328,9 @@ Create an instance: `const text_part = client.text_part`
 
 #### Example: List
 
-```ts
-const text_parts = await client.text_part.list()
+```ruby
+# list returns an Array of TextPart records (raises on error).
+text_parts = client.TextPart.list
 ```
 
 
@@ -400,7 +405,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-lonlongitude = client.lonlongitude
+lonlongitude = client.Lonlongitude
 lonlongitude.load({ "id" => "example_id" })
 
 # lonlongitude.data_get now returns the loaded lonlongitude data

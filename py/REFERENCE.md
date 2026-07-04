@@ -89,7 +89,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## LonlongitudeEntity
 
 ```python
-lonlongitude = client.lonlongitude
+lonlongitude = client.Lonlongitude()
 ```
 
 ### Fields
@@ -110,7 +110,9 @@ lonlongitude = client.lonlongitude
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.lonlongitude.list({})
+results = client.Lonlongitude().list({})
+for lonlongitude in results:
+    print(lonlongitude)
 ```
 
 ### Common Methods
@@ -145,7 +147,7 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```python
-reverse_geocoding = client.reverse_geocoding
+reverse_geocoding = client.ReverseGeocoding()
 ```
 
 ### Operations
@@ -155,7 +157,7 @@ reverse_geocoding = client.reverse_geocoding
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.reverse_geocoding.load({"id": "reverse_geocoding_id"})
+result = client.ReverseGeocoding().load({"id": "reverse_geocoding_id"})
 ```
 
 ### Common Methods
@@ -190,7 +192,7 @@ Return the entity name.
 ## TextPartEntity
 
 ```python
-text_part = client.text_part
+text_part = client.TextPart()
 ```
 
 ### Fields
@@ -211,7 +213,9 @@ text_part = client.text_part
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.text_part.list({})
+results = client.TextPart().list({})
+for text_part in results:
+    print(text_part)
 ```
 
 ### Common Methods

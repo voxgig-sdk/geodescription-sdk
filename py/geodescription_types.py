@@ -4,56 +4,54 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Lonlongitude:
-    boundary: Optional[str] = None
-    level: Optional[str] = None
-    place: Optional[str] = None
-    type: Optional[str] = None
-    way_name: Optional[str] = None
-    way_ref: Optional[str] = None
+class Lonlongitude(TypedDict, total=False):
+    boundary: str
+    level: str
+    place: str
+    type: str
+    way_name: str
+    way_ref: str
 
 
-@dataclass
-class LonlongitudeListMatch:
+class LonlongitudeListMatch(TypedDict):
     latitude: float
     longitude: float
 
 
-@dataclass
-class ReverseGeocoding:
+class ReverseGeocoding(TypedDict):
     pass
 
 
-@dataclass
-class ReverseGeocodingLoadMatch:
+class ReverseGeocodingLoadMatch(TypedDict):
     latitude: float
     longitude: float
 
 
-@dataclass
-class TextPart:
-    boundary: Optional[str] = None
-    level: Optional[str] = None
-    place: Optional[str] = None
-    type: Optional[str] = None
-    way_name: Optional[str] = None
-    way_ref: Optional[str] = None
+class TextPart(TypedDict, total=False):
+    boundary: str
+    level: str
+    place: str
+    type: str
+    way_name: str
+    way_ref: str
 
 
-@dataclass
-class TextPartListMatch:
-    boundary: Optional[str] = None
-    level: Optional[str] = None
-    place: Optional[str] = None
-    type: Optional[str] = None
-    way_name: Optional[str] = None
-    way_ref: Optional[str] = None
-
+class TextPartListMatch(TypedDict, total=False):
+    boundary: str
+    level: str
+    place: str
+    type: str
+    way_name: str
+    way_ref: str
