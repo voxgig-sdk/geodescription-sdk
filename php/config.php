@@ -96,6 +96,7 @@ class GeodescriptionConfig
                         'orig' => 'latitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -105,6 +106,7 @@ class GeodescriptionConfig
                         'orig' => 'longitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -216,6 +218,7 @@ class GeodescriptionConfig
                         'orig' => 'latitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -225,6 +228,7 @@ class GeodescriptionConfig
                         'orig' => 'longitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [

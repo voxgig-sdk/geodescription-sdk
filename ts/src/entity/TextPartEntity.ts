@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  TextPart,
+  TextPartListMatch,
+} from '../GeodescriptionTypes'
 
 // TODO: needs Entity superclass
-class TextPartEntity extends GeodescriptionEntityBase {
+class TextPartEntity extends GeodescriptionEntityBase<TextPart> {
 
   constructor(client: GeodescriptionSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class TextPartEntity extends GeodescriptionEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: TextPartListMatch, ctrl?: Control): Promise<TextPart[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class TextPartEntity extends GeodescriptionEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<TextPart[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

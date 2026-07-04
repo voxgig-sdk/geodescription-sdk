@@ -49,8 +49,7 @@ class ReverseGeocodingEntityTest extends TestCase
         // LOAD
         $reverse_geocoding_ref01_ent = $client->ReverseGeocoding(null);
         $reverse_geocoding_ref01_match_dt0 = [];
-        [$reverse_geocoding_ref01_data_dt0_loaded, $err] = $reverse_geocoding_ref01_ent->load($reverse_geocoding_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $reverse_geocoding_ref01_data_dt0_loaded = $reverse_geocoding_ref01_ent->load($reverse_geocoding_ref01_match_dt0, null);
         $this->assertNotNull($reverse_geocoding_ref01_data_dt0_loaded);
 
     }

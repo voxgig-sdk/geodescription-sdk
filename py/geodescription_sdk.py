@@ -144,16 +144,23 @@ class GeodescriptionSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class GeodescriptionSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,25 +212,58 @@ class GeodescriptionSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def lonlongitude(self):
+        """Idiomatic facade: client.lonlongitude.list() / client.lonlongitude.load({"id": ...})."""
+        from entity.lonlongitude_entity import LonlongitudeEntity
+        cached = getattr(self, "_lonlongitude", None)
+        if cached is None:
+            cached = LonlongitudeEntity(self, None)
+            self._lonlongitude = cached
+        return cached
 
     def Lonlongitude(self, data=None):
+        # Deprecated: use client.lonlongitude instead.
         from entity.lonlongitude_entity import LonlongitudeEntity
         return LonlongitudeEntity(self, data)
 
 
+    @property
+    def reverse_geocoding(self):
+        """Idiomatic facade: client.reverse_geocoding.list() / client.reverse_geocoding.load({"id": ...})."""
+        from entity.reverse_geocoding_entity import ReverseGeocodingEntity
+        cached = getattr(self, "_reverse_geocoding", None)
+        if cached is None:
+            cached = ReverseGeocodingEntity(self, None)
+            self._reverse_geocoding = cached
+        return cached
+
     def ReverseGeocoding(self, data=None):
+        # Deprecated: use client.reverse_geocoding instead.
         from entity.reverse_geocoding_entity import ReverseGeocodingEntity
         return ReverseGeocodingEntity(self, data)
 
 
+    @property
+    def text_part(self):
+        """Idiomatic facade: client.text_part.list() / client.text_part.load({"id": ...})."""
+        from entity.text_part_entity import TextPartEntity
+        cached = getattr(self, "_text_part", None)
+        if cached is None:
+            cached = TextPartEntity(self, None)
+            self._text_part = cached
+        return cached
+
     def TextPart(self, data=None):
+        # Deprecated: use client.text_part instead.
         from entity.text_part_entity import TextPartEntity
         return TextPartEntity(self, data)
 

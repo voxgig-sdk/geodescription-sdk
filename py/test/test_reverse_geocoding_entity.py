@@ -49,8 +49,7 @@ class TestReverseGeocodingEntity:
         # LOAD
         reverse_geocoding_ref01_ent = client.ReverseGeocoding(None)
         reverse_geocoding_ref01_match_dt0 = {}
-        reverse_geocoding_ref01_data_dt0_loaded, err = reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0, None)
-        assert err is None
+        reverse_geocoding_ref01_data_dt0_loaded = reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0, None)
         assert reverse_geocoding_ref01_data_dt0_loaded is not None
 
 

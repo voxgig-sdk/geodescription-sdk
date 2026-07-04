@@ -45,6 +45,7 @@ class ReverseGeocodingEntity
     end
   end
 
+  # @return [ReverseGeocoding, Hash] the current ReverseGeocoding data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class ReverseGeocodingEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of ReverseGeocoding fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single ReverseGeocoding.
+  #
+  # @param reqmatch [ReverseGeocodingLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [ReverseGeocoding, Hash] the loaded ReverseGeocoding; raises GeodescriptionError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

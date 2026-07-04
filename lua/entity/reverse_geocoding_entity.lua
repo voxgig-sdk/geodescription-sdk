@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch ReverseGeocodingLoadMatch
+---@param ctrl? table
+---@return ReverseGeocoding
+---@return string? err
 function ReverseGeocodingEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

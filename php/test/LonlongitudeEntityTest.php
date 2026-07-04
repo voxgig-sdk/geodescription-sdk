@@ -53,8 +53,7 @@ class LonlongitudeEntityTest extends TestCase
             "longitude" => $setup["idmap"]["longitude01"],
         ];
 
-        [$lonlongitude_ref01_list_result, $err] = $lonlongitude_ref01_ent->list($lonlongitude_ref01_match, null);
-        $this->assertNull($err);
+        $lonlongitude_ref01_list_result = $lonlongitude_ref01_ent->list($lonlongitude_ref01_match, null);
         $this->assertIsArray($lonlongitude_ref01_list_result);
 
     }

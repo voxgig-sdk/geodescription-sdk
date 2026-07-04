@@ -134,7 +134,7 @@ Alias for `GeodescriptionSDK.test()`.
 ## LonlongitudeEntity
 
 ```ts
-const lonlongitude = client.Lonlongitude()
+const lonlongitude = client.lonlongitude
 ```
 
 ### Fields
@@ -155,7 +155,7 @@ const lonlongitude = client.Lonlongitude()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Lonlongitude().list()
+const results = await client.lonlongitude.list()
 ```
 
 ### Common Methods
@@ -189,7 +189,7 @@ Return a copy of the entity options.
 ## ReverseGeocodingEntity
 
 ```ts
-const reverse_geocoding = client.ReverseGeocoding()
+const reverse_geocoding = client.reverse_geocoding
 ```
 
 ### Operations
@@ -199,7 +199,7 @@ const reverse_geocoding = client.ReverseGeocoding()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
+const result = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
 ```
 
 ### Common Methods
@@ -233,7 +233,7 @@ Return a copy of the entity options.
 ## TextPartEntity
 
 ```ts
-const text_part = client.TextPart()
+const text_part = client.text_part
 ```
 
 ### Fields
@@ -254,7 +254,7 @@ const text_part = client.TextPart()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.TextPart().list()
+const results = await client.text_part.list()
 ```
 
 ### Common Methods

@@ -45,6 +45,7 @@ class LonlongitudeEntity
     end
   end
 
+  # @return [Lonlongitude, Hash] the current Lonlongitude data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class LonlongitudeEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Lonlongitude fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class LonlongitudeEntity
   
 
   
+  # List Lonlongitude items matching the given filter.
+  #
+  # @param reqmatch [LonlongitudeListMatch, Hash, nil] match filter (any subset of Lonlongitude fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Lonlongitude>, Array] the matching Lonlongitude items; raises GeodescriptionError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

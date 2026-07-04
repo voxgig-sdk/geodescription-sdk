@@ -53,8 +53,7 @@ class TestLonlongitudeEntity:
             "longitude": setup["idmap"]["longitude01"],
         }
 
-        lonlongitude_ref01_list_result, err = lonlongitude_ref01_ent.list(lonlongitude_ref01_match, None)
-        assert err is None
+        lonlongitude_ref01_list_result = lonlongitude_ref01_ent.list(lonlongitude_ref01_match, None)
         assert isinstance(lonlongitude_ref01_list_result, list)
 
 

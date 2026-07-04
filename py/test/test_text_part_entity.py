@@ -50,8 +50,7 @@ class TestTextPartEntity:
         text_part_ref01_ent = client.TextPart(None)
         text_part_ref01_match = {}
 
-        text_part_ref01_list_result, err = text_part_ref01_ent.list(text_part_ref01_match, None)
-        assert err is None
+        text_part_ref01_list_result = text_part_ref01_ent.list(text_part_ref01_match, None)
         assert isinstance(text_part_ref01_list_result, list)
 
 

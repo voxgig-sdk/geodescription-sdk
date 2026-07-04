@@ -91,6 +91,7 @@ module GeodescriptionConfig
                         "orig" => "latitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -100,6 +101,7 @@ module GeodescriptionConfig
                         "orig" => "longitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -211,6 +213,7 @@ module GeodescriptionConfig
                         "orig" => "latitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -220,6 +223,7 @@ module GeodescriptionConfig
                         "orig" => "longitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [

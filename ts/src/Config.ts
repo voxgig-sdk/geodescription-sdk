@@ -124,7 +124,8 @@ class Config {
                     "name": "latitude",
                     "orig": "latitude",
                     "reqd": true,
-                    "type": "`$NUMBER`"
+                    "type": "`$NUMBER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -133,7 +134,8 @@ class Config {
                     "name": "longitude",
                     "orig": "longitude",
                     "reqd": true,
-                    "type": "`$NUMBER`"
+                    "type": "`$NUMBER`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -244,7 +246,8 @@ class Config {
                     "name": "latitude",
                     "orig": "latitude",
                     "reqd": true,
-                    "type": "`$NUMBER`"
+                    "type": "`$NUMBER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -253,7 +256,8 @@ class Config {
                     "name": "longitude",
                     "orig": "longitude",
                     "reqd": true,
-                    "type": "`$NUMBER`"
+                    "type": "`$NUMBER`",
+                    "index$": 1
                   }
                 ],
                 "query": [

@@ -43,8 +43,7 @@ class TextPartEntityTest < Minitest::Test
     text_part_ref01_ent = client.TextPart(nil)
     text_part_ref01_match = {}
 
-    text_part_ref01_list_result, err = text_part_ref01_ent.list(text_part_ref01_match, nil)
-    assert_nil err
+    text_part_ref01_list_result = text_part_ref01_ent.list(text_part_ref01_match, nil)
     assert text_part_ref01_list_result.is_a?(Array)
 
   end

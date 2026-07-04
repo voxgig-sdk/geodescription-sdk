@@ -244,18 +244,57 @@ end
 
 
 
+-- Idiomatic facade: client:lonlongitude():list() / client:lonlongitude():load({ id = ... })
+function GeodescriptionSDK:lonlongitude(data)
+  local EntityMod = require("entity.lonlongitude_entity")
+  if data == nil then
+    if self._lonlongitude == nil then
+      self._lonlongitude = EntityMod.new(self, nil)
+    end
+    return self._lonlongitude
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:lonlongitude() instead.
 function GeodescriptionSDK:Lonlongitude(data)
   local EntityMod = require("entity.lonlongitude_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:reverse_geocoding():list() / client:reverse_geocoding():load({ id = ... })
+function GeodescriptionSDK:reverse_geocoding(data)
+  local EntityMod = require("entity.reverse_geocoding_entity")
+  if data == nil then
+    if self._reverse_geocoding == nil then
+      self._reverse_geocoding = EntityMod.new(self, nil)
+    end
+    return self._reverse_geocoding
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:reverse_geocoding() instead.
 function GeodescriptionSDK:ReverseGeocoding(data)
   local EntityMod = require("entity.reverse_geocoding_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:text_part():list() / client:text_part():load({ id = ... })
+function GeodescriptionSDK:text_part(data)
+  local EntityMod = require("entity.text_part_entity")
+  if data == nil then
+    if self._text_part == nil then
+      self._text_part = EntityMod.new(self, nil)
+    end
+    return self._text_part
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:text_part() instead.
 function GeodescriptionSDK:TextPart(data)
   local EntityMod = require("entity.text_part_entity")
   return EntityMod.new(self, data)

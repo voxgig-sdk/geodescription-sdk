@@ -9,12 +9,9 @@ The Lua SDK for the Geodescription API — an entity-oriented client using Lua c
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-geodescription
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -39,7 +36,7 @@ local client = sdk.new({
 ### 2. List lonlongitudes
 
 ```lua
-local result, err = client:Lonlongitude():list()
+local result, err = client:lonlongitude():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +90,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Geodescription():load({ id = "test01" })
+local result, err = client:lonlongitude():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -258,7 +255,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.Lonlongitude()`
+Create an instance: `const lonlongitude = client.lonlongitude`
 
 #### Operations
 
@@ -280,13 +277,13 @@ Create an instance: `const lonlongitude = client.Lonlongitude()`
 #### Example: List
 
 ```ts
-const lonlongitudes = await client.Lonlongitude().list()
+const lonlongitudes = await client.lonlongitude.list()
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
+Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 
 #### Operations
 
@@ -297,13 +294,13 @@ Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
 #### Example: Load
 
 ```ts
-const reverse_geocoding = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
+const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.TextPart()`
+Create an instance: `const text_part = client.text_part`
 
 #### Operations
 
@@ -325,7 +322,7 @@ Create an instance: `const text_part = client.TextPart()`
 #### Example: List
 
 ```ts
-const text_parts = await client.TextPart().list()
+const text_parts = await client.text_part.list()
 ```
 
 
@@ -400,11 +397,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local lonlongitude = client:lonlongitude()
+lonlongitude:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- lonlongitude:data_get() now returns the loaded lonlongitude data
+-- lonlongitude:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

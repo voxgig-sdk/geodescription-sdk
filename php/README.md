@@ -9,9 +9,10 @@ The PHP SDK for the Geodescription API — an entity-oriented client using PHP c
 
 
 ## Install
-```bash
-composer require voxgig-sdk/geodescription
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/geodescription-sdk/releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -33,14 +34,16 @@ $client = new GeodescriptionSDK([
 ### 2. List lonlongitudes
 
 ```php
-[$result, $err] = $client->Lonlongitude()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->lonlongitude()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
@@ -52,28 +55,31 @@ if (is_array($result)) {
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -87,7 +93,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = GeodescriptionSDK::test();
 
-[$result, $err] = $client->Geodescription()->load(["id" => "test01"]);
+$result = $client->lonlongitude()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -193,8 +199,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -253,7 +263,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.Lonlongitude()`
+Create an instance: `const lonlongitude = client.lonlongitude`
 
 #### Operations
 
@@ -275,13 +285,13 @@ Create an instance: `const lonlongitude = client.Lonlongitude()`
 #### Example: List
 
 ```ts
-const lonlongitudes = await client.Lonlongitude().list()
+const lonlongitudes = await client.lonlongitude.list()
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
+Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 
 #### Operations
 
@@ -292,13 +302,13 @@ Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
 #### Example: Load
 
 ```ts
-const reverse_geocoding = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
+const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.TextPart()`
+Create an instance: `const text_part = client.text_part`
 
 #### Operations
 
@@ -320,7 +330,7 @@ Create an instance: `const text_part = client.TextPart()`
 #### Example: List
 
 ```ts
-const text_parts = await client.TextPart().list()
+const text_parts = await client.text_part.list()
 ```
 
 
@@ -395,11 +405,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$lonlongitude = $client->lonlongitude();
+$lonlongitude->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $lonlongitude->dataGet() now returns the loaded lonlongitude data
+// $lonlongitude->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

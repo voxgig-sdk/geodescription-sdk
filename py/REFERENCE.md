@@ -62,9 +62,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -77,11 +77,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -89,7 +89,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## LonlongitudeEntity
 
 ```python
-lonlongitude = client.Lonlongitude()
+lonlongitude = client.lonlongitude
 ```
 
 ### Fields
@@ -105,12 +105,12 @@ lonlongitude = client.Lonlongitude()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Lonlongitude().list({})
+results = client.lonlongitude.list({})
 ```
 
 ### Common Methods
@@ -145,17 +145,17 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```python
-reverse_geocoding = client.ReverseGeocoding()
+reverse_geocoding = client.reverse_geocoding
 ```
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.ReverseGeocoding().load({"id": "reverse_geocoding_id"})
+result = client.reverse_geocoding.load({"id": "reverse_geocoding_id"})
 ```
 
 ### Common Methods
@@ -190,7 +190,7 @@ Return the entity name.
 ## TextPartEntity
 
 ```python
-text_part = client.TextPart()
+text_part = client.text_part
 ```
 
 ### Fields
@@ -206,12 +206,12 @@ text_part = client.TextPart()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.TextPart().list({})
+results = client.text_part.list({})
 ```
 
 ### Common Methods

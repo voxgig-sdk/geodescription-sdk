@@ -91,6 +91,7 @@ def make_config():
                       "orig": "latitude",
                       "reqd": True,
                       "type": "`$NUMBER`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -100,6 +101,7 @@ def make_config():
                       "orig": "longitude",
                       "reqd": True,
                       "type": "`$NUMBER`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -211,6 +213,7 @@ def make_config():
                       "orig": "latitude",
                       "reqd": True,
                       "type": "`$NUMBER`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -220,6 +223,7 @@ def make_config():
                       "orig": "longitude",
                       "reqd": True,
                       "type": "`$NUMBER`",
+                      "index$": 1,
                     },
                   ],
                   "query": [

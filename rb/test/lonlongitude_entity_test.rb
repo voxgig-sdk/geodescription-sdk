@@ -46,8 +46,7 @@ class LonlongitudeEntityTest < Minitest::Test
       "longitude" => setup[:idmap]["longitude01"],
     }
 
-    lonlongitude_ref01_list_result, err = lonlongitude_ref01_ent.list(lonlongitude_ref01_match, nil)
-    assert_nil err
+    lonlongitude_ref01_list_result = lonlongitude_ref01_ent.list(lonlongitude_ref01_match, nil)
     assert lonlongitude_ref01_list_result.is_a?(Array)
 
   end

@@ -42,8 +42,7 @@ class ReverseGeocodingEntityTest < Minitest::Test
     # LOAD
     reverse_geocoding_ref01_ent = client.ReverseGeocoding(nil)
     reverse_geocoding_ref01_match_dt0 = {}
-    reverse_geocoding_ref01_data_dt0_loaded, err = reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0, nil)
-    assert_nil err
+    reverse_geocoding_ref01_data_dt0_loaded = reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0, nil)
     assert !reverse_geocoding_ref01_data_dt0_loaded.nil?
 
   end

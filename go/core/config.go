@@ -90,6 +90,7 @@ func MakeConfig() map[string]any {
 											"orig": "latitude",
 											"reqd": true,
 											"type": "`$NUMBER`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -99,6 +100,7 @@ func MakeConfig() map[string]any {
 											"orig": "longitude",
 											"reqd": true,
 											"type": "`$NUMBER`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -210,6 +212,7 @@ func MakeConfig() map[string]any {
 											"orig": "latitude",
 											"reqd": true,
 											"type": "`$NUMBER`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -219,6 +222,7 @@ func MakeConfig() map[string]any {
 											"orig": "longitude",
 											"reqd": true,
 											"type": "`$NUMBER`",
+											"index$": 1,
 										},
 									},
 									"query": []any{

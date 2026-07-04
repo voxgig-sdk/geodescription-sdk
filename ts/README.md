@@ -9,9 +9,12 @@ The TypeScript SDK for the Geodescription API — a type-safe, entity-oriented c
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/geodescription
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/geodescription-sdk/releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,7 +23,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GeodescriptionSDK } from 'geodescription'
+import { GeodescriptionSDK } from '@voxgig-sdk/geodescription'
 
 const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
@@ -30,7 +33,7 @@ const client = new GeodescriptionSDK({
 ### 2. List lonlongitudes
 
 ```ts
-const result = await client.Lonlongitude().list()
+const result = await client.lonlongitude.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +84,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GeodescriptionSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.lonlongitude.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -98,7 +101,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.lonlongitude
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -299,7 +302,7 @@ API path: `/textParts`
 
 ### Lonlongitude
 
-Create an instance: `const lonlongitude = client.Lonlongitude()`
+Create an instance: `const lonlongitude = client.lonlongitude`
 
 #### Operations
 
@@ -321,13 +324,13 @@ Create an instance: `const lonlongitude = client.Lonlongitude()`
 #### Example: List
 
 ```ts
-const lonlongitudes = await client.Lonlongitude().list()
+const lonlongitudes = await client.lonlongitude.list()
 ```
 
 
 ### ReverseGeocoding
 
-Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
+Create an instance: `const reverse_geocoding = client.reverse_geocoding`
 
 #### Operations
 
@@ -338,13 +341,13 @@ Create an instance: `const reverse_geocoding = client.ReverseGeocoding()`
 #### Example: Load
 
 ```ts
-const reverse_geocoding = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
+const reverse_geocoding = await client.reverse_geocoding.load({ id: 'reverse_geocoding_id' })
 ```
 
 
 ### TextPart
 
-Create an instance: `const text_part = client.TextPart()`
+Create an instance: `const text_part = client.text_part`
 
 #### Operations
 
@@ -366,7 +369,7 @@ Create an instance: `const text_part = client.TextPart()`
 #### Example: List
 
 ```ts
-const text_parts = await client.TextPart().list()
+const text_parts = await client.text_part.list()
 ```
 
 
@@ -427,7 +430,7 @@ geodescription/
 Import the SDK from the package root:
 
 ```ts
-import { GeodescriptionSDK } from 'geodescription'
+import { GeodescriptionSDK } from '@voxgig-sdk/geodescription'
 ```
 
 ### Entity state
@@ -437,11 +440,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const lonlongitude = client.lonlongitude
+await lonlongitude.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// lonlongitude.data() now returns the loaded lonlongitude data
+// lonlongitude.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

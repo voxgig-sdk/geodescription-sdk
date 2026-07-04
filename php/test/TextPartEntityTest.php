@@ -50,8 +50,7 @@ class TextPartEntityTest extends TestCase
         $text_part_ref01_ent = $client->TextPart(null);
         $text_part_ref01_match = [];
 
-        [$text_part_ref01_list_result, $err] = $text_part_ref01_ent->list($text_part_ref01_match, null);
-        $this->assertNull($err);
+        $text_part_ref01_list_result = $text_part_ref01_ent->list($text_part_ref01_match, null);
         $this->assertIsArray($text_part_ref01_list_result);
 
     }

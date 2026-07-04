@@ -90,6 +90,7 @@ local function make_config()
                       ["orig"] = "latitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
+                      ["index$"] = 0,
                     },
                     {
                       ["active"] = true,
@@ -99,6 +100,7 @@ local function make_config()
                       ["orig"] = "longitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
+                      ["index$"] = 1,
                     },
                   },
                   ["query"] = {
@@ -210,6 +212,7 @@ local function make_config()
                       ["orig"] = "latitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
+                      ["index$"] = 0,
                     },
                     {
                       ["active"] = true,
@@ -219,6 +222,7 @@ local function make_config()
                       ["orig"] = "longitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
+                      ["index$"] = 1,
                     },
                   },
                   ["query"] = {

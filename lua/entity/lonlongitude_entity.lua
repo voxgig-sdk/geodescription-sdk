@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch LonlongitudeListMatch
+---@param ctrl? table
+---@return Lonlongitude[]
+---@return string? err
 function LonlongitudeEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -92,7 +92,7 @@ same parameters as `direct()`.
 ## LonlongitudeEntity
 
 ```lua
-local lonlongitude = client:Lonlongitude(nil)
+local lonlongitude = client:lonlongitude(nil)
 ```
 
 ### Fields
@@ -113,7 +113,7 @@ local lonlongitude = client:Lonlongitude(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Lonlongitude():list()
+local results, err = client:lonlongitude():list()
 ```
 
 ### Common Methods
@@ -149,7 +149,7 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```lua
-local reverse_geocoding = client:ReverseGeocoding(nil)
+local reverse_geocoding = client:reverse_geocoding(nil)
 ```
 
 ### Operations
@@ -159,7 +159,7 @@ local reverse_geocoding = client:ReverseGeocoding(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ReverseGeocoding():load({ id = "reverse_geocoding_id" })
+local result, err = client:reverse_geocoding():load({ id = "reverse_geocoding_id" })
 ```
 
 ### Common Methods
@@ -195,7 +195,7 @@ Return the entity name.
 ## TextPartEntity
 
 ```lua
-local text_part = client:TextPart(nil)
+local text_part = client:text_part(nil)
 ```
 
 ### Fields
@@ -216,7 +216,7 @@ local text_part = client:TextPart(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:TextPart():list()
+local results, err = client:text_part():list()
 ```
 
 ### Common Methods

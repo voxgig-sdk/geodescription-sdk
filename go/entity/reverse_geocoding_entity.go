@@ -85,6 +85,27 @@ func (e *ReverseGeocodingEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an ReverseGeocoding; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *ReverseGeocodingEntity) DataTyped(data ...ReverseGeocoding) ReverseGeocoding {
+	if len(data) > 0 {
+		return typedFrom[ReverseGeocoding](e.Data(asMap(data[0])))
+	}
+	return typedFrom[ReverseGeocoding](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through ReverseGeocoding (all fields
+// optional at the wire level).
+func (e *ReverseGeocodingEntity) MatchTyped(match ...ReverseGeocoding) ReverseGeocoding {
+	if len(match) > 0 {
+		return typedFrom[ReverseGeocoding](e.Match(asMap(match[0])))
+	}
+	return typedFrom[ReverseGeocoding](e.Match())
+}
+
 
 func (e *ReverseGeocodingEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *ReverseGeocodingEntity) Load(reqmatch map[string]any, ctrl map[string]a
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// ReverseGeocodingLoadMatch and returns an ReverseGeocoding. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *ReverseGeocodingEntity) LoadTyped(reqmatch ReverseGeocodingLoadMatch, ctrl map[string]any) (ReverseGeocoding, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return ReverseGeocoding{}, err
+	}
+	return typedFrom[ReverseGeocoding](res), nil
 }
 
 

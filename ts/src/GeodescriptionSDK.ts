@@ -4,6 +4,8 @@ import { LonlongitudeEntity } from './entity/LonlongitudeEntity'
 import { ReverseGeocodingEntity } from './entity/ReverseGeocodingEntity'
 import { TextPartEntity } from './entity/TextPartEntity'
 
+export type * from './GeodescriptionTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -204,18 +206,42 @@ class GeodescriptionSDK {
 
 
 
+  _lonlongitude?: LonlongitudeEntity
+
+  // Idiomatic facade: `client.lonlongitude.list()` / `client.lonlongitude.load({ id })`.
+  get lonlongitude(): LonlongitudeEntity {
+    return (this._lonlongitude ??= new LonlongitudeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.lonlongitude` instead. */
   Lonlongitude(data?: any) {
     const self = this
     return new LonlongitudeEntity(self,data)
   }
 
 
+  _reverse_geocoding?: ReverseGeocodingEntity
+
+  // Idiomatic facade: `client.reverse_geocoding.list()` / `client.reverse_geocoding.load({ id })`.
+  get reverse_geocoding(): ReverseGeocodingEntity {
+    return (this._reverse_geocoding ??= new ReverseGeocodingEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.reverse_geocoding` instead. */
   ReverseGeocoding(data?: any) {
     const self = this
     return new ReverseGeocodingEntity(self,data)
   }
 
 
+  _text_part?: TextPartEntity
+
+  // Idiomatic facade: `client.text_part.list()` / `client.text_part.load({ id })`.
+  get text_part(): TextPartEntity {
+    return (this._text_part ??= new TextPartEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.text_part` instead. */
   TextPart(data?: any) {
     const self = this
     return new TextPartEntity(self,data)

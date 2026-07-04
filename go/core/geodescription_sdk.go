@@ -245,16 +245,25 @@ func (sdk *GeodescriptionSDK) Direct(fetchargs map[string]any) (map[string]any, 
 }
 
 
+// Lonlongitude returns a Lonlongitude entity bound to this client.
+// Idiomatic usage: client.Lonlongitude(nil).List(nil, nil) or
+// client.Lonlongitude(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GeodescriptionSDK) Lonlongitude(data map[string]any) GeodescriptionEntity {
 	return NewLonlongitudeEntityFunc(sdk, data)
 }
 
 
+// ReverseGeocoding returns a ReverseGeocoding entity bound to this client.
+// Idiomatic usage: client.ReverseGeocoding(nil).List(nil, nil) or
+// client.ReverseGeocoding(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GeodescriptionSDK) ReverseGeocoding(data map[string]any) GeodescriptionEntity {
 	return NewReverseGeocodingEntityFunc(sdk, data)
 }
 
 
+// TextPart returns a TextPart entity bound to this client.
+// Idiomatic usage: client.TextPart(nil).List(nil, nil) or
+// client.TextPart(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GeodescriptionSDK) TextPart(data map[string]any) GeodescriptionEntity {
 	return NewTextPartEntityFunc(sdk, data)
 }

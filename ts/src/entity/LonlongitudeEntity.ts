@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Lonlongitude,
+  LonlongitudeListMatch,
+} from '../GeodescriptionTypes'
 
 // TODO: needs Entity superclass
-class LonlongitudeEntity extends GeodescriptionEntityBase {
+class LonlongitudeEntity extends GeodescriptionEntityBase<Lonlongitude> {
 
   constructor(client: GeodescriptionSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class LonlongitudeEntity extends GeodescriptionEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: LonlongitudeListMatch, ctrl?: Control): Promise<Lonlongitude[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class LonlongitudeEntity extends GeodescriptionEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Lonlongitude[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
