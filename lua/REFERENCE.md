@@ -99,12 +99,12 @@ local lonlongitude = client:Lonlongitude(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 
@@ -159,7 +159,7 @@ local reverse_geocoding = client:ReverseGeocoding(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:ReverseGeocoding():load({ id = "reverse_geocoding_id" })
+local result, err = client:ReverseGeocoding():load()
 ```
 
 ### Common Methods
@@ -202,12 +202,12 @@ local text_part = client:TextPart(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 

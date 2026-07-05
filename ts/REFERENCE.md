@@ -141,12 +141,12 @@ const lonlongitude = client.Lonlongitude()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 
@@ -199,7 +199,7 @@ const reverse_geocoding = client.ReverseGeocoding()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ReverseGeocoding().load({ id: 'reverse_geocoding_id' })
+const result = await client.ReverseGeocoding().load()
 ```
 
 ### Common Methods
@@ -240,12 +240,12 @@ const text_part = client.TextPart()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 

@@ -96,21 +96,21 @@ lonlongitude = client.Lonlongitude()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `str` | No |  |
+| `level` | `str` | No |  |
+| `place` | `str` | No |  |
+| `type` | `str` | No |  |
+| `way_name` | `str` | No |  |
+| `way_ref` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Lonlongitude().list({})
+results = client.Lonlongitude().list()
 for lonlongitude in results:
     print(lonlongitude)
 ```
@@ -157,7 +157,7 @@ reverse_geocoding = client.ReverseGeocoding()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.ReverseGeocoding().load({"id": "reverse_geocoding_id"})
+result = client.ReverseGeocoding().load()
 ```
 
 ### Common Methods
@@ -199,21 +199,21 @@ text_part = client.TextPart()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `str` | No |  |
+| `level` | `str` | No |  |
+| `place` | `str` | No |  |
+| `type` | `str` | No |  |
+| `way_name` | `str` | No |  |
+| `way_ref` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.TextPart().list({})
+results = client.TextPart().list()
 for text_part in results:
     print(text_part)
 ```

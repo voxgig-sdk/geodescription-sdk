@@ -221,19 +221,19 @@ class GeodescriptionSDK:
 
 
     def Lonlongitude(self, data=None) -> "LonlongitudeEntity":
-        """Entity factory: client.Lonlongitude().list({}) / client.Lonlongitude().load({"id": ...})."""
+        """Entity factory: client.Lonlongitude().list() / client.Lonlongitude().load({"id": ...})."""
         from entity.lonlongitude_entity import LonlongitudeEntity
         return LonlongitudeEntity(self, data)
 
 
     def ReverseGeocoding(self, data=None) -> "ReverseGeocodingEntity":
-        """Entity factory: client.ReverseGeocoding().list({}) / client.ReverseGeocoding().load({"id": ...})."""
+        """Entity factory: client.ReverseGeocoding().list() / client.ReverseGeocoding().load({"id": ...})."""
         from entity.reverse_geocoding_entity import ReverseGeocodingEntity
         return ReverseGeocodingEntity(self, data)
 
 
     def TextPart(self, data=None) -> "TextPartEntity":
-        """Entity factory: client.TextPart().list({}) / client.TextPart().load({"id": ...})."""
+        """Entity factory: client.TextPart().list() / client.TextPart().load({"id": ...})."""
         from entity.text_part_entity import TextPartEntity
         return TextPartEntity(self, data)
 

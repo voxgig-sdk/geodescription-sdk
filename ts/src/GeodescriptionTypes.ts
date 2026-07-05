@@ -36,5 +36,12 @@ export interface TextPart {
   way_ref?: string
 }
 
-export type TextPartListMatch = Partial<TextPart>
+export interface TextPartListMatch {
+  boundary?: string
+  level?: string
+  place?: string
+  type?: string
+  way_name?: string
+  way_ref?: string
+}
 

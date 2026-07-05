@@ -53,7 +53,7 @@ class TextPart
     public ?string $way_ref = null;
 }
 
-/** Match filter for TextPart#list (any subset of TextPart fields). */
+/** Request payload for TextPart#list. */
 class TextPartListMatch
 {
     public ?string $boundary = null;

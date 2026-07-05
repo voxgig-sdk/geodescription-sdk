@@ -33,6 +33,12 @@
 ---@field way_ref? string
 
 ---@class TextPartListMatch
+---@field boundary? string
+---@field level? string
+---@field place? string
+---@field type? string
+---@field way_name? string
+---@field way_ref? string
 
 local M = {}
 

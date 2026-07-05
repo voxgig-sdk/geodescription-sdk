@@ -54,11 +54,11 @@ Create a new `ReverseGeocodingEntity` instance. Pass `null` for no initial data.
 
 Create a new `TextPartEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): GeodescriptionUtility`
 
 Return a copy of the SDK utility object.
 
@@ -101,38 +101,38 @@ $lonlongitude = $client->Lonlongitude();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Lonlongitude()->list([]);
+$results = $client->Lonlongitude()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -141,7 +141,7 @@ Set the entity match criteria.
 Create a new `LonlongitudeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -161,24 +161,24 @@ $reverse_geocoding = $client->ReverseGeocoding();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->ReverseGeocoding()->load(["id" => "reverse_geocoding_id"]);
+$result = $client->ReverseGeocoding()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -187,7 +187,7 @@ Set the entity match criteria.
 Create a new `ReverseGeocodingEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -204,38 +204,38 @@ $text_part = $client->TextPart();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | ``$STRING`` | No |  |
-| `level` | ``$STRING`` | No |  |
-| `place` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `way_name` | ``$STRING`` | No |  |
-| `way_ref` | ``$STRING`` | No |  |
+| `boundary` | `string` | No |  |
+| `level` | `string` | No |  |
+| `place` | `string` | No |  |
+| `type` | `string` | No |  |
+| `way_name` | `string` | No |  |
+| `way_ref` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->TextPart()->list([]);
+$results = $client->TextPart()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -244,7 +244,7 @@ Set the entity match criteria.
 Create a new `TextPartEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

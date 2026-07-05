@@ -96,7 +96,7 @@ TextPart = Struct.new(
   keyword_init: true
 )
 
-# Match filter for TextPart#list (any subset of TextPart fields).
+# Request payload for TextPart#list.
 #
 # @!attribute [rw] boundary
 #   @return [String, nil]

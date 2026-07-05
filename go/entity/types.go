@@ -44,8 +44,7 @@ type TextPart struct {
 	WayRef *string `json:"way_ref,omitempty"`
 }
 
-// TextPartListMatch mirrors the text_part fields as an all-optional match
-// filter (Go analog of Partial<TextPart>).
+// TextPartListMatch is the typed request payload for TextPart.ListTyped.
 type TextPartListMatch struct {
 	Boundary *string `json:"boundary,omitempty"`
 	Level *string `json:"level,omitempty"`
