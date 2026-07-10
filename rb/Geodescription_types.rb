@@ -57,10 +57,10 @@ end
 # Request payload for ReverseGeocoding#load.
 #
 # @!attribute [rw] latitude
-#   @return [Float]
+#   @return [Float, nil]
 #
 # @!attribute [rw] longitude
-#   @return [Float]
+#   @return [Float, nil]
 ReverseGeocodingLoadMatch = Struct.new(
   :latitude,
   :longitude,

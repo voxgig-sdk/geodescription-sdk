@@ -21,8 +21,8 @@
 ---@class ReverseGeocoding
 
 ---@class ReverseGeocodingLoadMatch
----@field latitude number
----@field longitude number
+---@field latitude? number
+---@field longitude? number
 
 ---@class TextPart
 ---@field boundary? string

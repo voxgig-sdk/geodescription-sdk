@@ -8,6 +8,13 @@ main: {
         email: "contact@geodescription.com"
       }
       description: "This API provides a service for reverse geocoding, converting geographic coordinates into human-readable address-like location descriptions. Users can access this functionality for both free and paid usage, accommodating various commercial needs."
+      security: {
+        in: "query"
+        name: "key"
+        prefix: ""
+        scheme: "ApiKeyAuth"
+        type: "apiKey"
+      }
       servers: [
         {
           description: "Free tier server (rate limited to 1 request/second)"
@@ -18,10 +25,10 @@ main: {
           url: "https://api.geodescription.com"
         }
       ]
+      summary: "This API provides a service for reverse geocoding, converting geographic coordinates into human-readable address-like location descriptions."
       termsOfService: "https://geodescription.com"
       title: "GeoDescription API"
       version: "1.0.0"
+      website: "https://geodescription.com"
     }
   }
-}
-

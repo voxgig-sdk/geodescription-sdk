@@ -100,6 +100,7 @@ same parameters as `Direct()`.
 
 ```go
 lonlongitude := client.Lonlongitude(nil)
+fmt.Println(lonlongitude.GetName()) // "lonlongitude"
 ```
 
 ### Fields
@@ -121,6 +122,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Lonlongitude(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -150,7 +155,8 @@ Return the entity name.
 ## ReverseGeocodingEntity
 
 ```go
-reverse_geocoding := client.ReverseGeocoding(nil)
+reverseGeocoding := client.ReverseGeocoding(nil)
+fmt.Println(reverseGeocoding.GetName()) // "reverse_geocoding"
 ```
 
 ### Operations
@@ -161,6 +167,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.ReverseGeocoding(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -190,7 +200,8 @@ Return the entity name.
 ## TextPartEntity
 
 ```go
-text_part := client.TextPart(nil)
+textPart := client.TextPart(nil)
+fmt.Println(textPart.GetName()) // "text_part"
 ```
 
 ### Fields
@@ -212,6 +223,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.TextPart(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

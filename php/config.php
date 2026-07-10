@@ -21,7 +21,7 @@ class GeodescriptionConfig
             "options" => [
                 "base" => "https://free.geodescription.com",
                 "auth" => [
-                    "prefix" => "Bearer",
+                    "prefix" => "",
                 ],
                 "headers" => [
           'content-type' => 'application/json',

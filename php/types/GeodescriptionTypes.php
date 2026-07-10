@@ -38,8 +38,8 @@ class ReverseGeocoding
 /** Request payload for ReverseGeocoding#load. */
 class ReverseGeocodingLoadMatch
 {
-    public float $latitude;
-    public float $longitude;
+    public ?float $latitude = null;
+    public ?float $longitude = null;
 }
 
 /** TextPart entity data model. */

@@ -343,7 +343,7 @@ fmt.Println(lonlongitudes) // the array of records
 
 ### ReverseGeocoding
 
-Create an instance: `reverse_geocoding := client.ReverseGeocoding(nil)`
+Create an instance: `reverseGeocoding := client.ReverseGeocoding(nil)`
 
 #### Operations
 
@@ -354,17 +354,17 @@ Create an instance: `reverse_geocoding := client.ReverseGeocoding(nil)`
 #### Example: Load
 
 ```go
-reverse_geocoding, err := client.ReverseGeocoding(nil).Load(nil, nil)
+reverseGeocoding, err := client.ReverseGeocoding(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(reverse_geocoding) // the loaded record
+fmt.Println(reverseGeocoding) // the loaded record
 ```
 
 
 ### TextPart
 
-Create an instance: `text_part := client.TextPart(nil)`
+Create an instance: `textPart := client.TextPart(nil)`
 
 #### Operations
 
@@ -386,11 +386,11 @@ Create an instance: `text_part := client.TextPart(nil)`
 #### Example: List
 
 ```go
-text_parts, err := client.TextPart(nil).List(nil, nil)
+textParts, err := client.TextPart(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(text_parts) // the array of records
+fmt.Println(textParts) // the array of records
 ```
 
 

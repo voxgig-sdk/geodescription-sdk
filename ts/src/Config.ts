@@ -39,7 +39,7 @@ class Config {
     base: 'https://free.geodescription.com',
 
     auth: {
-      prefix: 'Bearer',
+      prefix: '',
     },
 
     headers: {
