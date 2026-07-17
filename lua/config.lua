@@ -1,4 +1,4 @@
--- ProjectName SDK configuration
+-- Geodescription SDK configuration
 
 local function make_config()
   return {

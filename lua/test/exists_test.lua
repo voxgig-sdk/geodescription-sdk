@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Geodescription SDK exists test
 
 local sdk = require("geodescription_sdk")
 
