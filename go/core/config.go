@@ -59,14 +59,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "way_name",
+						"name": "wayName",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 4,
 					},
 					map[string]any{
 						"active": true,
-						"name": "way_ref",
+						"name": "wayRef",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 5,
@@ -114,6 +114,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/textParts/lat={latitude}/lon={longitude}",
 								"parts": []any{
@@ -135,7 +136,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -182,6 +182,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/text",
 								"parts": []any{
@@ -236,6 +237,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/text/lat={latitude}/lon={longitude}",
 								"parts": []any{
@@ -257,7 +259,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -296,14 +297,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "way_name",
+						"name": "wayName",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 4,
 					},
 					map[string]any{
 						"active": true,
-						"name": "way_ref",
+						"name": "wayRef",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 5,
@@ -347,6 +348,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/textParts",
 								"parts": []any{
@@ -366,7 +368,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

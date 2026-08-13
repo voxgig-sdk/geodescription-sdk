@@ -22,18 +22,18 @@
 # @!attribute [rw] type
 #   @return [String, nil]
 #
-# @!attribute [rw] way_name
+# @!attribute [rw] wayName
 #   @return [String, nil]
 #
-# @!attribute [rw] way_ref
+# @!attribute [rw] wayRef
 #   @return [String, nil]
 Lonlongitude = Struct.new(
   :boundary,
   :level,
   :place,
   :type,
-  :way_name,
-  :way_ref,
+  :wayName,
+  :wayRef,
   keyword_init: true
 )
 
@@ -81,18 +81,18 @@ ReverseGeocodingLoadMatch = Struct.new(
 # @!attribute [rw] type
 #   @return [String, nil]
 #
-# @!attribute [rw] way_name
+# @!attribute [rw] wayName
 #   @return [String, nil]
 #
-# @!attribute [rw] way_ref
+# @!attribute [rw] wayRef
 #   @return [String, nil]
 TextPart = Struct.new(
   :boundary,
   :level,
   :place,
   :type,
-  :way_name,
-  :way_ref,
+  :wayName,
+  :wayRef,
   keyword_init: true
 )
 
@@ -110,18 +110,18 @@ TextPart = Struct.new(
 # @!attribute [rw] type
 #   @return [String, nil]
 #
-# @!attribute [rw] way_name
+# @!attribute [rw] wayName
 #   @return [String, nil]
 #
-# @!attribute [rw] way_ref
+# @!attribute [rw] wayRef
 #   @return [String, nil]
 TextPartListMatch = Struct.new(
   :boundary,
   :level,
   :place,
   :type,
-  :way_name,
-  :way_ref,
+  :wayName,
+  :wayRef,
   keyword_init: true
 )
 

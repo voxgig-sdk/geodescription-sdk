@@ -6,8 +6,8 @@
         "level": "s3d",
         "place": "s3e",
         "type": "s3f",
-        "way_name": "s40",
-        "way_ref": "s41",
+        "wayName": "s40",
+        "wayRef": "s41",
         "latitude": "LATITUDE01",
         "longitude": "LONGITUDE01"
       },
@@ -16,8 +16,8 @@
         "level": "s79",
         "place": "s7a",
         "type": "s7b",
-        "way_name": "s7c",
-        "way_ref": "s7d",
+        "wayName": "s7c",
+        "wayRef": "s7d",
         "latitude": "LATITUDE01",
         "longitude": "LONGITUDE01"
       },
@@ -26,8 +26,8 @@
         "level": "sb5",
         "place": "sb6",
         "type": "sb7",
-        "way_name": "sb8",
-        "way_ref": "sb9",
+        "wayName": "sb8",
+        "wayRef": "sb9",
         "latitude": "LATITUDE01",
         "longitude": "LONGITUDE01"
       }
@@ -40,8 +40,8 @@
         "level": "sf1",
         "place": "sf2",
         "type": "sf3",
-        "way_name": "sf4",
-        "way_ref": "sf5"
+        "wayName": "sf4",
+        "wayRef": "sf5"
       }
     }
   }

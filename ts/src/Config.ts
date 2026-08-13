@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Geodescription',
   }
 
 
@@ -94,14 +94,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "way_name",
+          "name": "wayName",
           "req": false,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "way_ref",
+          "name": "wayRef",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
@@ -149,6 +149,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/textParts/lat={latitude}/lon={longitude}",
               "parts": [
@@ -217,6 +218,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/text",
               "parts": [
@@ -271,6 +273,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/text/lat={latitude}/lon={longitude}",
               "parts": [
@@ -331,14 +334,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "way_name",
+          "name": "wayName",
           "req": false,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "way_ref",
+          "name": "wayRef",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
@@ -382,6 +385,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/textParts",
               "parts": [

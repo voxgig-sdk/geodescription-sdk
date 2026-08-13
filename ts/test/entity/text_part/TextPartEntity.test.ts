@@ -63,7 +63,7 @@ describe('TextPartEntity', async () => {
     const text_part_ref01_ent = client.TextPart()
     const text_part_ref01_match: any = {}
 
-    const text_part_ref01_list = await text_part_ref01_ent.list(text_part_ref01_match)
+    const text_part_ref01_list = (await text_part_ref01_ent.list(text_part_ref01_match)).map((e: any) => e.data())
 
 
   })

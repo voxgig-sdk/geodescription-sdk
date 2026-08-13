@@ -62,7 +62,7 @@ describe('ReverseGeocodingEntity', async () => {
     // LOAD
     const reverse_geocoding_ref01_ent = client.ReverseGeocoding()
     const reverse_geocoding_ref01_match_dt0: any = {}
-    const reverse_geocoding_ref01_data_dt0 = await reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0)
+    const reverse_geocoding_ref01_data_dt0 = (await reverse_geocoding_ref01_ent.load(reverse_geocoding_ref01_match_dt0)).data()
     assert(null != reverse_geocoding_ref01_data_dt0)
 
 

@@ -37,7 +37,7 @@ class LonlongitudeEntity extends GeodescriptionEntityBase<Lonlongitude> {
 
 
 
-  async list(this: any, reqmatch?: LonlongitudeListMatch, ctrl?: Control): Promise<Lonlongitude[]> {
+  async list(this: any, reqmatch?: LonlongitudeListMatch, ctrl?: Control): Promise<LonlongitudeEntity[]> {
 
     const utility = this._utility
 

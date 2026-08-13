@@ -105,8 +105,8 @@ $lonlongitude = $client->Lonlongitude();
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 
@@ -208,8 +208,8 @@ $text_part = $client->TextPart();
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 

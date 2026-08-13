@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    lonlongitudes = client.Lonlongitude().list()
+    lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
     for lonlongitude in lonlongitudes:
         print(lonlongitude)
 except Exception as err:
@@ -127,7 +127,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GeodescriptionSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 lonlongitude = client.Lonlongitude().list()
 # lonlongitude contains the mock response record
 ```
@@ -228,7 +229,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -254,8 +255,8 @@ On error, `ok` is `False` and `err` contains the error value.
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -278,8 +279,8 @@ API path: `/text`
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -308,13 +309,13 @@ Create an instance: `lonlongitude = client.Lonlongitude()`
 | `level` | `str` |  |
 | `place` | `str` |  |
 | `type` | `str` |  |
-| `way_name` | `str` |  |
-| `way_ref` | `str` |  |
+| `wayName` | `str` |  |
+| `wayRef` | `str` |  |
 
 #### Example: List
 
 ```python
-lonlongitudes = client.Lonlongitude().list()
+lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
 ```
 
 
@@ -353,8 +354,8 @@ Create an instance: `text_part = client.TextPart()`
 | `level` | `str` |  |
 | `place` | `str` |  |
 | `type` | `str` |  |
-| `way_name` | `str` |  |
-| `way_ref` | `str` |  |
+| `wayName` | `str` |  |
+| `wayRef` | `str` |  |
 
 #### Example: List
 

@@ -100,8 +100,8 @@ lonlongitude = client.Lonlongitude()
 | `level` | `str` | No |  |
 | `place` | `str` | No |  |
 | `type` | `str` | No |  |
-| `way_name` | `str` | No |  |
-| `way_ref` | `str` | No |  |
+| `wayName` | `str` | No |  |
+| `wayRef` | `str` | No |  |
 
 ### Operations
 
@@ -110,7 +110,7 @@ lonlongitude = client.Lonlongitude()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Lonlongitude().list()
+results = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
 for lonlongitude in results:
     print(lonlongitude)
 ```
@@ -203,8 +203,8 @@ text_part = client.TextPart()
 | `level` | `str` | No |  |
 | `place` | `str` | No |  |
 | `type` | `str` | No |  |
-| `way_name` | `str` | No |  |
-| `way_ref` | `str` | No |  |
+| `wayName` | `str` | No |  |
+| `wayRef` | `str` | No |  |
 
 ### Operations
 

@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from geodescription_sdk.utility.voxgig_struct import voxgig_struct as vs
 from geodescription_sdk import GeodescriptionSDK
-from core import helpers
+from geodescription_sdk.core import helpers
 from test import runner
 
 

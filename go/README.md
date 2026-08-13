@@ -273,8 +273,8 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"level"` |  |
 | `"place"` |  |
 | `"type"` |  |
-| `"way_name"` |  |
-| `"way_ref"` |  |
+| `"wayName"` |  |
+| `"wayRef"` |  |
 
 Operations: List.
 
@@ -297,8 +297,8 @@ API path: `/text`
 | `"level"` |  |
 | `"place"` |  |
 | `"type"` |  |
-| `"way_name"` |  |
-| `"way_ref"` |  |
+| `"wayName"` |  |
+| `"wayRef"` |  |
 
 Operations: List.
 
@@ -327,8 +327,8 @@ Create an instance: `lonlongitude := client.Lonlongitude(nil)`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 
@@ -380,8 +380,8 @@ Create an instance: `textPart := client.TextPart(nil)`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 

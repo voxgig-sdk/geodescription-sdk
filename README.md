@@ -23,7 +23,7 @@ support (`list`, `load`):
 
 ```ts
 const client = new GeodescriptionSDK()
-const items = await client.Lonlongitude().list()
+const items = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = GeodescriptionSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = GeodescriptionSDK.test({
+  entity: {
+    lonlongitude: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const lonlongitudes = await client.Lonlongitude().list()
-// lonlongitudes is an array of bare Lonlongitude records populated with mock data
+// lonlongitudes is an array of Lonlongitude entities, populated with mock data
+// — call lonlongitudes[0].data() for the record itself
 console.log(lonlongitudes)
 ```
 
@@ -112,8 +121,8 @@ const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
 })
 
-// List all lonlongitudes (returns Lonlongitude[])
-const lonlongitudes = await client.Lonlongitude().list()
+// List all lonlongitudes (returns LonlongitudeEntity[] — .data() for the record)
+const lonlongitudes = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 for (const lonlongitude of lonlongitudes) {
   console.log(lonlongitude)
 }
@@ -177,7 +186,7 @@ client = GeodescriptionSDK({
 })
 
 # List all lonlongitudes (returns a list, raises on error)
-lonlongitudes = client.Lonlongitude().list()
+lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
 for lonlongitude in lonlongitudes:
     print(lonlongitude)
 ```
@@ -358,6 +367,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://free.geodescription.com](https://free.geodescription.com)
 

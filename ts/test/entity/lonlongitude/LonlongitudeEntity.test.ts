@@ -65,7 +65,7 @@ describe('LonlongitudeEntity', async () => {
     lonlongitude_ref01_match['latitude'] = setup.idmap['latitude01']
     lonlongitude_ref01_match['longitude'] = setup.idmap['longitude01']
 
-    const lonlongitude_ref01_list = await lonlongitude_ref01_ent.list(lonlongitude_ref01_match)
+    const lonlongitude_ref01_list = (await lonlongitude_ref01_ent.list(lonlongitude_ref01_match)).map((e: any) => e.data())
 
 
   })

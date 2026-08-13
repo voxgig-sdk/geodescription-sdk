@@ -11,8 +11,8 @@
 ---@field level? string
 ---@field place? string
 ---@field type? string
----@field way_name? string
----@field way_ref? string
+---@field wayName? string
+---@field wayRef? string
 
 ---@class LonlongitudeListMatch
 ---@field latitude number
@@ -29,16 +29,16 @@
 ---@field level? string
 ---@field place? string
 ---@field type? string
----@field way_name? string
----@field way_ref? string
+---@field wayName? string
+---@field wayRef? string
 
 ---@class TextPartListMatch
 ---@field boundary? string
 ---@field level? string
 ---@field place? string
 ---@field type? string
----@field way_name? string
----@field way_ref? string
+---@field wayName? string
+---@field wayRef? string
 
 local M = {}
 

@@ -127,7 +127,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = GeodescriptionSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $lonlongitude = $client->Lonlongitude()->list();
 print_r($lonlongitude);
 ```
@@ -231,7 +232,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -257,8 +258,8 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -281,8 +282,8 @@ API path: `/text`
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -311,8 +312,8 @@ Create an instance: `$lonlongitude = $client->Lonlongitude();`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 
@@ -335,7 +336,7 @@ Create an instance: `$reverse_geocoding = $client->ReverseGeocoding();`
 #### Example: Load
 
 ```php
-// load() returns the bare ReverseGeocoding record (throws on error).
+// load() returns the ENTITY — call data_get() for the ReverseGeocoding record (throws on error).
 $reverse_geocoding = $client->ReverseGeocoding()->load();
 ```
 
@@ -358,8 +359,8 @@ Create an instance: `$text_part = $client->TextPart();`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 

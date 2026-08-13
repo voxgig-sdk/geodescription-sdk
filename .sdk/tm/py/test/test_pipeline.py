@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import GeodescriptionSDK
-from core.error import GeodescriptionError
-from core.result import GeodescriptionResult
-from core.response import GeodescriptionResponse
-from core.spec import GeodescriptionSpec
-from feature.base_feature import GeodescriptionBaseFeature
+from projectname_sdk.core.error import GeodescriptionError
+from projectname_sdk.core.result import GeodescriptionResult
+from projectname_sdk.core.response import GeodescriptionResponse
+from projectname_sdk.core.spec import GeodescriptionSpec
+from projectname_sdk.feature.base_feature import GeodescriptionBaseFeature
 
 
 def _client():

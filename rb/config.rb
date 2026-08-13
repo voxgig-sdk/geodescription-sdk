@@ -60,14 +60,14 @@ module GeodescriptionConfig
             },
             {
               "active" => true,
-              "name" => "way_name",
+              "name" => "wayName",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 4,
             },
             {
               "active" => true,
-              "name" => "way_ref",
+              "name" => "wayRef",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 5,
@@ -115,6 +115,7 @@ module GeodescriptionConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/textParts/lat={latitude}/lon={longitude}",
                   "parts" => [
@@ -183,6 +184,7 @@ module GeodescriptionConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/text",
                   "parts" => [
@@ -237,6 +239,7 @@ module GeodescriptionConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/text/lat={latitude}/lon={longitude}",
                   "parts" => [
@@ -297,14 +300,14 @@ module GeodescriptionConfig
             },
             {
               "active" => true,
-              "name" => "way_name",
+              "name" => "wayName",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 4,
             },
             {
               "active" => true,
-              "name" => "way_ref",
+              "name" => "wayRef",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 5,
@@ -348,6 +351,7 @@ module GeodescriptionConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/textParts",
                   "parts" => [

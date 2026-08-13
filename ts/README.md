@@ -37,10 +37,12 @@ const client = new GeodescriptionSDK({
 
 ### 2. List lonlongitude records
 
-`list()` resolves to an array of Lonlongitude objects — iterate it directly:
+`list()` resolves to an array of Lonlongitude ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const lonlongitudes = await client.Lonlongitude().list()
+const lonlongitudes = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 
 for (const lonlongitude of lonlongitudes) {
   console.log(lonlongitude)
@@ -122,7 +124,8 @@ Create a mock client for unit testing — no server required:
 const client = GeodescriptionSDK.test()
 
 const lonlongitude = await client.Lonlongitude().list()
-// lonlongitude is a bare entity populated with mock response data
+// lonlongitude is the entity, populated with mock response data
+// — call lonlongitude.data() for the record itself
 console.log(lonlongitude)
 ```
 
@@ -298,8 +301,8 @@ The `prepare()` method returns:
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: list.
 
@@ -322,8 +325,8 @@ API path: `/text`
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: list.
 
@@ -352,13 +355,13 @@ Create an instance: `const lonlongitude = client.Lonlongitude()`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 
 ```ts
-const lonlongitudes = await client.Lonlongitude().list()
+const lonlongitudes = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 ```
 
 
@@ -397,8 +400,8 @@ Create an instance: `const text_part = client.TextPart()`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 

@@ -59,14 +59,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "way_name",
+            ["name"] = "wayName",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 4,
           },
           {
             ["active"] = true,
-            ["name"] = "way_ref",
+            ["name"] = "wayRef",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 5,
@@ -114,6 +114,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts/lat={latitude}/lon={longitude}",
                 ["parts"] = {
@@ -182,6 +183,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text",
                 ["parts"] = {
@@ -236,6 +238,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text/lat={latitude}/lon={longitude}",
                 ["parts"] = {
@@ -296,14 +299,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "way_name",
+            ["name"] = "wayName",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 4,
           },
           {
             ["active"] = true,
-            ["name"] = "way_ref",
+            ["name"] = "wayRef",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 5,
@@ -347,6 +350,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts",
                 ["parts"] = {

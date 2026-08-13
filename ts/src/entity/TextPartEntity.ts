@@ -37,7 +37,7 @@ class TextPartEntity extends GeodescriptionEntityBase<TextPart> {
 
 
 
-  async list(this: any, reqmatch?: TextPartListMatch, ctrl?: Control): Promise<TextPart[]> {
+  async list(this: any, reqmatch?: TextPartListMatch, ctrl?: Control): Promise<TextPartEntity[]> {
 
     const utility = this._utility
 

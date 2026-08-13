@@ -26,12 +26,12 @@ main: kit: entity: lonlongitude: {
       type: "`$STRING`"
     }
     {
-      name: "way_name"
+      name: "wayName"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "way_ref"
+      name: "wayRef"
       req: false
       type: "`$STRING`"
     }

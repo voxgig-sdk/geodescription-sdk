@@ -19,8 +19,8 @@ class Lonlongitude
     public ?string $level = null;
     public ?string $place = null;
     public ?string $type = null;
-    public ?string $way_name = null;
-    public ?string $way_ref = null;
+    public ?string $wayName = null;
+    public ?string $wayRef = null;
 }
 
 /** Request payload for Lonlongitude#list. */
@@ -49,8 +49,8 @@ class TextPart
     public ?string $level = null;
     public ?string $place = null;
     public ?string $type = null;
-    public ?string $way_name = null;
-    public ?string $way_ref = null;
+    public ?string $wayName = null;
+    public ?string $wayRef = null;
 }
 
 /** Request payload for TextPart#list. */
@@ -60,7 +60,7 @@ class TextPartListMatch
     public ?string $level = null;
     public ?string $place = null;
     public ?string $type = null;
-    public ?string $way_name = null;
-    public ?string $way_ref = null;
+    public ?string $wayName = null;
+    public ?string $wayRef = null;
 }
 

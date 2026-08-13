@@ -103,8 +103,8 @@ local lonlongitude = client:Lonlongitude(nil)
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 
@@ -206,8 +206,8 @@ local text_part = client:TextPart(nil)
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 

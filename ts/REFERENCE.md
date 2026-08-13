@@ -145,8 +145,8 @@ const lonlongitude = client.Lonlongitude()
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 
@@ -155,7 +155,7 @@ const lonlongitude = client.Lonlongitude()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Lonlongitude().list()
+const results = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 ```
 
 ### Common Methods
@@ -244,8 +244,8 @@ const text_part = client.TextPart()
 | `level` | `string` | No |  |
 | `place` | `string` | No |  |
 | `type` | `string` | No |  |
-| `way_name` | `string` | No |  |
-| `way_ref` | `string` | No |  |
+| `wayName` | `string` | No |  |
+| `wayRef` | `string` | No |  |
 
 ### Operations
 

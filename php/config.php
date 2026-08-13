@@ -65,14 +65,14 @@ class GeodescriptionConfig
             ],
             [
               'active' => true,
-              'name' => 'way_name',
+              'name' => 'wayName',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 4,
             ],
             [
               'active' => true,
-              'name' => 'way_ref',
+              'name' => 'wayRef',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 5,
@@ -120,6 +120,7 @@ class GeodescriptionConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/textParts/lat={latitude}/lon={longitude}',
                   'parts' => [
@@ -188,6 +189,7 @@ class GeodescriptionConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/text',
                   'parts' => [
@@ -242,6 +244,7 @@ class GeodescriptionConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/text/lat={latitude}/lon={longitude}',
                   'parts' => [
@@ -302,14 +305,14 @@ class GeodescriptionConfig
             ],
             [
               'active' => true,
-              'name' => 'way_name',
+              'name' => 'wayName',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 4,
             ],
             [
               'active' => true,
-              'name' => 'way_ref',
+              'name' => 'wayRef',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 5,
@@ -353,6 +356,7 @@ class GeodescriptionConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/textParts',
                   'parts' => [

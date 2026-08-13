@@ -106,8 +106,8 @@ lonlongitude = client.Lonlongitude
 | `level` | `String` | No |  |
 | `place` | `String` | No |  |
 | `type` | `String` | No |  |
-| `way_name` | `String` | No |  |
-| `way_ref` | `String` | No |  |
+| `wayName` | `String` | No |  |
+| `wayRef` | `String` | No |  |
 
 ### Operations
 
@@ -209,8 +209,8 @@ text_part = client.TextPart
 | `level` | `String` | No |  |
 | `place` | `String` | No |  |
 | `type` | `String` | No |  |
-| `way_name` | `String` | No |  |
-| `way_ref` | `String` | No |  |
+| `wayName` | `String` | No |  |
+| `wayRef` | `String` | No |  |
 
 ### Operations
 

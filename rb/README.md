@@ -121,7 +121,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GeodescriptionSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 lonlongitude = client.Lonlongitude.list()
 puts lonlongitude
 ```
@@ -247,8 +248,8 @@ returns a result `Hash` with these keys:
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -271,8 +272,8 @@ API path: `/text`
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -301,8 +302,8 @@ Create an instance: `lonlongitude = client.Lonlongitude`
 | `level` | `String` |  |
 | `place` | `String` |  |
 | `type` | `String` |  |
-| `way_name` | `String` |  |
-| `way_ref` | `String` |  |
+| `wayName` | `String` |  |
+| `wayRef` | `String` |  |
 
 #### Example: List
 
@@ -325,7 +326,7 @@ Create an instance: `reverse_geocoding = client.ReverseGeocoding`
 #### Example: Load
 
 ```ruby
-# load returns the bare ReverseGeocoding record (raises on error).
+# load returns the ENTITY — call data_get for the ReverseGeocoding record (raises on error).
 reverse_geocoding = client.ReverseGeocoding.load()
 ```
 
@@ -348,8 +349,8 @@ Create an instance: `text_part = client.TextPart`
 | `level` | `String` |  |
 | `place` | `String` |  |
 | `type` | `String` |  |
-| `way_name` | `String` |  |
-| `way_ref` | `String` |  |
+| `wayName` | `String` |  |
+| `wayRef` | `String` |  |
 
 #### Example: List
 

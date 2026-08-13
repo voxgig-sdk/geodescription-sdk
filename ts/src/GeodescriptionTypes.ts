@@ -10,8 +10,8 @@ export interface Lonlongitude {
   level?: string
   place?: string
   type?: string
-  way_name?: string
-  way_ref?: string
+  wayName?: string
+  wayRef?: string
 }
 
 export interface LonlongitudeListMatch {
@@ -32,8 +32,8 @@ export interface TextPart {
   level?: string
   place?: string
   type?: string
-  way_name?: string
-  way_ref?: string
+  wayName?: string
+  wayRef?: string
 }
 
 export interface TextPartListMatch {
@@ -41,7 +41,7 @@ export interface TextPartListMatch {
   level?: string
   place?: string
   type?: string
-  way_name?: string
-  way_ref?: string
+  wayName?: string
+  wayRef?: string
 }
 

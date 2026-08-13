@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ GeodescriptionUtility.registrar = ->(u) {
   u.prepare_params = GeodescriptionUtilities::PrepareParams
   u.prepare_path = GeodescriptionUtilities::PreparePath
   u.prepare_query = GeodescriptionUtilities::PrepareQuery
+  u.graphql_body = GeodescriptionUtilities::GraphqlBody
+  u.graphql_errors = GeodescriptionUtilities::GraphqlErrors
   u.result_basic = GeodescriptionUtilities::ResultBasic
   u.result_body = GeodescriptionUtilities::ResultBody
   u.result_headers = GeodescriptionUtilities::ResultHeaders

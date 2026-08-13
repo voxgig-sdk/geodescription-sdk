@@ -226,9 +226,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local lonlongitude, err = client:Lonlongitude():load()
+    local reverse_geocoding, err = client:ReverseGeocoding():load()
     if err then error(err) end
-    -- lonlongitude is the loaded record
+    -- reverse_geocoding is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -243,8 +243,8 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -267,8 +267,8 @@ API path: `/text`
 | `level` |  |
 | `place` |  |
 | `type` |  |
-| `way_name` |  |
-| `way_ref` |  |
+| `wayName` |  |
+| `wayRef` |  |
 
 Operations: List.
 
@@ -297,8 +297,8 @@ Create an instance: `local lonlongitude = client:Lonlongitude(nil)`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 
@@ -342,8 +342,8 @@ Create an instance: `local text_part = client:TextPart(nil)`
 | `level` | `string` |  |
 | `place` | `string` |  |
 | `type` | `string` |  |
-| `way_name` | `string` |  |
-| `way_ref` | `string` |  |
+| `wayName` | `string` |  |
+| `wayRef` | `string` |  |
 
 #### Example: List
 
