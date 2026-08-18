@@ -55,17 +55,8 @@ class ReverseGeocoding
 end
 
 # Request payload for ReverseGeocoding#load.
-#
-# @!attribute [rw] latitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] longitude
-#   @return [Float, nil]
-ReverseGeocodingLoadMatch = Struct.new(
-  :latitude,
-  :longitude,
-  keyword_init: true
-)
+class ReverseGeocodingLoadMatch
+end
 
 # TextPart entity data model.
 #

@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://free.geodescription.com',
+    base: "https://free.geodescription.com",
 
     auth: {
       prefix: '',
@@ -65,46 +65,28 @@ class Config {
     "lonlongitude": {
       "fields": [
         {
-          "active": true,
           "name": "boundary",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "level",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "place",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "type",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "wayName",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "wayRef",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         }
       ],
       "name": "lonlongitude",
@@ -114,37 +96,30 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": 51.3034,
                     "kind": "param",
                     "name": "latitude",
                     "orig": "latitude",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "index$": 0
+                    "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": -0.3063,
                     "kind": "param",
                     "name": "longitude",
                     "orig": "longitude",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "index$": 1
+                    "type": "`$NUMBER`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -167,11 +142,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {
@@ -187,19 +160,15 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 51.3034,
                     "kind": "query",
                     "name": "lat",
@@ -208,7 +177,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": -0.3063,
                     "kind": "query",
                     "name": "lon",
@@ -234,41 +202,33 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             },
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": 51.3034,
                     "kind": "param",
                     "name": "latitude",
                     "orig": "latitude",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "index$": 0
+                    "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": -0.3063,
                     "kind": "param",
                     "name": "longitude",
                     "orig": "longitude",
                     "reqd": true,
-                    "type": "`$NUMBER`",
-                    "index$": 1
+                    "type": "`$NUMBER`"
                   }
                 ],
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -291,11 +251,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 1
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -305,46 +263,28 @@ class Config {
     "text_part": {
       "fields": [
         {
-          "active": true,
           "name": "boundary",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "level",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 1
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "place",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "type",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "wayName",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "wayRef",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         }
       ],
       "name": "text_part",
@@ -354,19 +294,15 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "key",
                     "orig": "key",
-                    "reqd": false,
                     "type": "`$STRING`"
                   },
                   {
-                    "active": true,
                     "example": 51.3034,
                     "kind": "query",
                     "name": "lat",
@@ -375,7 +311,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "example": -0.3063,
                     "kind": "query",
                     "name": "lon",
@@ -401,11 +336,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {

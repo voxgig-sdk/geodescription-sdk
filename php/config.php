@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class GeodescriptionConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -36,46 +59,28 @@ class GeodescriptionConfig
         'lonlongitude' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'boundary',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'level',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'place',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'type',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'wayName',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'wayRef',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 5,
             ],
           ],
           'name' => 'lonlongitude',
@@ -85,37 +90,30 @@ class GeodescriptionConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 51.3034,
                         'kind' => 'param',
                         'name' => 'latitude',
                         'orig' => 'latitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
-                        'index$' => 0,
                       ],
                       [
-                        'active' => true,
                         'example' => -0.3063,
                         'kind' => 'param',
                         'name' => 'longitude',
                         'orig' => 'longitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
-                        'index$' => 1,
                       ],
                     ],
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'key',
                         'orig' => 'key',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -139,10 +137,8 @@ class GeodescriptionConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [
@@ -158,19 +154,15 @@ class GeodescriptionConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'key',
                         'orig' => 'key',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 51.3034,
                         'kind' => 'query',
                         'name' => 'lat',
@@ -179,7 +171,6 @@ class GeodescriptionConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'example' => -0.3063,
                         'kind' => 'query',
                         'name' => 'lon',
@@ -206,40 +197,32 @@ class GeodescriptionConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 51.3034,
                         'kind' => 'param',
                         'name' => 'latitude',
                         'orig' => 'latitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
-                        'index$' => 0,
                       ],
                       [
-                        'active' => true,
                         'example' => -0.3063,
                         'kind' => 'param',
                         'name' => 'longitude',
                         'orig' => 'longitude',
                         'reqd' => true,
                         'type' => '`$NUMBER`',
-                        'index$' => 1,
                       ],
                     ],
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'key',
                         'orig' => 'key',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -263,10 +246,8 @@ class GeodescriptionConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 1,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -276,46 +257,28 @@ class GeodescriptionConfig
         'text_part' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'boundary',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'level',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'place',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'type',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'wayName',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'wayRef',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 5,
             ],
           ],
           'name' => 'text_part',
@@ -325,19 +288,15 @@ class GeodescriptionConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'key',
                         'orig' => 'key',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 51.3034,
                         'kind' => 'query',
                         'name' => 'lat',
@@ -346,7 +305,6 @@ class GeodescriptionConfig
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'example' => -0.3063,
                         'kind' => 'query',
                         'name' => 'lon',
@@ -373,10 +331,8 @@ class GeodescriptionConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [

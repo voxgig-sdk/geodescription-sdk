@@ -40,7 +40,7 @@ class GeodescriptionSDK
         $utility = new GeodescriptionUtility();
         $this->_utility = $utility;
 
-        $config = GeodescriptionConfig::make_config();
+        $config = GeodescriptionConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

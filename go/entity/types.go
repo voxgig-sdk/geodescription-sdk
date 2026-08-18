@@ -34,8 +34,6 @@ type ReverseGeocoding struct {
 
 // ReverseGeocodingLoadMatch is the typed request payload for ReverseGeocoding.LoadTyped.
 type ReverseGeocodingLoadMatch struct {
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
 }
 
 // TextPart is the typed data model for the text_part entity.

@@ -34,9 +34,8 @@ class ReverseGeocoding(TypedDict):
     pass
 
 
-class ReverseGeocodingLoadMatch(TypedDict, total=False):
-    latitude: float
-    longitude: float
+class ReverseGeocodingLoadMatch(TypedDict):
+    pass
 
 
 class TextPart(TypedDict, total=False):

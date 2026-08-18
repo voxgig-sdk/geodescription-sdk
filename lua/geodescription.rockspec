@@ -23,6 +23,7 @@ build = {
   modules = {
     ["geodescription_sdk"] = "geodescription_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

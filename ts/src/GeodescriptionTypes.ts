@@ -23,8 +23,6 @@ export interface ReverseGeocoding {
 }
 
 export interface ReverseGeocodingLoadMatch {
-  latitude?: number
-  longitude?: number
 }
 
 export interface TextPart {

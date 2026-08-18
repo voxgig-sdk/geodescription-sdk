@@ -1,6 +1,20 @@
 # Geodescription SDK configuration
 
 module GeodescriptionConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -31,46 +45,28 @@ module GeodescriptionConfig
         "lonlongitude" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "boundary",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "level",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "place",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "type",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "wayName",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "wayRef",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 5,
             },
           ],
           "name" => "lonlongitude",
@@ -80,37 +76,30 @@ module GeodescriptionConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "example" => 51.3034,
                         "kind" => "param",
                         "name" => "latitude",
                         "orig" => "latitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "example" => -0.3063,
                         "kind" => "param",
                         "name" => "longitude",
                         "orig" => "longitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
-                        "index$" => 1,
                       },
                     ],
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -134,10 +123,8 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -153,19 +140,15 @@ module GeodescriptionConfig
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 51.3034,
                         "kind" => "query",
                         "name" => "lat",
@@ -174,7 +157,6 @@ module GeodescriptionConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => -0.3063,
                         "kind" => "query",
                         "name" => "lon",
@@ -201,40 +183,32 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "example" => 51.3034,
                         "kind" => "param",
                         "name" => "latitude",
                         "orig" => "latitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "example" => -0.3063,
                         "kind" => "param",
                         "name" => "longitude",
                         "orig" => "longitude",
                         "reqd" => true,
                         "type" => "`$NUMBER`",
-                        "index$" => 1,
                       },
                     ],
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -258,10 +232,8 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -271,46 +243,28 @@ module GeodescriptionConfig
         "text_part" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "boundary",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "level",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "place",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "type",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "wayName",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "wayRef",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 5,
             },
           ],
           "name" => "text_part",
@@ -320,19 +274,15 @@ module GeodescriptionConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 51.3034,
                         "kind" => "query",
                         "name" => "lat",
@@ -341,7 +291,6 @@ module GeodescriptionConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => -0.3063,
                         "kind" => "query",
                         "name" => "lon",
@@ -368,10 +317,8 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {

@@ -28,7 +28,7 @@ class GeodescriptionSDK
     utility = GeodescriptionUtility.new
     @_utility = utility
 
-    config = GeodescriptionConfig.make_config
+    config = GeodescriptionConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

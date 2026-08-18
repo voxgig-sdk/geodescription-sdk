@@ -1,5 +1,8 @@
 -- Geodescription SDK configuration
 
+-- Build a fresh, fully materialised config table. Every call rebuilds the
+-- whole structure, so prefer require("config_shared") unless you need a
+-- private copy you intend to mutate.
 local function make_config()
   return {
     main = {
@@ -30,46 +33,28 @@ local function make_config()
       ["lonlongitude"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "boundary",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 0,
           },
           {
-            ["active"] = true,
             ["name"] = "level",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 1,
           },
           {
-            ["active"] = true,
             ["name"] = "place",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 2,
           },
           {
-            ["active"] = true,
             ["name"] = "type",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 3,
           },
           {
-            ["active"] = true,
             ["name"] = "wayName",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 4,
           },
           {
-            ["active"] = true,
             ["name"] = "wayRef",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 5,
           },
         },
         ["name"] = "lonlongitude",
@@ -79,37 +64,30 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["active"] = true,
                       ["example"] = 51.3034,
                       ["kind"] = "param",
                       ["name"] = "latitude",
                       ["orig"] = "latitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
-                      ["index$"] = 0,
                     },
                     {
-                      ["active"] = true,
                       ["example"] = -0.3063,
                       ["kind"] = "param",
                       ["name"] = "longitude",
                       ["orig"] = "longitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
-                      ["index$"] = 1,
                     },
                   },
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "key",
                       ["orig"] = "key",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                   },
@@ -133,10 +111,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "list",
           },
         },
         ["relations"] = {
@@ -152,19 +128,15 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "key",
                       ["orig"] = "key",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 51.3034,
                       ["kind"] = "query",
                       ["name"] = "lat",
@@ -173,7 +145,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = -0.3063,
                       ["kind"] = "query",
                       ["name"] = "lon",
@@ -200,40 +171,32 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
               {
-                ["active"] = true,
                 ["args"] = {
                   ["params"] = {
                     {
-                      ["active"] = true,
                       ["example"] = 51.3034,
                       ["kind"] = "param",
                       ["name"] = "latitude",
                       ["orig"] = "latitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
-                      ["index$"] = 0,
                     },
                     {
-                      ["active"] = true,
                       ["example"] = -0.3063,
                       ["kind"] = "param",
                       ["name"] = "longitude",
                       ["orig"] = "longitude",
                       ["reqd"] = true,
                       ["type"] = "`$NUMBER`",
-                      ["index$"] = 1,
                     },
                   },
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "key",
                       ["orig"] = "key",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                   },
@@ -257,10 +220,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 1,
               },
             },
-            ["key$"] = "load",
           },
         },
         ["relations"] = {
@@ -270,46 +231,28 @@ local function make_config()
       ["text_part"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "boundary",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 0,
           },
           {
-            ["active"] = true,
             ["name"] = "level",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 1,
           },
           {
-            ["active"] = true,
             ["name"] = "place",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 2,
           },
           {
-            ["active"] = true,
             ["name"] = "type",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 3,
           },
           {
-            ["active"] = true,
             ["name"] = "wayName",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 4,
           },
           {
-            ["active"] = true,
             ["name"] = "wayRef",
-            ["req"] = false,
             ["type"] = "`$STRING`",
-            ["index$"] = 5,
           },
         },
         ["name"] = "text_part",
@@ -319,19 +262,15 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "key",
                       ["orig"] = "key",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = 51.3034,
                       ["kind"] = "query",
                       ["name"] = "lat",
@@ -340,7 +279,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["example"] = -0.3063,
                       ["kind"] = "query",
                       ["name"] = "lon",
@@ -367,10 +305,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "list",
           },
         },
         ["relations"] = {
