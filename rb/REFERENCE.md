@@ -102,12 +102,12 @@ lonlongitude = client.Lonlongitude
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | `String` | No |  |
-| `level` | `String` | No |  |
-| `place` | `String` | No |  |
-| `type` | `String` | No |  |
-| `wayName` | `String` | No |  |
-| `wayRef` | `String` | No |  |
+| `boundary` | `String` | No | Name of the administrative boundary |
+| `level` | `String` | No | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `String` | No | Name of the place |
+| `type` | `String` | No | Type of place (e.g., village, city, town) |
+| `wayName` | `String` | No | Name of the street or road |
+| `wayRef` | `String` | No | Reference identifier for the way (e.g., road number) |
 
 ### Operations
 
@@ -205,12 +205,12 @@ text_part = client.TextPart
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | `String` | No |  |
-| `level` | `String` | No |  |
-| `place` | `String` | No |  |
-| `type` | `String` | No |  |
-| `wayName` | `String` | No |  |
-| `wayRef` | `String` | No |  |
+| `boundary` | `String` | No | Name of the administrative boundary |
+| `level` | `String` | No | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `String` | No | Name of the place |
+| `type` | `String` | No | Type of place (e.g., village, city, town) |
+| `wayName` | `String` | No | Name of the street or road |
+| `wayRef` | `String` | No | Reference identifier for the way (e.g., road number) |
 
 ### Operations
 

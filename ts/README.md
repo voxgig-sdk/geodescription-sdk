@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -297,12 +297,12 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `boundary` |  |
-| `level` |  |
-| `place` |  |
-| `type` |  |
-| `wayName` |  |
-| `wayRef` |  |
+| `boundary` | Name of the administrative boundary |
+| `level` | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | Name of the place |
+| `type` | Type of place (e.g., village, city, town) |
+| `wayName` | Name of the street or road |
+| `wayRef` | Reference identifier for the way (e.g., road number) |
 
 Operations: list.
 
@@ -321,12 +321,12 @@ API path: `/text`
 
 | Field | Description |
 | --- | --- |
-| `boundary` |  |
-| `level` |  |
-| `place` |  |
-| `type` |  |
-| `wayName` |  |
-| `wayRef` |  |
+| `boundary` | Name of the administrative boundary |
+| `level` | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | Name of the place |
+| `type` | Type of place (e.g., village, city, town) |
+| `wayName` | Name of the street or road |
+| `wayRef` | Reference identifier for the way (e.g., road number) |
 
 Operations: list.
 
@@ -351,12 +351,12 @@ Create an instance: `const lonlongitude = client.Lonlongitude()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boundary` | `string` |  |
-| `level` | `string` |  |
-| `place` | `string` |  |
-| `type` | `string` |  |
-| `wayName` | `string` |  |
-| `wayRef` | `string` |  |
+| `boundary` | `string` | Name of the administrative boundary |
+| `level` | `string` | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `string` | Name of the place |
+| `type` | `string` | Type of place (e.g., village, city, town) |
+| `wayName` | `string` | Name of the street or road |
+| `wayRef` | `string` | Reference identifier for the way (e.g., road number) |
 
 #### Example: List
 
@@ -396,12 +396,12 @@ Create an instance: `const text_part = client.TextPart()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boundary` | `string` |  |
-| `level` | `string` |  |
-| `place` | `string` |  |
-| `type` | `string` |  |
-| `wayName` | `string` |  |
-| `wayRef` | `string` |  |
+| `boundary` | `string` | Name of the administrative boundary |
+| `level` | `string` | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `string` | Name of the place |
+| `type` | `string` | Type of place (e.g., village, city, town) |
+| `wayName` | `string` | Name of the street or road |
+| `wayRef` | `string` | Reference identifier for the way (e.g., road number) |
 
 #### Example: List
 

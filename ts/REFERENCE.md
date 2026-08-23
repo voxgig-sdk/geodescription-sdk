@@ -141,12 +141,12 @@ const lonlongitude = client.Lonlongitude()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | `string` | No |  |
-| `level` | `string` | No |  |
-| `place` | `string` | No |  |
-| `type` | `string` | No |  |
-| `wayName` | `string` | No |  |
-| `wayRef` | `string` | No |  |
+| `boundary` | `string` | No | Name of the administrative boundary |
+| `level` | `string` | No | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `string` | No | Name of the place |
+| `type` | `string` | No | Type of place (e.g., village, city, town) |
+| `wayName` | `string` | No | Name of the street or road |
+| `wayRef` | `string` | No | Reference identifier for the way (e.g., road number) |
 
 ### Operations
 
@@ -240,12 +240,12 @@ const text_part = client.TextPart()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boundary` | `string` | No |  |
-| `level` | `string` | No |  |
-| `place` | `string` | No |  |
-| `type` | `string` | No |  |
-| `wayName` | `string` | No |  |
-| `wayRef` | `string` | No |  |
+| `boundary` | `string` | No | Name of the administrative boundary |
+| `level` | `string` | No | Administrative level of the boundary (e.g., -6, -4, -2, top) |
+| `place` | `string` | No | Name of the place |
+| `type` | `string` | No | Type of place (e.g., village, city, town) |
+| `wayName` | `string` | No | Name of the street or road |
+| `wayRef` | `string` | No | Reference identifier for the way (e.g., road number) |
 
 ### Operations
 

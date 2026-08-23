@@ -1,6 +1,6 @@
-# Entity: text_part
+# Entity: lonlongitude
 
-main: kit: entity: text_part: {
+main: kit: entity: lonlongitude: {
 
   alias: field: {}
 
@@ -8,42 +8,66 @@ main: kit: entity: text_part: {
     {
       name: "boundary"
       req: false
+      short: "Name of the administrative boundary"
       type: "`$STRING`"
     }
     {
       name: "level"
       req: false
+      short: "Administrative level of the boundary (e.g., -6, -4, -2, top)"
       type: "`$STRING`"
     }
     {
       name: "place"
       req: false
+      short: "Name of the place"
       type: "`$STRING`"
     }
     {
       name: "type"
       req: false
+      short: "Type of place (e.g., village, city, town)"
       type: "`$STRING`"
     }
     {
       name: "wayName"
       req: false
+      short: "Name of the street or road"
       type: "`$STRING`"
     }
     {
       name: "wayRef"
       req: false
+      short: "Reference identifier for the way (e.g., road number)"
       type: "`$STRING`"
     }
   ]
 
-  name: "text_part"
+  name: "lonlongitude"
   op: {
     list: {
       name: "list"
       points: [
         {
           args: {
+            params: [
+              {
+                example: 51.3034
+                kind: "param"
+                name: "latitude"
+                orig: "latitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: -0.3063
+                kind: "param"
+                name: "longitude"
+                orig: "longitude"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
             query: [
               {
                 kind: "query"
@@ -52,34 +76,20 @@ main: kit: entity: text_part: {
                 reqd: false
                 type: "`$STRING`"
               }
-              {
-                example: 51.3034
-                kind: "query"
-                name: "lat"
-                orig: "lat"
-                reqd: true
-                type: "`$NUMBER`"
-              }
-              {
-                example: -0.3063
-                kind: "query"
-                name: "lon"
-                orig: "lon"
-                reqd: true
-                type: "`$NUMBER`"
-              }
             ]
           }
           method: "GET"
-          orig: "/textParts"
+          orig: "/textParts/lat={latitude}/lon={longitude}"
           parts: [
             "textParts"
+            "lat={latitude}"
+            "lon={longitude}"
           ]
           select: {
             exist: [
               "key"
-              "lat"
-              "lon"
+              "latitude"
+              "longitude"
             ]
           }
           transform: {

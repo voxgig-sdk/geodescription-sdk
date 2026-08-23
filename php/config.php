@@ -33,6 +33,9 @@ class GeodescriptionConfig
         return [
             "main" => [
                 "name" => "Geodescription",
+                "slug" => "geodescription",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -60,26 +63,32 @@ class GeodescriptionConfig
           'fields' => [
             [
               'name' => 'boundary',
+              'short' => 'Name of the administrative boundary',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'level',
+              'short' => 'Administrative level of the boundary (e.g., -6, -4, -2, top)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'place',
+              'short' => 'Name of the place',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'type',
+              'short' => 'Type of place (e.g., village, city, town)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'wayName',
+              'short' => 'Name of the street or road',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'wayRef',
+              'short' => 'Reference identifier for the way (e.g., road number)',
               'type' => '`$STRING`',
             ],
           ],
@@ -258,26 +267,32 @@ class GeodescriptionConfig
           'fields' => [
             [
               'name' => 'boundary',
+              'short' => 'Name of the administrative boundary',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'level',
+              'short' => 'Administrative level of the boundary (e.g., -6, -4, -2, top)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'place',
+              'short' => 'Name of the place',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'type',
+              'short' => 'Type of place (e.g., village, city, town)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'wayName',
+              'short' => 'Name of the street or road',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'wayRef',
+              'short' => 'Reference identifier for the way (e.g., road number)',
               'type' => '`$STRING`',
             ],
           ],

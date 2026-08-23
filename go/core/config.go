@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "Geodescription",
+			"slug": "geodescription",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -38,26 +41,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "boundary",
+						"short": "Name of the administrative boundary",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "level",
+						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "place",
+						"short": "Name of the place",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "type",
+						"short": "Type of place (e.g., village, city, town)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "wayName",
+						"short": "Name of the street or road",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "wayRef",
+						"short": "Reference identifier for the way (e.g., road number)",
 						"type": "`$STRING`",
 					},
 				},
@@ -236,26 +245,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "boundary",
+						"short": "Name of the administrative boundary",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "level",
+						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "place",
+						"short": "Name of the place",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "type",
+						"short": "Type of place (e.g., village, city, town)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "wayName",
+						"short": "Name of the street or road",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "wayRef",
+						"short": "Reference identifier for the way (e.g., road number)",
 						"type": "`$STRING`",
 					},
 				},

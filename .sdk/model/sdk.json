@@ -36,36 +36,42 @@
               "active": true,
               "name": "boundary",
               "req": false,
+              "short": "Name of the administrative boundary",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "level",
               "req": false,
+              "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "place",
               "req": false,
+              "short": "Name of the place",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "type",
               "req": false,
+              "short": "Type of place (e.g., village, city, town)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "wayName",
               "req": false,
+              "short": "Name of the street or road",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "wayRef",
               "req": false,
+              "short": "Reference identifier for the way (e.g., road number)",
               "type": "`$STRING`"
             }
           ],
@@ -269,36 +275,42 @@
               "active": true,
               "name": "boundary",
               "req": false,
+              "short": "Name of the administrative boundary",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "level",
               "req": false,
+              "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "place",
               "req": false,
+              "short": "Name of the place",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "type",
               "req": false,
+              "short": "Type of place (e.g., village, city, town)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "wayName",
               "req": false,
+              "short": "Name of the street or road",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "wayRef",
               "req": false,
+              "short": "Reference identifier for the way (e.g., road number)",
               "type": "`$STRING`"
             }
           ],
