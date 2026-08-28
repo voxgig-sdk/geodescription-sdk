@@ -17,10 +17,14 @@
 ---@class LonlongitudeListMatch
 ---@field latitude number
 ---@field longitude number
+---@field key? string
 
 ---@class ReverseGeocoding
 
 ---@class ReverseGeocodingLoadMatch
+---@field key? string
+---@field lat number
+---@field lon number
 
 ---@class TextPart
 ---@field boundary? string
@@ -31,12 +35,9 @@
 ---@field wayRef? string
 
 ---@class TextPartListMatch
----@field boundary? string
----@field level? string
----@field place? string
----@field type? string
----@field wayName? string
----@field wayRef? string
+---@field key? string
+---@field lat number
+---@field lon number
 
 local M = {}
 

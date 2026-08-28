@@ -26,6 +26,7 @@ type Lonlongitude struct {
 type LonlongitudeListMatch struct {
 	Latitude float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
+	Key *string `json:"key,omitempty"`
 }
 
 // ReverseGeocoding is the typed data model for the reverse_geocoding entity.
@@ -34,6 +35,9 @@ type ReverseGeocoding struct {
 
 // ReverseGeocodingLoadMatch is the typed request payload for ReverseGeocoding.LoadTyped.
 type ReverseGeocodingLoadMatch struct {
+	Key *string `json:"key,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
 }
 
 // TextPart is the typed data model for the text_part entity.
@@ -48,12 +52,9 @@ type TextPart struct {
 
 // TextPartListMatch is the typed request payload for TextPart.ListTyped.
 type TextPartListMatch struct {
-	Boundary *string `json:"boundary,omitempty"`
-	Level *string `json:"level,omitempty"`
-	Place *string `json:"place,omitempty"`
-	Type *string `json:"type,omitempty"`
-	WayName *string `json:"wayName,omitempty"`
-	WayRef *string `json:"wayRef,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

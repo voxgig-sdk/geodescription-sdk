@@ -28,6 +28,7 @@ class LonlongitudeListMatch
 {
     public float $latitude;
     public float $longitude;
+    public ?string $key = null;
 }
 
 /** ReverseGeocoding entity data model. */
@@ -38,6 +39,9 @@ class ReverseGeocoding
 /** Request payload for ReverseGeocoding#load. */
 class ReverseGeocodingLoadMatch
 {
+    public ?string $key = null;
+    public float $lat;
+    public float $lon;
 }
 
 /** TextPart entity data model. */
@@ -54,11 +58,8 @@ class TextPart
 /** Request payload for TextPart#list. */
 class TextPartListMatch
 {
-    public ?string $boundary = null;
-    public ?string $level = null;
-    public ?string $place = null;
-    public ?string $type = null;
-    public ?string $wayName = null;
-    public ?string $wayRef = null;
+    public ?string $key = null;
+    public float $lat;
+    public float $lon;
 }
 

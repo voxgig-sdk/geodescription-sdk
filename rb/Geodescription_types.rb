@@ -44,9 +44,13 @@ Lonlongitude = Struct.new(
 #
 # @!attribute [rw] longitude
 #   @return [Float]
+#
+# @!attribute [rw] key
+#   @return [String, nil]
 LonlongitudeListMatch = Struct.new(
   :latitude,
   :longitude,
+  :key,
   keyword_init: true
 )
 
@@ -55,8 +59,21 @@ class ReverseGeocoding
 end
 
 # Request payload for ReverseGeocoding#load.
-class ReverseGeocodingLoadMatch
-end
+#
+# @!attribute [rw] key
+#   @return [String, nil]
+#
+# @!attribute [rw] lat
+#   @return [Float]
+#
+# @!attribute [rw] lon
+#   @return [Float]
+ReverseGeocodingLoadMatch = Struct.new(
+  :key,
+  :lat,
+  :lon,
+  keyword_init: true
+)
 
 # TextPart entity data model.
 #
@@ -89,30 +106,18 @@ TextPart = Struct.new(
 
 # Request payload for TextPart#list.
 #
-# @!attribute [rw] boundary
+# @!attribute [rw] key
 #   @return [String, nil]
 #
-# @!attribute [rw] level
-#   @return [String, nil]
+# @!attribute [rw] lat
+#   @return [Float]
 #
-# @!attribute [rw] place
-#   @return [String, nil]
-#
-# @!attribute [rw] type
-#   @return [String, nil]
-#
-# @!attribute [rw] wayName
-#   @return [String, nil]
-#
-# @!attribute [rw] wayRef
-#   @return [String, nil]
+# @!attribute [rw] lon
+#   @return [Float]
 TextPartListMatch = Struct.new(
-  :boundary,
-  :level,
-  :place,
-  :type,
-  :wayName,
-  :wayRef,
+  :key,
+  :lat,
+  :lon,
   keyword_init: true
 )
 

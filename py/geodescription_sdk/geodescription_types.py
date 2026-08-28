@@ -25,17 +25,26 @@ class Lonlongitude(TypedDict, total=False):
     wayRef: str
 
 
-class LonlongitudeListMatch(TypedDict):
+class LonlongitudeListMatchRequired(TypedDict):
     latitude: float
     longitude: float
+
+
+class LonlongitudeListMatch(LonlongitudeListMatchRequired, total=False):
+    key: str
 
 
 class ReverseGeocoding(TypedDict):
     pass
 
 
-class ReverseGeocodingLoadMatch(TypedDict):
-    pass
+class ReverseGeocodingLoadMatchRequired(TypedDict):
+    lat: float
+    lon: float
+
+
+class ReverseGeocodingLoadMatch(ReverseGeocodingLoadMatchRequired, total=False):
+    key: str
 
 
 class TextPart(TypedDict, total=False):
@@ -47,10 +56,10 @@ class TextPart(TypedDict, total=False):
     wayRef: str
 
 
-class TextPartListMatch(TypedDict, total=False):
-    boundary: str
-    level: str
-    place: str
-    type: str
-    wayName: str
-    wayRef: str
+class TextPartListMatchRequired(TypedDict):
+    lat: float
+    lon: float
+
+
+class TextPartListMatch(TextPartListMatchRequired, total=False):
+    key: str

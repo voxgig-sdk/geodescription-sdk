@@ -17,12 +17,16 @@ export interface Lonlongitude {
 export interface LonlongitudeListMatch {
   latitude: number
   longitude: number
+  key?: string
 }
 
 export interface ReverseGeocoding {
 }
 
 export interface ReverseGeocodingLoadMatch {
+  key?: string
+  lat: number
+  lon: number
 }
 
 export interface TextPart {
@@ -35,11 +39,8 @@ export interface TextPart {
 }
 
 export interface TextPartListMatch {
-  boundary?: string
-  level?: string
-  place?: string
-  type?: string
-  wayName?: string
-  wayRef?: string
+  key?: string
+  lat: number
+  lon: number
 }
 
