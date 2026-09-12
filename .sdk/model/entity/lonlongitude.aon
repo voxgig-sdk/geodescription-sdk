@@ -80,10 +80,16 @@ main: kit: entity: lonlongitude: {
           }
           method: "GET"
           orig: "/textParts/lat={latitude}/lon={longitude}"
-          parts: [
-            "textParts"
-            "lat={latitude}"
-            "lon={longitude}"
+          segments: [
+            {
+              lit: "textParts"
+            }
+            {
+              lit: "lat={latitude}"
+            }
+            {
+              lit: "lon={longitude}"
+            }
           ]
           select: {
             exist: [

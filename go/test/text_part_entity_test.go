@@ -98,7 +98,7 @@ func TestTextPartEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		textPartRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.text_part", setup.data)))
+		textPartRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.text_part")))
 		var textPartRef01Data map[string]any
 		if len(textPartRef01DataRaw) > 0 {
 			textPartRef01Data = core.ToMapAny(textPartRef01DataRaw[0][1])
@@ -147,7 +147,7 @@ func text_partBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"text_part01", "text_part02", "text_part03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -167,7 +167,7 @@ func text_partBasicSetup(extra map[string]any) *entityTestSetup {
 		"GEODESCRIPTION_TEST_TEXT_PART_ENTID": idmap,
 		"GEODESCRIPTION_TEST_LIVE":      "FALSE",
 		"GEODESCRIPTION_TEST_EXPLAIN":   "FALSE",
-		"GEODESCRIPTION_APIKEY":         "NONE",
+		"GEODESCRIPTION_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["GEODESCRIPTION_TEST_TEXT_PART_ENTID"])
@@ -176,11 +176,23 @@ func text_partBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["GEODESCRIPTION_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewGeodescriptionSDK(core.ToMapAny(mergedOpts))
 	}

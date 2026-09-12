@@ -117,10 +117,16 @@ module GeodescriptionConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/textParts/lat={latitude}/lon={longitude}",
-                  "parts" => [
-                    "textParts",
-                    "lat={latitude}",
-                    "lon={longitude}",
+                  "segments" => [
+                    {
+                      "lit" => "textParts",
+                    },
+                    {
+                      "lit" => "lat={latitude}",
+                    },
+                    {
+                      "lit" => "lon={longitude}",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -133,6 +139,11 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "textParts",
+                    "lat={latitude}",
+                    "lon={longitude}",
+                  ],
                 },
               ],
             },
@@ -179,8 +190,10 @@ module GeodescriptionConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/text",
-                  "parts" => [
-                    "text",
+                  "segments" => [
+                    {
+                      "lit" => "text",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -193,6 +206,9 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "text",
+                  ],
                 },
                 {
                   "args" => {
@@ -226,10 +242,16 @@ module GeodescriptionConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/text/lat={latitude}/lon={longitude}",
-                  "parts" => [
-                    "text",
-                    "lat={latitude}",
-                    "lon={longitude}",
+                  "segments" => [
+                    {
+                      "lit" => "text",
+                    },
+                    {
+                      "lit" => "lat={latitude}",
+                    },
+                    {
+                      "lit" => "lon={longitude}",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -242,6 +264,11 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "text",
+                    "lat={latitude}",
+                    "lon={longitude}",
+                  ],
                 },
               ],
             },
@@ -319,8 +346,10 @@ module GeodescriptionConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/textParts",
-                  "parts" => [
-                    "textParts",
+                  "segments" => [
+                    {
+                      "lit" => "textParts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -333,6 +362,9 @@ module GeodescriptionConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "textParts",
+                  ],
                 },
               ],
             },

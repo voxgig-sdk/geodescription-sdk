@@ -50,7 +50,7 @@ func TestReverseGeocodingEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		reverseGeocodingRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.reverse_geocoding", setup.data)))
+		reverseGeocodingRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.reverse_geocoding")))
 		var reverseGeocodingRef01Data map[string]any
 		if len(reverseGeocodingRef01DataRaw) > 0 {
 			reverseGeocodingRef01Data = core.ToMapAny(reverseGeocodingRef01DataRaw[0][1])
@@ -97,7 +97,7 @@ func reverse_geocodingBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"reverse_geocoding01", "reverse_geocoding02", "reverse_geocoding03", "latitude01", "longitude01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -117,7 +117,7 @@ func reverse_geocodingBasicSetup(extra map[string]any) *entityTestSetup {
 		"GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID": idmap,
 		"GEODESCRIPTION_TEST_LIVE":      "FALSE",
 		"GEODESCRIPTION_TEST_EXPLAIN":   "FALSE",
-		"GEODESCRIPTION_APIKEY":         "NONE",
+		"GEODESCRIPTION_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["GEODESCRIPTION_TEST_REVERSE_GEOCODING_ENTID"])
@@ -126,11 +126,23 @@ func reverse_geocodingBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["GEODESCRIPTION_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewGeodescriptionSDK(core.ToMapAny(mergedOpts))
 	}

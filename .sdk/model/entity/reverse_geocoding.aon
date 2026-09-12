@@ -39,8 +39,10 @@ main: kit: entity: reverse_geocoding: {
           }
           method: "GET"
           orig: "/text"
-          parts: [
-            "text"
+          segments: [
+            {
+              lit: "text"
+            }
           ]
           select: {
             exist: [
@@ -86,10 +88,16 @@ main: kit: entity: reverse_geocoding: {
           }
           method: "GET"
           orig: "/text/lat={latitude}/lon={longitude}"
-          parts: [
-            "text"
-            "lat={latitude}"
-            "lon={longitude}"
+          segments: [
+            {
+              lit: "text"
+            }
+            {
+              lit: "lat={latitude}"
+            }
+            {
+              lit: "lon={longitude}"
+            }
           ]
           select: {
             exist: [

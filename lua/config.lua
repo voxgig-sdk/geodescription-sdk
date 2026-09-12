@@ -105,10 +105,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts/lat={latitude}/lon={longitude}",
-                ["parts"] = {
-                  "textParts",
-                  "lat={latitude}",
-                  "lon={longitude}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "textParts",
+                  },
+                  {
+                    ["lit"] = "lat={latitude}",
+                  },
+                  {
+                    ["lit"] = "lon={longitude}",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -120,6 +126,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "textParts",
+                  "lat={latitude}",
+                  "lon={longitude}",
                 },
               },
             },
@@ -167,8 +178,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text",
-                ["parts"] = {
-                  "text",
+                ["segments"] = {
+                  {
+                    ["lit"] = "text",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -180,6 +193,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "text",
                 },
               },
               {
@@ -214,10 +230,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text/lat={latitude}/lon={longitude}",
-                ["parts"] = {
-                  "text",
-                  "lat={latitude}",
-                  "lon={longitude}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "text",
+                  },
+                  {
+                    ["lit"] = "lat={latitude}",
+                  },
+                  {
+                    ["lit"] = "lon={longitude}",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -229,6 +251,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "text",
+                  "lat={latitude}",
+                  "lon={longitude}",
                 },
               },
             },
@@ -307,8 +334,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts",
-                ["parts"] = {
-                  "textParts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "textParts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -320,6 +349,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "textParts",
                 },
               },
             },

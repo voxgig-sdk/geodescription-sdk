@@ -1,6 +1,14 @@
 # Geodescription SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -126,10 +134,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/textParts/lat={latitude}/lon={longitude}",
-                "parts": [
-                  "textParts",
-                  "lat={latitude}",
-                  "lon={longitude}",
+                "segments": [
+                  {
+                    "lit": "textParts",
+                  },
+                  {
+                    "lit": "lat={latitude}",
+                  },
+                  {
+                    "lit": "lon={longitude}",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -142,6 +156,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "textParts",
+                  "lat={latitude}",
+                  "lon={longitude}",
+                ],
               },
             ],
           },
@@ -188,8 +207,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/text",
-                "parts": [
-                  "text",
+                "segments": [
+                  {
+                    "lit": "text",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -202,6 +223,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "text",
+                ],
               },
               {
                 "args": {
@@ -235,10 +259,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/text/lat={latitude}/lon={longitude}",
-                "parts": [
-                  "text",
-                  "lat={latitude}",
-                  "lon={longitude}",
+                "segments": [
+                  {
+                    "lit": "text",
+                  },
+                  {
+                    "lit": "lat={latitude}",
+                  },
+                  {
+                    "lit": "lon={longitude}",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -251,6 +281,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "text",
+                  "lat={latitude}",
+                  "lon={longitude}",
+                ],
               },
             ],
           },
@@ -328,8 +363,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/textParts",
-                "parts": [
-                  "textParts",
+                "segments": [
+                  {
+                    "lit": "textParts",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -342,6 +379,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "textParts",
+                ],
               },
             ],
           },

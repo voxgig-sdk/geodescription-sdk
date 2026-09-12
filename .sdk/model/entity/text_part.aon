@@ -78,8 +78,10 @@ main: kit: entity: text_part: {
           }
           method: "GET"
           orig: "/textParts"
-          parts: [
-            "textParts"
+          segments: [
+            {
+              lit: "textParts"
+            }
           ]
           select: {
             exist: [

@@ -124,7 +124,7 @@ function text_part_basic_setup($extra)
         "GEODESCRIPTION_TEST_TEXT_PART_ENTID" => $idmap,
         "GEODESCRIPTION_TEST_LIVE" => "FALSE",
         "GEODESCRIPTION_TEST_EXPLAIN" => "FALSE",
-        "GEODESCRIPTION_APIKEY" => "NONE",
+        "GEODESCRIPTION_APIKEY" => "",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -135,10 +135,17 @@ function text_part_basic_setup($extra)
 
     if ($env["GEODESCRIPTION_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
                 "apikey" => $env["GEODESCRIPTION_APIKEY"],
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new GeodescriptionSDK(Helpers::to_map($merged_opts));
     }

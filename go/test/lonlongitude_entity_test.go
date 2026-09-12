@@ -98,7 +98,7 @@ func TestLonlongitudeEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		lonlongitudeRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.lonlongitude", setup.data)))
+		lonlongitudeRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.lonlongitude")))
 		var lonlongitudeRef01Data map[string]any
 		if len(lonlongitudeRef01DataRaw) > 0 {
 			lonlongitudeRef01Data = core.ToMapAny(lonlongitudeRef01DataRaw[0][1])
@@ -150,7 +150,7 @@ func lonlongitudeBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"lonlongitude01", "lonlongitude02", "lonlongitude03", "latitude01", "longitude01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -170,7 +170,7 @@ func lonlongitudeBasicSetup(extra map[string]any) *entityTestSetup {
 		"GEODESCRIPTION_TEST_LONLONGITUDE_ENTID": idmap,
 		"GEODESCRIPTION_TEST_LIVE":      "FALSE",
 		"GEODESCRIPTION_TEST_EXPLAIN":   "FALSE",
-		"GEODESCRIPTION_APIKEY":         "NONE",
+		"GEODESCRIPTION_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["GEODESCRIPTION_TEST_LONLONGITUDE_ENTID"])
@@ -179,11 +179,23 @@ func lonlongitudeBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["GEODESCRIPTION_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["GEODESCRIPTION_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewGeodescriptionSDK(core.ToMapAny(mergedOpts))
 	}

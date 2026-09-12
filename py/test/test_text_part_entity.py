@@ -125,7 +125,7 @@ def _text_part_basic_setup(extra):
         "GEODESCRIPTION_TEST_TEXT_PART_ENTID": idmap,
         "GEODESCRIPTION_TEST_LIVE": "FALSE",
         "GEODESCRIPTION_TEST_EXPLAIN": "FALSE",
-        "GEODESCRIPTION_APIKEY": "NONE",
+        "GEODESCRIPTION_APIKEY": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -135,6 +135,10 @@ def _text_part_basic_setup(extra):
 
     if env.get("GEODESCRIPTION_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
                 "apikey": env.get("GEODESCRIPTION_APIKEY"),
             },

@@ -87,15 +87,17 @@ function lonlongitude_direct_setup($mockres)
     $env = Runner::env_override([
         "GEODESCRIPTION_TEST_LONLONGITUDE_ENTID" => [],
         "GEODESCRIPTION_TEST_LIVE" => "FALSE",
-        "GEODESCRIPTION_APIKEY" => "NONE",
+        "GEODESCRIPTION_APIKEY" => "",
     ]);
 
     $live = $env["GEODESCRIPTION_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["GEODESCRIPTION_APIKEY"],
-        ];
+        ]);
         $client = new GeodescriptionSDK($merged_opts);
         return [
             "client" => $client,
