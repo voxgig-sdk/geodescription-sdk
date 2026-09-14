@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GeodescriptionSDK } from '@voxgig-sdk/geodescription'
+import { GeodescriptionSDK } from '@voxgig-sdk/geodescription-sdk'
 
 const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
@@ -492,7 +492,7 @@ geodescription/
 Import the SDK from the package root:
 
 ```ts
-import { GeodescriptionSDK } from '@voxgig-sdk/geodescription'
+import { GeodescriptionSDK } from '@voxgig-sdk/geodescription-sdk'
 ```
 
 ### Entity state

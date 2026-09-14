@@ -105,7 +105,7 @@ local results, err = client:Lonlongitude():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
+| TypeScript | `@voxgig-sdk/geodescription-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
 | Python | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
 | PHP | `voxgig-sdk/geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/geodescription-sdk/go` | `go get github.com/voxgig-sdk/geodescription-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Lonlongitude():list()
 ### TypeScript
 
 ```ts
-import { GeodescriptionSDK } from '@voxgig-sdk/geodescription'
+import { GeodescriptionSDK } from '@voxgig-sdk/geodescription-sdk'
 
 const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
