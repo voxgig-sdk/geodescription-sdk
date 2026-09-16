@@ -76,6 +76,12 @@ main: kit: entity: text_part: {
               }
             ]
           }
+          contract: {
+            id: "GET /textParts"
+            json: "{\"operationId\":\"getTextPartsQuery\",\"parameters\":[{\"description\":\"Latitude coordinate\",\"example\":51.3034,\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"}},{\"description\":\"Longitude coordinate\",\"example\":-0.3063,\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},{\"description\":\"API key (required for paid tier at api.geodescription.com)\",\"in\":\"query\",\"name\":\"key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":[{\"wayName\":\"Leatherhead Road\",\"wayRef\":\"A24\"},{\"place\":\"Ashtead\",\"type\":\"village\"},{\"boundary\":\"Mole Valley\",\"level\":\"-6\"},{\"boundary\":\"Surrey\",\"level\":\"-4\"},{\"boundary\":\"England\",\"level\":\"-2\"},{\"boundary\":\"United Kingdom\",\"level\":\"top\"}],\"schema\":{\"items\":{\"description\":\"A component of a location description\",\"properties\":{\"boundary\":{\"description\":\"Name of the administrative boundary\",\"type\":\"string\"},\"level\":{\"description\":\"Administrative level of the boundary (e.g., -6, -4, -2, top)\",\"type\":\"string\"},\"place\":{\"description\":\"Name of the place\",\"type\":\"string\"},\"type\":{\"description\":\"Type of place (e.g., village, city, town)\",\"type\":\"string\"},\"wayName\":{\"description\":\"Name of the street or road\",\"type\":\"string\"},\"wayRef\":{\"description\":\"Reference identifier for the way (e.g., road number)\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with structured location components\"},\"400\":{\"description\":\"Bad request - invalid coordinates\"},\"401\":{\"description\":\"Unauthorized - invalid or missing API key (paid tier only)\"},\"429\":{\"description\":\"Rate limit exceeded\"}},\"security\":[{},{\"ApiKeyAuth\":[]}],\"securitySchemes\":{\"ApiKeyAuth\":{\"description\":\"API key for paid tier access (prepaid or subscription). Not required for free tier.\",\"in\":\"query\",\"name\":\"key\",\"type\":\"apiKey\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/textParts"
           segments: [

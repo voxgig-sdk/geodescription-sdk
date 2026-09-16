@@ -1,12 +1,18 @@
 # Geodescription SDK feature factory
 
 from geodescription_sdk.feature.base_feature import GeodescriptionBaseFeature
+from geodescription_sdk.feature.ratelimit_feature import GeodescriptionRatelimitFeature
+from geodescription_sdk.feature.retry_feature import GeodescriptionRetryFeature
 from geodescription_sdk.feature.test_feature import GeodescriptionTestFeature
+from geodescription_sdk.feature.timeout_feature import GeodescriptionTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: GeodescriptionBaseFeature(),
+    "ratelimit": lambda: GeodescriptionRatelimitFeature(),
+    "retry": lambda: GeodescriptionRetryFeature(),
     "test": lambda: GeodescriptionTestFeature(),
+    "timeout": lambda: GeodescriptionTimeoutFeature(),
 }
 
 

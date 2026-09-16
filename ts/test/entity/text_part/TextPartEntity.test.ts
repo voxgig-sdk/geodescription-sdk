@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { GeodescriptionSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('TextPartEntity', async () => {
 
     const live = 'TRUE' === process.env.GEODESCRIPTION_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'text_part.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'text_part.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set GEODESCRIPTION_TEST_TEXT_PART_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"boundary","req":false,"short":"Name of the administrative boundary","type":"`$STRING`","index$":0},{"active":true,"name":"level","req":false,"short":"Administrative level of the boundary (e.g., -6, -4, -2, top)","type":"`$STRING`","index$":1},{"active":true,"name":"place","req":false,"short":"Name of the place","type":"`$STRING`","index$":2},{"active":true,"name":"type","req":false,"short":"Type of place (e.g., village, city, town)","type":"`$STRING`","index$":3},{"active":true,"name":"wayName","req":false,"short":"Name of the street or road","type":"`$STRING`","index$":4},{"active":true,"name":"wayRef","req":false,"short":"Reference identifier for the way (e.g., road number)","type":"`$STRING`","index$":5}],"name":"text_part","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"key","orig":"key","reqd":false,"type":"`$STRING`","index$":0},{"active":true,"example":51.3034,"kind":"query","name":"lat","orig":"lat","reqd":true,"type":"`$NUMBER`","index$":1},{"active":true,"example":-0.3063,"kind":"query","name":"lon","orig":"lon","reqd":true,"type":"`$NUMBER`","index$":2}]},"contract":{"id":"GET /textParts","json":"{\"operationId\":\"getTextPartsQuery\",\"parameters\":[{\"description\":\"Latitude coordinate\",\"example\":51.3034,\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"}},{\"description\":\"Longitude coordinate\",\"example\":-0.3063,\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},{\"description\":\"API key (required for paid tier at api.geodescription.com)\",\"in\":\"query\",\"name\":\"key\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":[{\"wayName\":\"Leatherhead Road\",\"wayRef\":\"A24\"},{\"place\":\"Ashtead\",\"type\":\"village\"},{\"boundary\":\"Mole Valley\",\"level\":\"-6\"},{\"boundary\":\"Surrey\",\"level\":\"-4\"},{\"boundary\":\"England\",\"level\":\"-2\"},{\"boundary\":\"United Kingdom\",\"level\":\"top\"}],\"schema\":{\"items\":{\"description\":\"A component of a location description\",\"properties\":{\"boundary\":{\"description\":\"Name of the administrative boundary\",\"type\":\"string\"},\"level\":{\"description\":\"Administrative level of the boundary (e.g., -6, -4, -2, top)\",\"type\":\"string\"},\"place\":{\"description\":\"Name of the place\",\"type\":\"string\"},\"type\":{\"description\":\"Type of place (e.g., village, city, town)\",\"type\":\"string\"},\"wayName\":{\"description\":\"Name of the street or road\",\"type\":\"string\"},\"wayRef\":{\"description\":\"Reference identifier for the way (e.g., road number)\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response with structured location components\"},\"400\":{\"description\":\"Bad request - invalid coordinates\"},\"401\":{\"description\":\"Unauthorized - invalid or missing API key (paid tier only)\"},\"429\":{\"description\":\"Rate limit exceeded\"}},\"security\":[{},{\"ApiKeyAuth\":[]}],\"securitySchemes\":{\"ApiKeyAuth\":{\"description\":\"API key for paid tier access (prepaid or subscription). Not required for free tier.\",\"in\":\"query\",\"name\":\"key\",\"type\":\"apiKey\"}},\"securitySource\":\"operation\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/textParts","segments":[{"lit":"textParts"}],"select":{"exist":["key","lat","lon"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"text_part","name__orig":"text_part","Name":"TextPart","name_":"text_part","name-":"text-part","NAME":"TEXT_PART","index$":2}, {"active":true,"entity":"text_part","key$":"BasicTextPartFlow","kind":"basic","name":"BasicTextPartFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"text_part_ref01"}}],"index$":0}]}, 'TextPart')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['GEODESCRIPTION_TEST_TEXT_PART_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'GEODESCRIPTION_TEST_TEXT_PART_ENTID': idmap,
     'GEODESCRIPTION_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.GEODESCRIPTION_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['GEODESCRIPTION_TEST_TEXT_PART_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new GeodescriptionSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -140,7 +138,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -153,7 +152,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.GEODESCRIPTION_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

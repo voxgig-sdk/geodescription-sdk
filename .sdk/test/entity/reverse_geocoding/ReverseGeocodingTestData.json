@@ -22,5 +22,169 @@
     "reverse_geocoding": {
       "reverse_geocoding_ref01": {}
     }
+  },
+  "requests": {
+    "GET /text": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getTextDescriptionQuery",
+        "parameters": [
+          {
+            "description": "Latitude coordinate",
+            "example": 51.3034,
+            "in": "query",
+            "name": "lat",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            }
+          },
+          {
+            "description": "Longitude coordinate",
+            "example": -0.3063,
+            "in": "query",
+            "name": "lon",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            }
+          },
+          {
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "in": "query",
+            "name": "key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "example": "Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful response with location description"
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for paid tier access (prepaid or subscription). Not required for free tier.",
+            "in": "query",
+            "name": "key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /text/lat={latitude}/lon={longitude}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getTextDescriptionPath",
+        "parameters": [
+          {
+            "description": "Latitude coordinate",
+            "example": 51.3034,
+            "in": "path",
+            "name": "latitude",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            }
+          },
+          {
+            "description": "Longitude coordinate",
+            "example": -0.3063,
+            "in": "path",
+            "name": "longitude",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            }
+          },
+          {
+            "description": "API key (required for paid tier at api.geodescription.com)",
+            "in": "query",
+            "name": "key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "example": "Leatherhead Road (A24), Ashtead, Mole Valley, Surrey, England, United Kingdom",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful response with location description"
+          },
+          "400": {
+            "description": "Bad request - invalid coordinates"
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key (paid tier only)"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for paid tier access (prepaid or subscription). Not required for free tier.",
+            "in": "query",
+            "name": "key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "operation"
+      }
+    }
   }
 }
