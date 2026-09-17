@@ -105,12 +105,12 @@ local results, err = client:Lonlongitude():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/geodescription-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
-| Python | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
-| PHP | `voxgig-sdk/geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
+| TypeScript | `@voxgig-sdk/geodescription-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/tags) |
+| Python | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/tags) |
+| PHP | `voxgig-sdk/geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/geodescription-sdk/go` | `go get github.com/voxgig-sdk/geodescription-sdk/go@latest` |
-| Ruby | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
-| Lua | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/releases) |
+| Ruby | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/tags) |
+| Lua | `voxgig-sdk-geodescription` | publish pending — [install from git tag](https://github.com/voxgig-sdk/geodescription-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/geodescription-sdk/go-cli` | `go install github.com/voxgig-sdk/geodescription-sdk/go-cli/cmd/geodescription@latest` |
 | Go MCP server | `github.com/voxgig-sdk/geodescription-sdk/go-mcp` | `go get github.com/voxgig-sdk/geodescription-sdk/go-mcp@latest` |
 

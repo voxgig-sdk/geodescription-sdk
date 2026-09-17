@@ -104,6 +104,8 @@ class Config {
         base: "https://free.geodescription.com",
         auth: {
             prefix: '',
+            in: 'query',
+            name: 'key',
         },
         headers: {
             "content-type": "application/json"

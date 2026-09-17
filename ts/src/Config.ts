@@ -123,6 +123,8 @@ class Config {
 
     auth: {
       prefix: '',
+      in: 'query',
+      name: 'key',
     },
 
     headers: {
@@ -131,15 +133,15 @@ class Config {
 
     entity: {
       
-      lonlongitude: {
-      },
-
-      reverse_geocoding: {
-      },
-
-      text_part: {
-      },
-
+        lonlongitude: {
+        },
+  
+        reverse_geocoding: {
+        },
+  
+        text_part: {
+        },
+  
     }
   }
 

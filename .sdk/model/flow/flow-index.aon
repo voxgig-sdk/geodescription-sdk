@@ -1,5 +1,5 @@
 # Flows
 
-@"BasicLonlongitudeFlow.aon"
-@"BasicReverseGeocodingFlow.aon"
-@"BasicTextPartFlow.aon"
+@"./BasicLonlongitudeFlow.aon"
+@"./BasicReverseGeocodingFlow.aon"
+@"./BasicTextPartFlow.aon"
