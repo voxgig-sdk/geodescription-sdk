@@ -1,0 +1,27 @@
+# BasicLonlongitudeFlow
+
+main: kit: flow: BasicLonlongitudeFlow:
+{
+  entity: "lonlongitude",
+  kind: "basic",
+  name: "BasicLonlongitudeFlow",
+  step: [
+    {
+      m: {
+        latitude: "latitude01",
+        longitude: "longitude01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "lonlongitude_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicLonlongitudeFlow"
+}

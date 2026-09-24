@@ -1,0 +1,123 @@
+# Entity: lonlongitude
+
+main: kit: entity: lonlongitude: {
+
+  alias: field: {}
+
+  fields: {
+    boundary: {
+      h: "Boundary"
+      n: "boundary"
+      r: false
+      sh: "Name of the administrative boundary"
+      t: "`$STRING`"
+    }
+    level: {
+      h: "Level"
+      n: "level"
+      r: false
+      sh: "Administrative level of the boundary (e.g., -6, -4, -2, top)"
+      t: "`$STRING`"
+    }
+    place: {
+      h: "Place"
+      n: "place"
+      r: false
+      sh: "Name of the place"
+      t: "`$STRING`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Type of place (e.g., village, city, town)"
+      t: "`$STRING`"
+    }
+    wayName: {
+      h: "Way Name"
+      n: "wayName"
+      r: false
+      sh: "Name of the street or road"
+      t: "`$STRING`"
+    }
+    wayRef: {
+      h: "Way Ref"
+      n: "wayRef"
+      r: false
+      sh: "Reference identifier for the way (e.g., road number)"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "lonlongitude"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /textParts/lat={latitude}/lon={longitude}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 51.3034
+                k: "param"
+                n: "latitude"
+                or: "latitude"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                ex: -0.3063
+                k: "param"
+                n: "longitude"
+                or: "longitude"
+                r: true
+                t: "`$NUMBER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "key"
+                or: "key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/textParts/lat={latitude}/lon={longitude}"
+          q: {
+            exist: [
+              "key"
+              "latitude"
+              "longitude"
+            ]
+          }
+          s: [
+            {
+              lit: "textParts"
+            }
+            {
+              lit: "lat={latitude}"
+            }
+            {
+              lit: "lon={longitude}"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

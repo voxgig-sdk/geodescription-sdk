@@ -19,7 +19,6 @@ import type {
   LonlongitudeListMatch,
 } from '../GeodescriptionTypes'
 
-// TODO: needs Entity superclass
 class LonlongitudeEntity extends GeodescriptionEntityBase<Lonlongitude> {
 
   constructor(client: GeodescriptionSDK, entopts: any) {

@@ -94,33 +94,39 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "boundary",
-            ["short"] = "Name of the administrative boundary",
+            ["title"] = "Boundary",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the administrative boundary",
           },
           {
             ["name"] = "level",
-            ["short"] = "Administrative level of the boundary (e.g., -6, -4, -2, top)",
+            ["title"] = "Level",
             ["type"] = "`$STRING`",
+            ["short"] = "Administrative level of the boundary (e.g., -6, -4, -2, top)",
           },
           {
             ["name"] = "place",
-            ["short"] = "Name of the place",
+            ["title"] = "Place",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the place",
           },
           {
             ["name"] = "type",
-            ["short"] = "Type of place (e.g., village, city, town)",
+            ["title"] = "Type",
             ["type"] = "`$STRING`",
+            ["short"] = "Type of place (e.g., village, city, town)",
           },
           {
             ["name"] = "wayName",
-            ["short"] = "Name of the street or road",
+            ["title"] = "Way Name",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the street or road",
           },
           {
             ["name"] = "wayRef",
-            ["short"] = "Reference identifier for the way (e.g., road number)",
+            ["title"] = "Way Ref",
             ["type"] = "`$STRING`",
+            ["short"] = "Reference identifier for the way (e.g., road number)",
           },
         },
         ["name"] = "lonlongitude",
@@ -130,34 +136,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = 51.3034,
-                      ["kind"] = "param",
-                      ["name"] = "latitude",
-                      ["orig"] = "latitude",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                    {
-                      ["example"] = -0.3063,
-                      ["kind"] = "param",
-                      ["name"] = "longitude",
-                      ["orig"] = "longitude",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                  },
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "key",
-                      ["orig"] = "key",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts/lat={latitude}/lon={longitude}",
@@ -172,21 +150,50 @@ local function make_config()
                     ["lit"] = "lon={longitude}",
                   },
                 },
+                ["parts"] = {
+                  "textParts",
+                  "lat={latitude}",
+                  "lon={longitude}",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "latitude",
+                      ["orig"] = "latitude",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = 51.3034,
+                    },
+                    {
+                      ["name"] = "longitude",
+                      ["orig"] = "longitude",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = -0.3063,
+                    },
+                  },
+                  ["query"] = {
+                    {
+                      ["name"] = "key",
+                      ["orig"] = "key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "key",
                     "latitude",
                     "longitude",
                   },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "textParts",
-                  "lat={latitude}",
-                  "lon={longitude}",
                 },
               },
             },
@@ -205,38 +212,46 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "key",
-                      ["orig"] = "key",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = 51.3034,
-                      ["kind"] = "query",
-                      ["name"] = "lat",
-                      ["orig"] = "lat",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                    {
-                      ["example"] = -0.3063,
-                      ["kind"] = "query",
-                      ["name"] = "lon",
-                      ["orig"] = "lon",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text",
                 ["segments"] = {
                   {
                     ["lit"] = "text",
+                  },
+                },
+                ["parts"] = {
+                  "text",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "key",
+                      ["orig"] = "key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "lat",
+                      ["orig"] = "lat",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "query",
+                      ["reqd"] = true,
+                      ["example"] = 51.3034,
+                    },
+                    {
+                      ["name"] = "lon",
+                      ["orig"] = "lon",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "query",
+                      ["reqd"] = true,
+                      ["example"] = -0.3063,
+                    },
                   },
                 },
                 ["select"] = {
@@ -246,43 +261,8 @@ local function make_config()
                     "lon",
                   },
                 },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "text",
-                },
               },
               {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["example"] = 51.3034,
-                      ["kind"] = "param",
-                      ["name"] = "latitude",
-                      ["orig"] = "latitude",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                    {
-                      ["example"] = -0.3063,
-                      ["kind"] = "param",
-                      ["name"] = "longitude",
-                      ["orig"] = "longitude",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                  },
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "key",
-                      ["orig"] = "key",
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/text/lat={latitude}/lon={longitude}",
@@ -297,21 +277,50 @@ local function make_config()
                     ["lit"] = "lon={longitude}",
                   },
                 },
+                ["parts"] = {
+                  "text",
+                  "lat={latitude}",
+                  "lon={longitude}",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["name"] = "latitude",
+                      ["orig"] = "latitude",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = 51.3034,
+                    },
+                    {
+                      ["name"] = "longitude",
+                      ["orig"] = "longitude",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                      ["example"] = -0.3063,
+                    },
+                  },
+                  ["query"] = {
+                    {
+                      ["name"] = "key",
+                      ["orig"] = "key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "key",
                     "latitude",
                     "longitude",
                   },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "text",
-                  "lat={latitude}",
-                  "lon={longitude}",
                 },
               },
             },
@@ -325,33 +334,39 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "boundary",
-            ["short"] = "Name of the administrative boundary",
+            ["title"] = "Boundary",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the administrative boundary",
           },
           {
             ["name"] = "level",
-            ["short"] = "Administrative level of the boundary (e.g., -6, -4, -2, top)",
+            ["title"] = "Level",
             ["type"] = "`$STRING`",
+            ["short"] = "Administrative level of the boundary (e.g., -6, -4, -2, top)",
           },
           {
             ["name"] = "place",
-            ["short"] = "Name of the place",
+            ["title"] = "Place",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the place",
           },
           {
             ["name"] = "type",
-            ["short"] = "Type of place (e.g., village, city, town)",
+            ["title"] = "Type",
             ["type"] = "`$STRING`",
+            ["short"] = "Type of place (e.g., village, city, town)",
           },
           {
             ["name"] = "wayName",
-            ["short"] = "Name of the street or road",
+            ["title"] = "Way Name",
             ["type"] = "`$STRING`",
+            ["short"] = "Name of the street or road",
           },
           {
             ["name"] = "wayRef",
-            ["short"] = "Reference identifier for the way (e.g., road number)",
+            ["title"] = "Way Ref",
             ["type"] = "`$STRING`",
+            ["short"] = "Reference identifier for the way (e.g., road number)",
           },
         },
         ["name"] = "text_part",
@@ -361,32 +376,6 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["kind"] = "query",
-                      ["name"] = "key",
-                      ["orig"] = "key",
-                      ["type"] = "`$STRING`",
-                    },
-                    {
-                      ["example"] = 51.3034,
-                      ["kind"] = "query",
-                      ["name"] = "lat",
-                      ["orig"] = "lat",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                    {
-                      ["example"] = -0.3063,
-                      ["kind"] = "query",
-                      ["name"] = "lon",
-                      ["orig"] = "lon",
-                      ["reqd"] = true,
-                      ["type"] = "`$NUMBER`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/textParts",
@@ -395,19 +384,46 @@ local function make_config()
                     ["lit"] = "textParts",
                   },
                 },
+                ["parts"] = {
+                  "textParts",
+                },
+                ["rename"] = {},
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "key",
+                      ["orig"] = "key",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                    },
+                    {
+                      ["name"] = "lat",
+                      ["orig"] = "lat",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "query",
+                      ["reqd"] = true,
+                      ["example"] = 51.3034,
+                    },
+                    {
+                      ["name"] = "lon",
+                      ["orig"] = "lon",
+                      ["type"] = "`$NUMBER`",
+                      ["kind"] = "query",
+                      ["reqd"] = true,
+                      ["example"] = -0.3063,
+                    },
+                  },
+                },
                 ["select"] = {
                   ["exist"] = {
                     "key",
                     "lat",
                     "lon",
                   },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
-                },
-                ["parts"] = {
-                  "textParts",
                 },
               },
             },

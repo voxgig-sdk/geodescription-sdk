@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LonlongitudeEntity = void 0;
 const GeodescriptionEntityBase_1 = require("../GeodescriptionEntityBase");
-// TODO: needs Entity superclass
 class LonlongitudeEntity extends GeodescriptionEntityBase_1.GeodescriptionEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

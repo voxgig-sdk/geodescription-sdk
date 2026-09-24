@@ -45,7 +45,7 @@ local lonlongitudes, err = client:Lonlongitude():list()
 if err then error(err) end
 
 for _, item in ipairs(lonlongitudes) do
-  print(item["boundary"])
+  print(item)
 end
 ```
 

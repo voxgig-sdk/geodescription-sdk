@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -151,33 +144,39 @@ class Config {
       "fields": [
         {
           "name": "boundary",
-          "short": "Name of the administrative boundary",
-          "type": "`$STRING`"
+          "title": "Boundary",
+          "type": "`$STRING`",
+          "short": "Name of the administrative boundary"
         },
         {
           "name": "level",
-          "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
-          "type": "`$STRING`"
+          "title": "Level",
+          "type": "`$STRING`",
+          "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)"
         },
         {
           "name": "place",
-          "short": "Name of the place",
-          "type": "`$STRING`"
+          "title": "Place",
+          "type": "`$STRING`",
+          "short": "Name of the place"
         },
         {
           "name": "type",
-          "short": "Type of place (e.g., village, city, town)",
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "short": "Type of place (e.g., village, city, town)"
         },
         {
           "name": "wayName",
-          "short": "Name of the street or road",
-          "type": "`$STRING`"
+          "title": "Way Name",
+          "type": "`$STRING`",
+          "short": "Name of the street or road"
         },
         {
           "name": "wayRef",
-          "short": "Reference identifier for the way (e.g., road number)",
-          "type": "`$STRING`"
+          "title": "Way Ref",
+          "type": "`$STRING`",
+          "short": "Reference identifier for the way (e.g., road number)"
         }
       ],
       "name": "lonlongitude",
@@ -187,34 +186,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 51.3034,
-                    "kind": "param",
-                    "name": "latitude",
-                    "orig": "latitude",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": -0.3063,
-                    "kind": "param",
-                    "name": "longitude",
-                    "orig": "longitude",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/textParts/lat={latitude}/lon={longitude}",
@@ -229,22 +200,51 @@ class Config {
                   "lit": "lon={longitude}"
                 }
               ],
+              "parts": [
+                "textParts",
+                "lat={latitude}",
+                "lon={longitude}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "latitude",
+                    "orig": "latitude",
+                    "type": "`$NUMBER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 51.3034
+                  },
+                  {
+                    "name": "longitude",
+                    "orig": "longitude",
+                    "type": "`$NUMBER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": -0.3063
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "key",
                   "latitude",
                   "longitude"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "textParts",
-                "lat={latitude}",
-                "lon={longitude}"
-              ]
+              }
             }
           ]
         }
@@ -262,32 +262,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 51.3034,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": -0.3063,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/text",
@@ -296,50 +270,49 @@ class Config {
                   "lit": "text"
                 }
               ],
+              "parts": [
+                "text"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": 51.3034
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": -0.3063
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "key",
                   "lat",
                   "lon"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "text"
-              ]
+              }
             },
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 51.3034,
-                    "kind": "param",
-                    "name": "latitude",
-                    "orig": "latitude",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": -0.3063,
-                    "kind": "param",
-                    "name": "longitude",
-                    "orig": "longitude",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/text/lat={latitude}/lon={longitude}",
@@ -354,22 +327,51 @@ class Config {
                   "lit": "lon={longitude}"
                 }
               ],
+              "parts": [
+                "text",
+                "lat={latitude}",
+                "lon={longitude}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "latitude",
+                    "orig": "latitude",
+                    "type": "`$NUMBER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 51.3034
+                  },
+                  {
+                    "name": "longitude",
+                    "orig": "longitude",
+                    "type": "`$NUMBER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": -0.3063
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "key",
                   "latitude",
                   "longitude"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "text",
-                "lat={latitude}",
-                "lon={longitude}"
-              ]
+              }
             }
           ]
         }
@@ -382,33 +384,39 @@ class Config {
       "fields": [
         {
           "name": "boundary",
-          "short": "Name of the administrative boundary",
-          "type": "`$STRING`"
+          "title": "Boundary",
+          "type": "`$STRING`",
+          "short": "Name of the administrative boundary"
         },
         {
           "name": "level",
-          "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
-          "type": "`$STRING`"
+          "title": "Level",
+          "type": "`$STRING`",
+          "short": "Administrative level of the boundary (e.g., -6, -4, -2, top)"
         },
         {
           "name": "place",
-          "short": "Name of the place",
-          "type": "`$STRING`"
+          "title": "Place",
+          "type": "`$STRING`",
+          "short": "Name of the place"
         },
         {
           "name": "type",
-          "short": "Type of place (e.g., village, city, town)",
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "short": "Type of place (e.g., village, city, town)"
         },
         {
           "name": "wayName",
-          "short": "Name of the street or road",
-          "type": "`$STRING`"
+          "title": "Way Name",
+          "type": "`$STRING`",
+          "short": "Name of the street or road"
         },
         {
           "name": "wayRef",
-          "short": "Reference identifier for the way (e.g., road number)",
-          "type": "`$STRING`"
+          "title": "Way Ref",
+          "type": "`$STRING`",
+          "short": "Reference identifier for the way (e.g., road number)"
         }
       ],
       "name": "text_part",
@@ -418,32 +426,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 51.3034,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": -0.3063,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/textParts",
@@ -452,20 +434,47 @@ class Config {
                   "lit": "textParts"
                 }
               ],
+              "parts": [
+                "textParts"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": 51.3034
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": -0.3063
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "key",
                   "lat",
                   "lon"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "textParts"
-              ]
+              }
             }
           ]
         }

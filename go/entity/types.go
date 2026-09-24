@@ -1,7 +1,7 @@
 // Typed models for the Geodescription SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,12 +14,6 @@ import (
 
 // Lonlongitude is the typed data model for the lonlongitude entity.
 type Lonlongitude struct {
-	Boundary *string `json:"boundary,omitempty"`
-	Level *string `json:"level,omitempty"`
-	Place *string `json:"place,omitempty"`
-	Type *string `json:"type,omitempty"`
-	WayName *string `json:"wayName,omitempty"`
-	WayRef *string `json:"wayRef,omitempty"`
 }
 
 // LonlongitudeListMatch is the typed request payload for Lonlongitude.ListTyped.
@@ -42,12 +36,6 @@ type ReverseGeocodingLoadMatch struct {
 
 // TextPart is the typed data model for the text_part entity.
 type TextPart struct {
-	Boundary *string `json:"boundary,omitempty"`
-	Level *string `json:"level,omitempty"`
-	Place *string `json:"place,omitempty"`
-	Type *string `json:"type,omitempty"`
-	WayName *string `json:"wayName,omitempty"`
-	WayRef *string `json:"wayRef,omitempty"`
 }
 
 // TextPartListMatch is the typed request payload for TextPart.ListTyped.

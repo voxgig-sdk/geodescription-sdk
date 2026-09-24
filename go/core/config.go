@@ -98,33 +98,39 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "boundary",
-						"short": "Name of the administrative boundary",
+						"title": "Boundary",
 						"type": "`$STRING`",
+						"short": "Name of the administrative boundary",
 					},
 					map[string]any{
 						"name": "level",
-						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
+						"title": "Level",
 						"type": "`$STRING`",
+						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
 					},
 					map[string]any{
 						"name": "place",
-						"short": "Name of the place",
+						"title": "Place",
 						"type": "`$STRING`",
+						"short": "Name of the place",
 					},
 					map[string]any{
 						"name": "type",
-						"short": "Type of place (e.g., village, city, town)",
+						"title": "Type",
 						"type": "`$STRING`",
+						"short": "Type of place (e.g., village, city, town)",
 					},
 					map[string]any{
 						"name": "wayName",
-						"short": "Name of the street or road",
+						"title": "Way Name",
 						"type": "`$STRING`",
+						"short": "Name of the street or road",
 					},
 					map[string]any{
 						"name": "wayRef",
-						"short": "Reference identifier for the way (e.g., road number)",
+						"title": "Way Ref",
 						"type": "`$STRING`",
+						"short": "Reference identifier for the way (e.g., road number)",
 					},
 				},
 				"name": "lonlongitude",
@@ -134,34 +140,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 51.3034,
-											"kind": "param",
-											"name": "latitude",
-											"orig": "latitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": -0.3063,
-											"kind": "param",
-											"name": "longitude",
-											"orig": "longitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/textParts/lat={latitude}/lon={longitude}",
@@ -176,21 +154,50 @@ func MakeConfig() map[string]any {
 										"lit": "lon={longitude}",
 									},
 								},
+								"parts": []any{
+									"textParts",
+									"lat={latitude}",
+									"lon={longitude}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "latitude",
+											"orig": "latitude",
+											"type": "`$NUMBER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 51.3034,
+										},
+										map[string]any{
+											"name": "longitude",
+											"orig": "longitude",
+											"type": "`$NUMBER`",
+											"kind": "param",
+											"reqd": true,
+											"example": -0.3063,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"key",
 										"latitude",
 										"longitude",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"textParts",
-									"lat={latitude}",
-									"lon={longitude}",
 								},
 							},
 						},
@@ -209,38 +216,46 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 51.3034,
-											"kind": "query",
-											"name": "lat",
-											"orig": "lat",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": -0.3063,
-											"kind": "query",
-											"name": "lon",
-											"orig": "lon",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/text",
 								"segments": []any{
 									map[string]any{
 										"lit": "text",
+									},
+								},
+								"parts": []any{
+									"text",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "lat",
+											"orig": "lat",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+											"example": 51.3034,
+										},
+										map[string]any{
+											"name": "lon",
+											"orig": "lon",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+											"example": -0.3063,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -250,43 +265,8 @@ func MakeConfig() map[string]any {
 										"lon",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"text",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 51.3034,
-											"kind": "param",
-											"name": "latitude",
-											"orig": "latitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": -0.3063,
-											"kind": "param",
-											"name": "longitude",
-											"orig": "longitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/text/lat={latitude}/lon={longitude}",
@@ -301,21 +281,50 @@ func MakeConfig() map[string]any {
 										"lit": "lon={longitude}",
 									},
 								},
+								"parts": []any{
+									"text",
+									"lat={latitude}",
+									"lon={longitude}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "latitude",
+											"orig": "latitude",
+											"type": "`$NUMBER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 51.3034,
+										},
+										map[string]any{
+											"name": "longitude",
+											"orig": "longitude",
+											"type": "`$NUMBER`",
+											"kind": "param",
+											"reqd": true,
+											"example": -0.3063,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"key",
 										"latitude",
 										"longitude",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"text",
-									"lat={latitude}",
-									"lon={longitude}",
 								},
 							},
 						},
@@ -329,33 +338,39 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "boundary",
-						"short": "Name of the administrative boundary",
+						"title": "Boundary",
 						"type": "`$STRING`",
+						"short": "Name of the administrative boundary",
 					},
 					map[string]any{
 						"name": "level",
-						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
+						"title": "Level",
 						"type": "`$STRING`",
+						"short": "Administrative level of the boundary (e.g., -6, -4, -2, top)",
 					},
 					map[string]any{
 						"name": "place",
-						"short": "Name of the place",
+						"title": "Place",
 						"type": "`$STRING`",
+						"short": "Name of the place",
 					},
 					map[string]any{
 						"name": "type",
-						"short": "Type of place (e.g., village, city, town)",
+						"title": "Type",
 						"type": "`$STRING`",
+						"short": "Type of place (e.g., village, city, town)",
 					},
 					map[string]any{
 						"name": "wayName",
-						"short": "Name of the street or road",
+						"title": "Way Name",
 						"type": "`$STRING`",
+						"short": "Name of the street or road",
 					},
 					map[string]any{
 						"name": "wayRef",
-						"short": "Reference identifier for the way (e.g., road number)",
+						"title": "Way Ref",
 						"type": "`$STRING`",
+						"short": "Reference identifier for the way (e.g., road number)",
 					},
 				},
 				"name": "text_part",
@@ -365,32 +380,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 51.3034,
-											"kind": "query",
-											"name": "lat",
-											"orig": "lat",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"example": -0.3063,
-											"kind": "query",
-											"name": "lon",
-											"orig": "lon",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/textParts",
@@ -399,19 +388,46 @@ func MakeConfig() map[string]any {
 										"lit": "textParts",
 									},
 								},
+								"parts": []any{
+									"textParts",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "key",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "lat",
+											"orig": "lat",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+											"example": 51.3034,
+										},
+										map[string]any{
+											"name": "lon",
+											"orig": "lon",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+											"example": -0.3063,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"key",
 										"lat",
 										"lon",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"textParts",
 								},
 							},
 						},

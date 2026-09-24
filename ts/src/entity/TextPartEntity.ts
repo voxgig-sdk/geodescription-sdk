@@ -19,7 +19,6 @@ import type {
   TextPartListMatch,
 } from '../GeodescriptionTypes'
 
-// TODO: needs Entity superclass
 class TextPartEntity extends GeodescriptionEntityBase<TextPart> {
 
   constructor(client: GeodescriptionSDK, entopts: any) {
