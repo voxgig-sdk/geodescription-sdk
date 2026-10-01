@@ -2,8 +2,8 @@
 
 from geodescription_sdk.core.utility_type import GeodescriptionUtility
 
-from geodescription_sdk.utility.clean import clean_util
-from geodescription_sdk.utility.done import done_util
+from geodescription_sdk.utility.clean import clean_util, clean_add_util
+from geodescription_sdk.utility.done import done_util, clean_explain_util
 from geodescription_sdk.utility.make_error import make_error_util
 from geodescription_sdk.utility.feature_add import feature_add_util
 from geodescription_sdk.utility.feature_hook import feature_hook_util
@@ -36,6 +36,8 @@ from geodescription_sdk.utility.transform_response import transform_response_uti
 
 def register_all(u):
     u.clean = clean_util
+    u.clean_add = clean_add_util
+    u.clean_explain = clean_explain_util
     u.done = done_util
     u.make_error = make_error_util
     u.feature_add = feature_add_util

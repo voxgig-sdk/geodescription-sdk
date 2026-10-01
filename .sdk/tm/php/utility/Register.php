@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 GeodescriptionUtility::setRegistrar(function (GeodescriptionUtility $u): void {
     $u->clean = [GeodescriptionClean::class, 'call'];
+    $u->clean_add = [GeodescriptionClean::class, 'add'];
+    $u->clean_explain = [GeodescriptionDone::class, 'clean_explain'];
     $u->done = [GeodescriptionDone::class, 'call'];
     $u->make_error = [GeodescriptionMakeError::class, 'call'];
     $u->feature_add = [GeodescriptionFeatureAdd::class, 'call'];

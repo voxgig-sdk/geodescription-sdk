@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 GeodescriptionUtility.registrar = ->(u) {
   u.clean = GeodescriptionUtilities::Clean
+  u.clean_add = GeodescriptionUtilities::CleanAdd
+  u.clean_explain = GeodescriptionUtilities::CleanExplain
   u.done = GeodescriptionUtilities::Done
   u.make_error = GeodescriptionUtilities::MakeError
   u.feature_add = GeodescriptionUtilities::FeatureAdd

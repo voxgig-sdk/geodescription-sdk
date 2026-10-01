@@ -78,9 +78,15 @@ class LonlongitudeEntity extends GeodescriptionEntityBase_1.GeodescriptionEntity
             return done(ctx);
         }
         catch (err) {
-            fres = featureHook(ctx, 'PreUnexpected');
-            if (fres instanceof Promise) {
-                await fres;
+            // What a hook throws here must not escape the cleaning below.
+            try {
+                fres = featureHook(ctx, 'PreUnexpected');
+                if (fres instanceof Promise) {
+                    await fres;
+                }
+            }
+            catch (hookerr) {
+                err = hookerr;
             }
             err = this._unexpected(ctx, err);
             if (err) {
