@@ -48,15 +48,11 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 ### Instance Methods
 
-#### `Lonlongitude(data map[string]any) GeodescriptionEntity`
+#### `Lonlongitude(data map[string]any) GeodescriptionEntityBase`
 
 Create a new `Lonlongitude` entity instance. Pass `nil` for no initial data.
 
-#### `ReverseGeocoding(data map[string]any) GeodescriptionEntity`
-
-Create a new `ReverseGeocoding` entity instance. Pass `nil` for no initial data.
-
-#### `TextPart(data map[string]any) GeodescriptionEntity`
+#### `TextPart(data map[string]any) GeodescriptionEntityBase`
 
 Create a new `TextPart` entity instance. Pass `nil` for no initial data.
 
@@ -118,14 +114,16 @@ fmt.Println(lonlongitude.GetName()) // "lonlongitude"
 
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.Lonlongitude(nil).List(nil, nil)
+results, err := client.Lonlongitude(nil).List(map[string]any{"latitude": 1, "longitude": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -145,50 +143,13 @@ Get or set the entity match criteria. Works the same as `Data()`.
 Create a new `LonlongitudeEntity` instance with the same client and
 options.
 
-#### `GetName() string`
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
 
-Return the entity name.
-
-
----
-
-## ReverseGeocodingEntity
-
-```go
-reverseGeocoding := client.ReverseGeocoding(nil)
-fmt.Println(reverseGeocoding.GetName()) // "reverse_geocoding"
-```
-
-### Operations
-
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria.
-
-```go
-result, err := client.ReverseGeocoding(nil).Load(map[string]any{"lat": 1, "lon": 1}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `ReverseGeocodingEntity` instance with the same client and
-options.
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
 
 #### `GetName() string`
 
@@ -219,14 +180,16 @@ fmt.Println(textPart.GetName()) // "text_part"
 
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a `[]any` of entities, one per record; `err` is non-nil on failure.
 
 ```go
-results, err := client.TextPart(nil).List(nil, nil)
+results, err := client.TextPart(nil).List(map[string]any{"lat": 1, "lon": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+for _, item := range results.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Common Methods
@@ -245,6 +208,14 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 Create a new `TextPartEntity` instance with the same client and
 options.
+
+#### `Stream(action string, args map[string]any, callopts map[string]any) <-chan StreamItem`
+
+Run an operation through the pipeline and send its result items on the
+returned channel, which closes when the stream ends. A `StreamItem` holds
+one item in `Item`, or in `Err` the error that ended the stream: the
+error the operation itself would return, sent as the last value. Under
+`throw: false` in `callopts["ctrl"]`, no error is sent.
 
 #### `GetName() string`
 
@@ -410,6 +381,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

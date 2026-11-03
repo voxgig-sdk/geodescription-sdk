@@ -19,13 +19,6 @@
 ---@field longitude number
 ---@field key? string
 
----@class ReverseGeocoding
-
----@class ReverseGeocodingLoadMatch
----@field key? string
----@field lat number
----@field lon number
-
 ---@class TextPart
 ---@field boundary? string
 ---@field level? string

@@ -34,19 +34,6 @@ class LonlongitudeListMatch(LonlongitudeListMatchRequired, total=False):
     key: str
 
 
-class ReverseGeocoding(TypedDict):
-    pass
-
-
-class ReverseGeocodingLoadMatchRequired(TypedDict):
-    lat: float
-    lon: float
-
-
-class ReverseGeocodingLoadMatch(ReverseGeocodingLoadMatchRequired, total=False):
-    key: str
-
-
 class TextPart(TypedDict, total=False):
     boundary: str
     level: str

@@ -46,10 +46,6 @@ client = GeodescriptionSDK.test()
 
 Create a new `LonlongitudeEntity` instance. Pass `None` for no initial data.
 
-#### `ReverseGeocoding(data=None)`
-
-Create a new `ReverseGeocodingEntity` instance. Pass `None` for no initial data.
-
 #### `TextPart(data=None)`
 
 Create a new `TextPartEntity` instance. Pass `None` for no initial data.
@@ -105,14 +101,14 @@ lonlongitude = client.Lonlongitude()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[LonlongitudeEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
 for lonlongitude in results:
-    print(lonlongitude)
+    print(lonlongitude.data_get())
 ```
 
 ### Common Methods
@@ -144,51 +140,6 @@ Return the entity name.
 
 ---
 
-## ReverseGeocodingEntity
-
-```python
-reverse_geocoding = client.ReverseGeocoding()
-```
-
-### Operations
-
-#### `load(reqmatch, ctrl=None) -> dict`
-
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
-
-```python
-result = client.ReverseGeocoding().load({"lat": 1, "lon": 1})
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `ReverseGeocodingEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
 ## TextPartEntity
 
 ```python
@@ -208,14 +159,14 @@ text_part = client.TextPart()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[TextPartEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.TextPart().list({"lat": 1, "lon": 1})
 for text_part in results:
-    print(text_part)
+    print(text_part.data_get())
 ```
 
 ### Common Methods
@@ -404,6 +355,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

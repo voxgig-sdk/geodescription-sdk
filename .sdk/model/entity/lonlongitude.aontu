@@ -93,10 +93,13 @@ main: kit: entity: lonlongitude: {
           o: "/textParts/lat={latitude}/lon={longitude}"
           q: {
             exist: [
-              "key"
               "latitude"
               "longitude"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

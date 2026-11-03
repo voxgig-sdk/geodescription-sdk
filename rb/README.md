@@ -4,7 +4,7 @@
 
 The Ruby SDK for the Geodescription API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Lonlongitude` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Lonlongitude` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/geodescription-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -29,7 +29,7 @@ gem "voxgig-sdk-geodescription-sdk", path: "./geodescription-sdk/rb"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `key` query parameter.
 
 ### 1. Create a client
 
@@ -45,10 +45,11 @@ client = GeodescriptionSDK.new({
 
 ```ruby
 begin
-  # list returns an Array of Lonlongitude records — iterate directly.
-  lonlongitudes = client.Lonlongitude.list
+  # list returns an Array of Lonlongitude entities, one per record; data_get reads the record.
+  lonlongitudes = client.Lonlongitude.list({ "latitude" => 1, "longitude" => 1 })
   lonlongitudes.each do |item|
-    puts "#{item["boundary"]}"
+    record = item.data_get
+    puts "#{record["boundary"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -62,7 +63,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  lonlongitudes = client.Lonlongitude.list()
+  textparts = client.TextPart.list({ "lat" => 1, "lon" => 1 })
 rescue => err
   warn "list failed: #{err}"
 end
@@ -130,10 +131,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GeodescriptionSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-lonlongitude = client.Lonlongitude.list()
-puts lonlongitude
+# list returns an Array of TextPart entities, one per mock record (raises on
+# error); data_get reads each record.
+textparts = client.TextPart.list({ "lat" => 1, "lon" => 1 })
+textparts.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -212,7 +213,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Lonlongitude` | `(data) -> LonlongitudeEntity` | Create a Lonlongitude entity instance. |
-| `ReverseGeocoding` | `(data) -> ReverseGeocodingEntity` | Create a ReverseGeocoding entity instance. |
 | `TextPart` | `(data) -> TextPartEntity` | Create a TextPart entity instance. |
 
 ### Entity interface
@@ -221,8 +221,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -232,9 +231,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `GeodescriptionError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`GeodescriptionError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -263,15 +263,6 @@ returns a result `Hash` with these keys:
 Operations: List.
 
 API path: `/textParts/lat={latitude}/lon={longitude}`
-
-#### ReverseGeocoding
-
-| Field | Description |
-| --- | --- |
-
-Operations: Load.
-
-API path: `/text`
 
 #### TextPart
 
@@ -317,26 +308,9 @@ Create an instance: `lonlongitude = client.Lonlongitude`
 #### Example: List
 
 ```ruby
-# list returns an Array of Lonlongitude records (raises on error).
-lonlongitudes = client.Lonlongitude.list
-```
-
-
-### ReverseGeocoding
-
-Create an instance: `reverse_geocoding = client.ReverseGeocoding`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Example: Load
-
-```ruby
-# load returns the ENTITY — call data_get for the ReverseGeocoding record (raises on error).
-reverse_geocoding = client.ReverseGeocoding.load({ "lat" => 1, "lon" => 1 })
+# list returns an Array of Lonlongitude entities, one per record (raises on error).
+lonlongitudes = client.Lonlongitude.list({ "latitude" => 1, "longitude" => 1 })
+lonlongitudes.each { |item| puts item.data_get }
 ```
 
 
@@ -364,8 +338,9 @@ Create an instance: `text_part = client.TextPart`
 #### Example: List
 
 ```ruby
-# list returns an Array of TextPart records (raises on error).
-text_parts = client.TextPart.list
+# list returns an Array of TextPart entities, one per record (raises on error).
+text_parts = client.TextPart.list({ "lat" => 1, "lon" => 1 })
+text_parts.each { |item| puts item.data_get }
 ```
 
 ## Features
@@ -530,11 +505,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-lonlongitude = client.Lonlongitude
-lonlongitude.list()
+textpart = client.TextPart
+textpart.list({ "lat" => 1, "lon" => 1 })
 
-# lonlongitude.data_get now returns the lonlongitude data from the last list
-# lonlongitude.match_get returns the last match criteria
+# textpart.data_get now returns the textpart data from the last list
+# textpart.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

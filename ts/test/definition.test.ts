@@ -30,8 +30,18 @@ const PLAN: any[] = [
       "key": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "key"
+    ],
+    "queryArgs": [
+      {
+        "name": "key",
+        "wire": "key"
+      }
     ],
     "auth": [],
     "status": 200,
@@ -49,60 +59,8 @@ const PLAN: any[] = [
         "level": "-6"
       }
     ],
-    "idField": "id"
-  },
-  {
-    "entity": "reverse_geocoding",
-    "accessor": "ReverseGeocoding",
-    "op": "load",
-    "method": "GET",
-    "path": "/text",
-    "args": [],
-    "select": {
-      "key": "v1",
-      "lat": 51.3034,
-      "lon": -0.3063
-    },
-    "headers": [],
-    "query": [
-      "lat",
-      "lon",
-      "key"
-    ],
-    "auth": [],
-    "status": 200,
-    "sample": null,
-    "idField": "id"
-  },
-  {
-    "entity": "reverse_geocoding",
-    "accessor": "ReverseGeocoding",
-    "op": "load",
-    "method": "GET",
-    "path": "/text/lat={latitude}/lon={longitude}",
-    "args": [
-      {
-        "name": "latitude",
-        "wire": "latitude",
-        "value": 51.3034
-      },
-      {
-        "name": "longitude",
-        "wire": "longitude",
-        "value": -0.3063
-      }
-    ],
-    "select": {
-      "key": "v1"
-    },
-    "headers": [],
-    "query": [
-      "key"
-    ],
-    "auth": [],
-    "status": 200,
-    "sample": null,
-    "idField": "id"
+    "idField": "id",
+    "ownQuery": "key"
   },
   {
     "entity": "text_part",
@@ -112,15 +70,33 @@ const PLAN: any[] = [
     "path": "/textParts",
     "args": [],
     "select": {
-      "key": "v1",
       "lat": 51.3034,
-      "lon": -0.3063
+      "lon": -0.3063,
+      "key": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "lat",
       "lon",
       "key"
+    ],
+    "queryArgs": [
+      {
+        "name": "key",
+        "wire": "key"
+      },
+      {
+        "name": "lat",
+        "wire": "lat"
+      },
+      {
+        "name": "lon",
+        "wire": "lon"
+      }
     ],
     "auth": [],
     "status": 200,
@@ -138,7 +114,8 @@ const PLAN: any[] = [
         "level": "-6"
       }
     ],
-    "idField": "id"
+    "idField": "id",
+    "ownQuery": "key"
   }
 ]
 

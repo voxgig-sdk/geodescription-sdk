@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GeodescriptionSDK, BaseFeature, stdutil } from '../../..'
+import { GeodescriptionSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('LonlongitudeEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GeodescriptionSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Lonlongitude().list({"latitude":"x","longitude":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GEODESCRIPTION_TEST_LIVE
@@ -51,7 +63,7 @@ describe('LonlongitudeEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"boundary":{"a":true,"h":"Boundary","n":"boundary","r":false,"sh":"Name of the administrative boundary","t":"`$STRING`","key$":"boundary","index$":0},"level":{"a":true,"h":"Level","n":"level","r":false,"sh":"Administrative level of the boundary (e.g., -6, -4, -2, top)","t":"`$STRING`","key$":"level","index$":1},"place":{"a":true,"h":"Place","n":"place","r":false,"sh":"Name of the place","t":"`$STRING`","key$":"place","index$":2},"type":{"a":true,"h":"Type","n":"type","r":false,"sh":"Type of place (e.g., village, city, town)","t":"`$STRING`","key$":"type","index$":3},"wayName":{"a":true,"h":"Way Name","n":"wayName","r":false,"sh":"Name of the street or road","t":"`$STRING`","key$":"wayName","index$":4},"wayRef":{"a":true,"h":"Way Ref","n":"wayRef","r":false,"sh":"Reference identifier for the way (e.g., road number)","t":"`$STRING`","key$":"wayRef","index$":5}},"name":"lonlongitude","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /textParts/lat={latitude}/lon={longitude}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":51.3034,"k":"param","n":"latitude","or":"latitude","r":true,"t":"`$NUMBER`","index$":0},{"a":true,"ex":-0.3063,"k":"param","n":"longitude","or":"longitude","r":true,"t":"`$NUMBER`","index$":1}],"query":[{"a":true,"k":"query","n":"key","or":"key","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/textParts/lat={latitude}/lon={longitude}","q":{"exist":["key","latitude","longitude"]},"r":{},"s":[{"lit":"textParts"},{"lit":"lat={latitude}"},{"lit":"lon={longitude}"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"lonlongitude","name__orig":"lonlongitude","Name":"Lonlongitude","name_":"lonlongitude","name-":"lonlongitude","NAME":"LONLONGITUDE","index$":0}, {"active":true,"entity":"lonlongitude","key$":"BasicLonlongitudeFlow","kind":"basic","name":"BasicLonlongitudeFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"latitude":"latitude01","longitude":"longitude01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"lonlongitude_ref01"}}],"index$":0}]}, 'Lonlongitude', {"GET /textParts/lat={latitude}/lon={longitude}":{"protocol":"http","parameters":[{"name":"latitude","in":"path","required":true,"description":"Latitude coordinate","schema":{"type":"number","format":"double","minimum":-90,"maximum":90},"example":51.3034,"index$":0},{"name":"longitude","in":"path","required":true,"description":"Longitude coordinate","schema":{"type":"number","format":"double","minimum":-180,"maximum":180},"example":-0.3063,"index$":1},{"name":"key","in":"query","required":false,"description":"API key (required for paid tier at api.geodescription.com)","schema":{"type":"string"},"index$":2}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"boundary":{"a":true,"h":"Boundary","n":"boundary","r":false,"sh":"Name of the administrative boundary","t":"`$STRING`","key$":"boundary","index$":0},"level":{"a":true,"h":"Level","n":"level","r":false,"sh":"Administrative level of the boundary (e.g., -6, -4, -2, top)","t":"`$STRING`","key$":"level","index$":1},"place":{"a":true,"h":"Place","n":"place","r":false,"sh":"Name of the place","t":"`$STRING`","key$":"place","index$":2},"type":{"a":true,"h":"Type","n":"type","r":false,"sh":"Type of place (e.g., village, city, town)","t":"`$STRING`","key$":"type","index$":3},"wayName":{"a":true,"h":"Way Name","n":"wayName","r":false,"sh":"Name of the street or road","t":"`$STRING`","key$":"wayName","index$":4},"wayRef":{"a":true,"h":"Way Ref","n":"wayRef","r":false,"sh":"Reference identifier for the way (e.g., road number)","t":"`$STRING`","key$":"wayRef","index$":5}},"name":"lonlongitude","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /textParts/lat={latitude}/lon={longitude}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":51.3034,"k":"param","n":"latitude","or":"latitude","r":true,"t":"`$NUMBER`","index$":0},{"a":true,"ex":-0.3063,"k":"param","n":"longitude","or":"longitude","r":true,"t":"`$NUMBER`","index$":1}],"query":[{"a":true,"k":"query","n":"key","or":"key","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/textParts/lat={latitude}/lon={longitude}","q":{"exist":["latitude","longitude"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"textParts"},{"lit":"lat={latitude}"},{"lit":"lon={longitude}"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"lonlongitude","name__orig":"lonlongitude","Name":"Lonlongitude","name_":"lonlongitude","name-":"lonlongitude","NAME":"LONLONGITUDE","index$":0}, {"active":true,"entity":"lonlongitude","key$":"BasicLonlongitudeFlow","kind":"basic","name":"BasicLonlongitudeFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"latitude":"latitude01","longitude":"longitude01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"lonlongitude_ref01"}}],"index$":0}]}, 'Lonlongitude', {"GET /textParts/lat={latitude}/lon={longitude}":{"protocol":"http","parameters":[{"name":"latitude","in":"path","required":true,"description":"Latitude coordinate","schema":{"type":"number","format":"double","minimum":-90,"maximum":90},"example":51.3034,"index$":0},{"name":"longitude","in":"path","required":true,"description":"Longitude coordinate","schema":{"type":"number","format":"double","minimum":-180,"maximum":180},"example":-0.3063,"index$":1},{"name":"key","in":"query","required":false,"description":"API key (required for paid tier at api.geodescription.com)","schema":{"type":"string"},"index$":2}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -74,6 +86,12 @@ describe('LonlongitudeEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

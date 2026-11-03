@@ -31,19 +31,6 @@ class LonlongitudeListMatch
     public ?string $key = null;
 }
 
-/** ReverseGeocoding entity data model. */
-class ReverseGeocoding
-{
-}
-
-/** Request payload for ReverseGeocoding#load. */
-class ReverseGeocodingLoadMatch
-{
-    public ?string $key = null;
-    public float $lat;
-    public float $lon;
-}
-
 /** TextPart entity data model. */
 class TextPart
 {

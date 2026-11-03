@@ -4,7 +4,7 @@
 
 The Lua SDK for the Geodescription API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:Lonlongitude()` — each with the same small set of operations (`list`, `load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Lonlongitude()` — each with the same small set of operations (`list`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Lonlon
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/geodescription-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -23,7 +23,7 @@ export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `key` query parameter.
 
 ### 1. Create a client
 
@@ -37,15 +37,16 @@ local client = sdk.new({
 
 ### 2. List lonlongitude records
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
-local lonlongitudes, err = client:Lonlongitude():list()
+local lonlongitudes, err = client:Lonlongitude():list({ latitude = 1, longitude = 1 })
 if err then error(err) end
 
 for _, item in ipairs(lonlongitudes) do
-  print(item)
+  for k, val in pairs(item:data_get()) do print(k, val) end
 end
 ```
 
@@ -56,7 +57,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local lonlongitudes, err = client:Lonlongitude():list()
+local textparts, err = client:TextPart():list({ lat = 1, lon = 1 })
 if err then error(err) end
 ```
 
@@ -114,8 +115,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Lonlongitude():list()
--- result is the returned data; err is set on failure
+local result, err = client:TextPart():list({ lat = 1, lon = 1 })
+-- result is an array of entities, one per mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -196,7 +197,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Lonlongitude` | `(data) -> LonlongitudeEntity` | Create a Lonlongitude entity instance. |
-| `ReverseGeocoding` | `(data) -> ReverseGeocodingEntity` | Create a ReverseGeocoding entity instance. |
 | `TextPart` | `(data) -> TextPartEntity` | Create a TextPart entity instance. |
 
 ### Entity interface
@@ -205,8 +205,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -216,19 +215,18 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local reverse_geocoding, err = client:ReverseGeocoding():load()
+    local lonlongitude, err = client:Lonlongitude():list({ latitude = 1, longitude = 1 })
     if err then error(err) end
-    -- reverse_geocoding is the loaded record
+    -- lonlongitude is an array of entities, one per record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -249,15 +247,6 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 Operations: List.
 
 API path: `/textParts/lat={latitude}/lon={longitude}`
-
-#### ReverseGeocoding
-
-| Field | Description |
-| --- | --- |
-
-Operations: Load.
-
-API path: `/text`
 
 #### TextPart
 
@@ -303,24 +292,7 @@ Create an instance: `local lonlongitude = client:Lonlongitude(nil)`
 #### Example: List
 
 ```lua
-local lonlongitudes, err = client:Lonlongitude():list()
-```
-
-
-### ReverseGeocoding
-
-Create an instance: `local reverse_geocoding = client:ReverseGeocoding(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Example: Load
-
-```lua
-local reverse_geocoding, err = client:ReverseGeocoding():load({ lat = 1, lon = 1 })
+local lonlongitudes, err = client:Lonlongitude():list({ latitude = 1, longitude = 1 })
 ```
 
 
@@ -348,7 +320,7 @@ Create an instance: `local text_part = client:TextPart(nil)`
 #### Example: List
 
 ```lua
-local text_parts, err = client:TextPart():list()
+local text_parts, err = client:TextPart():list({ lat = 1, lon = 1 })
 ```
 
 ## Features
@@ -513,11 +485,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local lonlongitude = client:Lonlongitude()
-lonlongitude:list()
+local textpart = client:TextPart()
+textpart:list({ lat = 1, lon = 1 })
 
--- lonlongitude:data_get() now returns the lonlongitude data from the last list
--- lonlongitude:match_get() returns the last match criteria
+-- textpart:data_get() now returns the textpart data from the last list
+-- textpart:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

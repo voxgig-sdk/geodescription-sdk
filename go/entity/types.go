@@ -23,17 +23,6 @@ type LonlongitudeListMatch struct {
 	Key *string `json:"key,omitempty"`
 }
 
-// ReverseGeocoding is the typed data model for the reverse_geocoding entity.
-type ReverseGeocoding struct {
-}
-
-// ReverseGeocodingLoadMatch is the typed request payload for ReverseGeocoding.LoadTyped.
-type ReverseGeocodingLoadMatch struct {
-	Key *string `json:"key,omitempty"`
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
-}
-
 // TextPart is the typed data model for the text_part entity.
 type TextPart struct {
 }

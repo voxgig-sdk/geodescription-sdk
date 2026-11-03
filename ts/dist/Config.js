@@ -87,6 +87,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -105,7 +106,6 @@ class Config {
         },
         entity: {
             lonlongitude: {},
-            reverse_geocoding: {},
             text_part: {},
         }
     };
@@ -210,137 +210,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "key",
                                     "latitude",
                                     "longitude"
                                 ]
-                            }
-                        }
-                    ]
-                }
-            },
-            "relations": {
-                "ancestors": []
-            }
-        },
-        "reverse_geocoding": {
-            "fields": [],
-            "name": "reverse_geocoding",
-            "op": {
-                "load": {
-                    "input": "data",
-                    "name": "load",
-                    "points": [
-                        {
-                            "kind": "http",
-                            "method": "GET",
-                            "orig": "/text",
-                            "segments": [
-                                {
-                                    "lit": "text"
-                                }
-                            ],
-                            "parts": [
-                                "text"
-                            ],
-                            "rename": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
                             },
-                            "args": {
-                                "query": [
-                                    {
-                                        "name": "key",
-                                        "orig": "key",
-                                        "type": "`$STRING`",
-                                        "kind": "query"
-                                    },
-                                    {
-                                        "name": "lat",
-                                        "orig": "lat",
-                                        "type": "`$NUMBER`",
-                                        "kind": "query",
-                                        "reqd": true,
-                                        "example": 51.3034
-                                    },
-                                    {
-                                        "name": "lon",
-                                        "orig": "lon",
-                                        "type": "`$NUMBER`",
-                                        "kind": "query",
-                                        "reqd": true,
-                                        "example": -0.3063
-                                    }
-                                ]
-                            },
-                            "select": {
-                                "exist": [
-                                    "key",
-                                    "lat",
-                                    "lon"
-                                ]
-                            }
-                        },
-                        {
-                            "kind": "http",
-                            "method": "GET",
-                            "orig": "/text/lat={latitude}/lon={longitude}",
-                            "segments": [
-                                {
-                                    "lit": "text"
-                                },
-                                {
-                                    "lit": "lat={latitude}"
-                                },
-                                {
-                                    "lit": "lon={longitude}"
-                                }
-                            ],
-                            "parts": [
-                                "text",
-                                "lat={latitude}",
-                                "lon={longitude}"
-                            ],
-                            "rename": {},
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "args": {
-                                "params": [
-                                    {
-                                        "name": "latitude",
-                                        "orig": "latitude",
-                                        "type": "`$NUMBER`",
-                                        "kind": "param",
-                                        "reqd": true,
-                                        "example": 51.3034
-                                    },
-                                    {
-                                        "name": "longitude",
-                                        "orig": "longitude",
-                                        "type": "`$NUMBER`",
-                                        "kind": "param",
-                                        "reqd": true,
-                                        "example": -0.3063
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "name": "key",
-                                        "orig": "key",
-                                        "type": "`$STRING`",
-                                        "kind": "query"
-                                    }
-                                ]
-                            },
-                            "select": {
-                                "exist": [
-                                    "key",
-                                    "latitude",
-                                    "longitude"
-                                ]
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -440,10 +316,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "key",
                                     "lat",
                                     "lon"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]

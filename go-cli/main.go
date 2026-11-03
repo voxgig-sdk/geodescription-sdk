@@ -20,7 +20,7 @@ import (
 const prompt = "geodescription"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "lonlongitude reverse_geocoding text_part"
+const entitiesHelp = "lonlongitude text_part"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

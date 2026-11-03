@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -89,7 +90,6 @@ func MakeConfig() map[string]any {
 			},
 			"entity": map[string]any{
 				"lonlongitude": map[string]any{},
-				"reverse_geocoding": map[string]any{},
 				"text_part": map[string]any{},
 			},
 		},
@@ -194,137 +194,13 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"key",
 										"latitude",
 										"longitude",
 									},
 								},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{},
-				},
-			},
-			"reverse_geocoding": map[string]any{
-				"fields": []any{},
-				"name": "reverse_geocoding",
-				"op": map[string]any{
-					"load": map[string]any{
-						"input": "data",
-						"name": "load",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/text",
-								"segments": []any{
-									map[string]any{
-										"lit": "text",
-									},
-								},
-								"parts": []any{
-									"text",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-											"kind": "query",
-										},
-										map[string]any{
-											"name": "lat",
-											"orig": "lat",
-											"type": "`$NUMBER`",
-											"kind": "query",
-											"reqd": true,
-											"example": 51.3034,
-										},
-										map[string]any{
-											"name": "lon",
-											"orig": "lon",
-											"type": "`$NUMBER`",
-											"kind": "query",
-											"reqd": true,
-											"example": -0.3063,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"key",
-										"lat",
-										"lon",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/text/lat={latitude}/lon={longitude}",
-								"segments": []any{
-									map[string]any{
-										"lit": "text",
-									},
-									map[string]any{
-										"lit": "lat={latitude}",
-									},
-									map[string]any{
-										"lit": "lon={longitude}",
-									},
-								},
-								"parts": []any{
-									"text",
-									"lat={latitude}",
-									"lon={longitude}",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "latitude",
-											"orig": "latitude",
-											"type": "`$NUMBER`",
-											"kind": "param",
-											"reqd": true,
-											"example": 51.3034,
-										},
-										map[string]any{
-											"name": "longitude",
-											"orig": "longitude",
-											"type": "`$NUMBER`",
-											"kind": "param",
-											"reqd": true,
-											"example": -0.3063,
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"name": "key",
-											"orig": "key",
-											"type": "`$STRING`",
-											"kind": "query",
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"key",
-										"latitude",
-										"longitude",
-									},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -424,10 +300,13 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"key",
 										"lat",
 										"lon",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

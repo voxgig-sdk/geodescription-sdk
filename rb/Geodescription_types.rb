@@ -54,27 +54,6 @@ LonlongitudeListMatch = Struct.new(
   keyword_init: true
 )
 
-# ReverseGeocoding entity data model.
-class ReverseGeocoding
-end
-
-# Request payload for ReverseGeocoding#load.
-#
-# @!attribute [rw] key
-#   @return [String, nil]
-#
-# @!attribute [rw] lat
-#   @return [Float]
-#
-# @!attribute [rw] lon
-#   @return [Float]
-ReverseGeocodingLoadMatch = Struct.new(
-  :key,
-  :lat,
-  :lon,
-  keyword_init: true
-)
-
 # TextPart entity data model.
 #
 # @!attribute [rw] boundary

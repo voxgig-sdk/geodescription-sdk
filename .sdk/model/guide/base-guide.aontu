@@ -4,22 +4,13 @@
 #   guide.aontu
 
 guide: {
-  metrics: count: entity: 3
-  metrics: count: path: 4
-  metrics: count: method: 4
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 2
 
   entity: lonlongitude: {
     path: "/textParts/lat={latitude}/lon={longitude}": {
       op: list: method: *GET
-    }
-  }
-
-  entity: reverse_geocoding: {
-    path: "/text": {
-      op: load: method: *GET
-    }
-    path: "/text/lat={latitude}/lon={longitude}": {
-      op: load: method: *GET
     }
   }
 

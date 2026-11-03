@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type GeodescriptionEntity = core.GeodescriptionEntity
+type GeodescriptionEntityBase = core.GeodescriptionEntityBase
+
+// Deprecated: use GeodescriptionEntityBase.
+type GeodescriptionEntity = core.GeodescriptionEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,13 +46,10 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewLonlongitudeEntityFunc = func(client *core.GeodescriptionSDK, entopts map[string]any) core.GeodescriptionEntity {
+	core.NewLonlongitudeEntityFunc = func(client *core.GeodescriptionSDK, entopts map[string]any) core.GeodescriptionEntityBase {
 		return entity.NewLonlongitudeEntity(client, entopts)
 	}
-	core.NewReverseGeocodingEntityFunc = func(client *core.GeodescriptionSDK, entopts map[string]any) core.GeodescriptionEntity {
-		return entity.NewReverseGeocodingEntity(client, entopts)
-	}
-	core.NewTextPartEntityFunc = func(client *core.GeodescriptionSDK, entopts map[string]any) core.GeodescriptionEntity {
+	core.NewTextPartEntityFunc = func(client *core.GeodescriptionSDK, entopts map[string]any) core.GeodescriptionEntityBase {
 		return entity.NewTextPartEntity(client, entopts)
 	}
 }

@@ -4,7 +4,7 @@
 
 The PHP SDK for the Geodescription API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Lonlongitude()` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Lonlongitude()` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/geodescription-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -25,7 +25,7 @@ composer require voxgig-sdk/geodescription-sdk:@dev
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `key` query parameter.
 
 ### 1. Create a client
 
@@ -43,7 +43,7 @@ $client = new GeodescriptionSDK([
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $lonlongitudes = $client->Lonlongitude()->list();
+    $lonlongitudes = $client->Lonlongitude()->list(["latitude" => 1, "longitude" => 1]);
     foreach ($lonlongitudes as $record) {
         $item = $record->data_get();
         echo $item["boundary"] . "\n";
@@ -61,7 +61,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $lonlongitudes = $client->Lonlongitude()->list();
+    $textparts = $client->TextPart()->list(["lat" => 1, "lon" => 1]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -135,8 +135,8 @@ $client = GeodescriptionSDK::test();
 
 // list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$lonlongitude = $client->Lonlongitude()->list();
-print_r(array_map(fn($item) => $item->data_get(), $lonlongitude));
+$textpart = $client->TextPart()->list(["lat" => 1, "lon" => 1]);
+print_r(array_map(fn($item) => $item->data_get(), $textpart));
 ```
 
 ### Use a custom fetch function
@@ -218,7 +218,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Lonlongitude` | `($data): LonlongitudeEntity` | Create a Lonlongitude entity instance. |
-| `ReverseGeocoding` | `($data): ReverseGeocodingEntity` | Create a ReverseGeocoding entity instance. |
 | `TextPart` | `($data): TextPartEntity` | Create a TextPart entity instance. |
 
 ### Entity interface
@@ -227,8 +226,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -238,9 +236,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -270,15 +268,6 @@ On error, `ok` is `false` and `$err` contains the error value.
 Operations: List.
 
 API path: `/textParts/lat={latitude}/lon={longitude}`
-
-#### ReverseGeocoding
-
-| Field | Description |
-| --- | --- |
-
-Operations: Load.
-
-API path: `/text`
 
 #### TextPart
 
@@ -324,26 +313,8 @@ Create an instance: `$lonlongitude = $client->Lonlongitude();`
 #### Example: List
 
 ```php
-// list() returns an array of Lonlongitude records (throws on error).
-$lonlongitudes = $client->Lonlongitude()->list();
-```
-
-
-### ReverseGeocoding
-
-Create an instance: `$reverse_geocoding = $client->ReverseGeocoding();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Example: Load
-
-```php
-// load() returns the ENTITY — call data_get() for the ReverseGeocoding record (throws on error).
-$reverse_geocoding = $client->ReverseGeocoding()->load(["lat" => 1, "lon" => 1]);
+// list() returns an array of Lonlongitude entities, one per record (throws on error).
+$lonlongitudes = $client->Lonlongitude()->list(["latitude" => 1, "longitude" => 1]);
 ```
 
 
@@ -371,8 +342,8 @@ Create an instance: `$text_part = $client->TextPart();`
 #### Example: List
 
 ```php
-// list() returns an array of TextPart records (throws on error).
-$text_parts = $client->TextPart()->list();
+// list() returns an array of TextPart entities, one per record (throws on error).
+$text_parts = $client->TextPart()->list(["lat" => 1, "lon" => 1]);
 ```
 
 ## Features
@@ -537,11 +508,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$lonlongitude = $client->Lonlongitude();
-$lonlongitude->list();
+$textpart = $client->TextPart();
+$textpart->list(["lat" => 1, "lon" => 1]);
 
-// $lonlongitude->data_get() now returns the lonlongitude data from the last list
-// $lonlongitude->match_get() returns the last match criteria
+// $textpart->data_get() now returns the textpart data from the last list
+// $textpart->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

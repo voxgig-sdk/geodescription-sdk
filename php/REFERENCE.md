@@ -46,10 +46,6 @@ $client = GeodescriptionSDK::test();
 
 Create a new `LonlongitudeEntity` instance. Pass `null` for no initial data.
 
-#### `ReverseGeocoding($data = null)`
-
-Create a new `ReverseGeocodingEntity` instance. Pass `null` for no initial data.
-
 #### `TextPart($data = null)`
 
 Create a new `TextPartEntity` instance. Pass `null` for no initial data.
@@ -112,10 +108,10 @@ $lonlongitude = $client->Lonlongitude();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Lonlongitude()->list();
+$results = $client->Lonlongitude()->list(["latitude" => 1, "longitude" => 1]);
 ```
 
 ### Common Methods
@@ -148,52 +144,6 @@ Return the entity name.
 
 ---
 
-## ReverseGeocodingEntity
-
-```php
-$reverse_geocoding = $client->ReverseGeocoding();
-```
-
-### Operations
-
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
-
-Load a single entity matching the given criteria. Throws on error.
-
-```php
-$result = $client->ReverseGeocoding()->load(["lat" => 1, "lon" => 1]);
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): ReverseGeocodingEntity`
-
-Create a new `ReverseGeocodingEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
 ## TextPartEntity
 
 ```php
@@ -215,10 +165,10 @@ $text_part = $client->TextPart();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->TextPart()->list();
+$results = $client->TextPart()->list(["lat" => 1, "lon" => 1]);
 ```
 
 ### Common Methods
@@ -408,6 +358,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

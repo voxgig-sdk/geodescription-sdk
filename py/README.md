@@ -5,7 +5,7 @@
 The Python SDK for the Geodescription API — an entity-oriented client following Pythonic conventions.
 
 The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Lonlongitude()` — each
-carrying a small, uniform set of operations (`list`, `load`) instead of raw URL
+carrying a small, uniform set of operations (`list`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/geodescription-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/geodescription-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -26,7 +26,7 @@ pip install -e .
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `key` query parameter.
 
 ### 1. Create a client
 
@@ -41,14 +41,14 @@ client = GeodescriptionSDK({
 
 ### 2. List lonlongitude records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
     lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
     for lonlongitude in lonlongitudes:
-        print(lonlongitude)
+        print(lonlongitude.data_get())
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -60,8 +60,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    lonlongitudes = client.Lonlongitude().list()
-    print(lonlongitudes)
+    textparts = client.TextPart().list({"lat": 1, "lon": 1})
+    print([item.data_get() for item in textparts])
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -127,10 +127,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GeodescriptionSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-lonlongitude = client.Lonlongitude().list()
-# lonlongitude contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+textpart = client.TextPart().list({"lat": 1, "lon": 1})
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -209,7 +208,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Lonlongitude` | `(data) -> LonlongitudeEntity` | Create a Lonlongitude entity instance. |
-| `ReverseGeocoding` | `(data) -> ReverseGeocodingEntity` | Create a ReverseGeocoding entity instance. |
 | `TextPart` | `(data) -> TextPartEntity` | Create a TextPart entity instance. |
 
 ### Entity interface
@@ -218,8 +216,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -229,9 +226,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -261,15 +258,6 @@ On error, `ok` is `False` and `err` contains the error value.
 Operations: List.
 
 API path: `/textParts/lat={latitude}/lon={longitude}`
-
-#### ReverseGeocoding
-
-| Field | Description |
-| --- | --- |
-
-Operations: Load.
-
-API path: `/text`
 
 #### TextPart
 
@@ -316,23 +304,6 @@ Create an instance: `lonlongitude = client.Lonlongitude()`
 
 ```python
 lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
-```
-
-
-### ReverseGeocoding
-
-Create an instance: `reverse_geocoding = client.ReverseGeocoding()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `load(match)` | Load a single entity by match criteria. |
-
-#### Example: Load
-
-```python
-reverse_geocoding = client.ReverseGeocoding().load({"lat": 1, "lon": 1})
 ```
 
 
@@ -524,11 +495,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-lonlongitude = client.Lonlongitude()
-lonlongitude.list()
+textpart = client.TextPart()
+textpart.list({"lat": 1, "lon": 1})
 
-# lonlongitude.data_get() now returns the lonlongitude data from the last list
-# lonlongitude.match_get() returns the last match criteria
+# textpart.data_get() now returns the textpart data from the last list
+# textpart.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

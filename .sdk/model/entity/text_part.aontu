@@ -91,10 +91,13 @@ main: kit: entity: text_part: {
           o: "/textParts"
           q: {
             exist: [
-              "key"
               "lat"
               "lon"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -9,8 +9,39 @@ require_once __DIR__ . '/Runner.php';
 use PHPUnit\Framework\TestCase;
 use Voxgig\Struct\Struct as Vs;
 
+class TextPartEntityTestFailHook extends GeodescriptionBaseFeature
+{
+    public int $unexpected = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->name = 'failhook';
+    }
+
+    public function init(GeodescriptionContext $ctx, array $options): void
+    {
+    }
+
+    public function PreSpec(GeodescriptionContext $ctx): void
+    {
+        throw new \RuntimeException('text_part hook failed');
+    }
+
+    public function PreUnexpected(GeodescriptionContext $ctx): void
+    {
+        $this->unexpected++;
+    }
+}
+
 class TextPartEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = GeodescriptionSDK::test(null, null);
@@ -57,6 +88,125 @@ class TextPartEntityTest extends TestCase
         }
     }
 
+    public function test_stream_error(): void
+    {
+        $offline = ["net" => ["offline" => true]];
+        $streamerr = null;
+        try {
+            iterator_to_array(GeodescriptionSDK::test($offline, null)->TextPart(null)
+                ->stream("list", null, null), false);
+        } catch (\Throwable $e) {
+            $streamerr = $e;
+        }
+        $this->assertNotNull($streamerr, 'the stream should raise the transport failure');
+        $this->assertStringContainsString('offline', $streamerr->getMessage());
+
+        iterator_to_array(GeodescriptionSDK::test($offline, null)->TextPart(null)
+            ->stream("list", null, ["ctrl" => ["throw" => false]]), false);
+
+        $cfg = GeodescriptionConfig::shared_config();
+        if (isset($cfg["feature"]["rbac"])) {
+            $denied = GeodescriptionSDK::test(null, ["feature" => ["rbac" => ["active" => true, "deny" => true]]]);
+            $denyerr = null;
+            try {
+                iterator_to_array($denied->TextPart(null)->stream("list", null, null), false);
+            } catch (\Throwable $e) {
+                $denyerr = $e;
+            }
+            $this->assertSame('rbac_denied', $denyerr->sdk_code ?? null);
+        }
+    }
+
+    public function test_stream_ctrl(): void
+    {
+        $ctrl = ["explain" => []];
+        iterator_to_array(GeodescriptionSDK::test(null, null)->TextPart(null)
+            ->stream("list", null, ["ctrl" => $ctrl]), false);
+        $this->assertSame(["explain"], array_keys($ctrl));
+    }
+
+    public function test_unexpected(): void
+    {
+        $hook = new TextPartEntityTestFailHook();
+        $client = new GeodescriptionSDK(["feature" => ["test" => ["active" => true]], "extend" => [$hook]]);
+
+        $err = null;
+        try {
+            $client->TextPart(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertNotNull($err, 'the throwing hook should fail the operation');
+        $this->assertStringContainsString('hook failed', $err->getMessage());
+        $this->assertGreaterThan(0, $hook->unexpected, 'PreUnexpected did not fire');
+
+        $fired = $hook->unexpected;
+        $this->assertNull($client->TextPart(null)->list(null, ["throw" => false]));
+        $this->assertGreaterThan($fired, $hook->unexpected, 'PreUnexpected did not fire');
+    }
+
+    public function test_cost_commits_a_throwing_transport(): void
+    {
+        $cfg = GeodescriptionConfig::shared_config();
+        if (!isset($cfg["feature"]["cost"])) {
+            $this->markTestSkipped('feature not present in this SDK: cost');
+        }
+        $client = new GeodescriptionSDK([
+            "test" => ["active" => true],
+            "feature" => ["cost" => ["active" => true, "unit" => 1]],
+            "utility" => ["fetcher" => function ($ctx, $url, $fetchdef) {
+                throw new \RuntimeException('text_part transport failed');
+            }],
+        ]);
+
+        $err = null;
+        try {
+            $client->TextPart(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertInstanceOf(GeodescriptionError::class, $err);
+        $this->assertStringContainsString('transport failed', $err->getMessage());
+
+        $client->TextPart(null)->list(null, ["throw" => false]);
+        $this->assertSame(2, $client->_cost["total"]["calls"]);
+        $this->assertSame(2, $client->_cost["total"]["attempts"]);
+    }
+
+    public function test_validate_list_response(): void
+    {
+        $cfg = GeodescriptionConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $opts = ["feature" => ["validate" => ["active" => true, "request" => false, "response" => true]]];
+        $listed = GeodescriptionSDK::test(['entity' => ['text_part' => ['v1' => []]]], $opts)->TextPart(null)->list(null, null);
+        $this->assertSame(['v1'], array_map(fn($ent) => $ent->data_get()['id'] ?? null, $listed));
+        $err = null;
+        try {
+            GeodescriptionSDK::test(['entity' => ['text_part' => ['v1' => ['boundary' => 1]]]], $opts)->TextPart(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
+    public function test_validate(): void
+    {
+        $cfg = GeodescriptionConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = GeodescriptionSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->TextPart(null)->list(["key" => 1, "lat" => 1, "lon" => 1], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
     public function test_basic_flow(): void
     {
         $setup = text_part_basic_setup(null);
@@ -68,12 +218,6 @@ class TextPartEntityTest extends TestCase
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
-        }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GEODESCRIPTION_TEST_TEXT_PART_ENTID JSON to run live");
-            return;
         }
         $client = $setup["client"];
 
@@ -88,6 +232,10 @@ class TextPartEntityTest extends TestCase
         // LIST
         $text_part_ref01_ent = $client->TextPart(null);
         $text_part_ref01_match = [];
+        if (!empty($setup["live"])) {
+            $text_part_ref01_match["lat"] = 51.3034;
+            $text_part_ref01_match["lon"] = -0.3063;
+        }
 
         $text_part_ref01_list_result = $text_part_ref01_ent->list($text_part_ref01_match, null);
         $this->assertIsArray($text_part_ref01_list_result);
@@ -114,9 +262,8 @@ function text_part_basic_setup($extra)
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("GEODESCRIPTION_TEST_TEXT_PART_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

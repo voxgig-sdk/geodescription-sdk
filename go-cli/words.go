@@ -75,12 +75,10 @@ func runOp(client *sdk.GeodescriptionSDK, op string, query *eng.Value, entityAto
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.GeodescriptionSDK, name string) (sdk.GeodescriptionEntity, error) {
+func entityFor(client *sdk.GeodescriptionSDK, name string) (sdk.GeodescriptionEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "lonlongitude":
 		return client.Lonlongitude(nil), nil
-	case "reverse_geocoding":
-		return client.ReverseGeocoding(nil), nil
 	case "text_part":
 		return client.TextPart(nil), nil
 

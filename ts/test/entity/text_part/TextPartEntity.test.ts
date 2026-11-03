@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GeodescriptionSDK, BaseFeature, stdutil } from '../../..'
+import { GeodescriptionSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('TextPartEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('text_part hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of GeodescriptionSDK.test(offline).TextPart().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of GeodescriptionSDK.test(offline).TextPart()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = GeodescriptionSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.TextPart().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of GeodescriptionSDK.test().TextPart().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new GeodescriptionSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.TextPart().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.TextPart().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GeodescriptionSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.TextPart().list({"key":1,"lat":1,"lon":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GEODESCRIPTION_TEST_LIVE
@@ -51,7 +109,7 @@ describe('TextPartEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"boundary":{"a":true,"h":"Boundary","n":"boundary","r":false,"sh":"Name of the administrative boundary","t":"`$STRING`","key$":"boundary","index$":0},"level":{"a":true,"h":"Level","n":"level","r":false,"sh":"Administrative level of the boundary (e.g., -6, -4, -2, top)","t":"`$STRING`","key$":"level","index$":1},"place":{"a":true,"h":"Place","n":"place","r":false,"sh":"Name of the place","t":"`$STRING`","key$":"place","index$":2},"type":{"a":true,"h":"Type","n":"type","r":false,"sh":"Type of place (e.g., village, city, town)","t":"`$STRING`","key$":"type","index$":3},"wayName":{"a":true,"h":"Way Name","n":"wayName","r":false,"sh":"Name of the street or road","t":"`$STRING`","key$":"wayName","index$":4},"wayRef":{"a":true,"h":"Way Ref","n":"wayRef","r":false,"sh":"Reference identifier for the way (e.g., road number)","t":"`$STRING`","key$":"wayRef","index$":5}},"name":"text_part","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /textParts","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"key","or":"key","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":51.3034,"k":"query","n":"lat","or":"lat","r":true,"t":"`$NUMBER`","index$":1},{"a":true,"ex":-0.3063,"k":"query","n":"lon","or":"lon","r":true,"t":"`$NUMBER`","index$":2}]},"k":"http","m":"GET","o":"/textParts","q":{"exist":["key","lat","lon"]},"r":{},"s":[{"lit":"textParts"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"text_part","name__orig":"text_part","Name":"TextPart","name_":"text_part","name-":"text-part","NAME":"TEXT_PART","index$":2}, {"active":true,"entity":"text_part","key$":"BasicTextPartFlow","kind":"basic","name":"BasicTextPartFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"text_part_ref01"}}],"index$":0}]}, 'TextPart', {"GET /textParts":{"protocol":"http","parameters":[{"name":"lat","in":"query","required":true,"description":"Latitude coordinate","schema":{"type":"number","format":"double","minimum":-90,"maximum":90},"example":51.3034,"index$":0},{"name":"lon","in":"query","required":true,"description":"Longitude coordinate","schema":{"type":"number","format":"double","minimum":-180,"maximum":180},"example":-0.3063,"index$":1},{"name":"key","in":"query","required":false,"description":"API key (required for paid tier at api.geodescription.com)","schema":{"type":"string"},"index$":2}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"boundary":{"a":true,"h":"Boundary","n":"boundary","r":false,"sh":"Name of the administrative boundary","t":"`$STRING`","key$":"boundary","index$":0},"level":{"a":true,"h":"Level","n":"level","r":false,"sh":"Administrative level of the boundary (e.g., -6, -4, -2, top)","t":"`$STRING`","key$":"level","index$":1},"place":{"a":true,"h":"Place","n":"place","r":false,"sh":"Name of the place","t":"`$STRING`","key$":"place","index$":2},"type":{"a":true,"h":"Type","n":"type","r":false,"sh":"Type of place (e.g., village, city, town)","t":"`$STRING`","key$":"type","index$":3},"wayName":{"a":true,"h":"Way Name","n":"wayName","r":false,"sh":"Name of the street or road","t":"`$STRING`","key$":"wayName","index$":4},"wayRef":{"a":true,"h":"Way Ref","n":"wayRef","r":false,"sh":"Reference identifier for the way (e.g., road number)","t":"`$STRING`","key$":"wayRef","index$":5}},"name":"text_part","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /textParts","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"key","or":"key","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":51.3034,"k":"query","n":"lat","or":"lat","r":true,"t":"`$NUMBER`","index$":1},{"a":true,"ex":-0.3063,"k":"query","n":"lon","or":"lon","r":true,"t":"`$NUMBER`","index$":2}]},"k":"http","m":"GET","o":"/textParts","q":{"exist":["lat","lon"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"textParts"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"text_part","name__orig":"text_part","Name":"TextPart","name_":"text_part","name-":"text-part","NAME":"TEXT_PART","index$":1}, {"active":true,"entity":"text_part","key$":"BasicTextPartFlow","kind":"basic","name":"BasicTextPartFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"text_part_ref01"}}],"index$":0}]}, 'TextPart', {"GET /textParts":{"protocol":"http","parameters":[{"name":"lat","in":"query","required":true,"description":"Latitude coordinate","schema":{"type":"number","format":"double","minimum":-90,"maximum":90},"example":51.3034,"index$":0},{"name":"lon","in":"query","required":true,"description":"Longitude coordinate","schema":{"type":"number","format":"double","minimum":-180,"maximum":180},"example":-0.3063,"index$":1},{"name":"key","in":"query","required":false,"description":"API key (required for paid tier at api.geodescription.com)","schema":{"type":"string"},"index$":2}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('TextPartEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

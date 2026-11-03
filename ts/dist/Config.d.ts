@@ -57,6 +57,7 @@ declare class Config {
             };
             optspec: {
                 clearTimer: string;
+                now: string;
                 setTimer: string;
             };
             strict: boolean;
@@ -75,7 +76,6 @@ declare class Config {
         };
         entity: {
             lonlongitude: {};
-            reverse_geocoding: {};
             text_part: {};
         };
     };
@@ -124,87 +124,11 @@ declare class Config {
                         select: {
                             exist: string[];
                         };
+                        response: {
+                            kind: string;
+                            media: string;
+                        };
                     }[];
-                };
-            };
-            relations: {
-                ancestors: never[];
-            };
-        };
-        reverse_geocoding: {
-            fields: never[];
-            name: string;
-            op: {
-                load: {
-                    input: string;
-                    name: string;
-                    points: ({
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: {
-                            lit: string;
-                        }[];
-                        parts: string[];
-                        rename: {};
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        args: {
-                            query: ({
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd?: undefined;
-                                example?: undefined;
-                            } | {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd: boolean;
-                                example: number;
-                            })[];
-                            params?: undefined;
-                        };
-                        select: {
-                            exist: string[];
-                        };
-                    } | {
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: {
-                            lit: string;
-                        }[];
-                        parts: string[];
-                        rename: {};
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        args: {
-                            params: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd: boolean;
-                                example: number;
-                            }[];
-                            query: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                            }[];
-                        };
-                        select: {
-                            exist: string[];
-                        };
-                    })[];
                 };
             };
             relations: {
@@ -255,6 +179,10 @@ declare class Config {
                         };
                         select: {
                             exist: string[];
+                        };
+                        response: {
+                            kind: string;
+                            media: string;
                         };
                     }[];
                 };

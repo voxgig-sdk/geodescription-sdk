@@ -3,5 +3,19 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "API key for paid tier access (prepaid or subscription). Not required for free tier.",
+      "Administrative level of the boundary (for example, -6, -4, -2, top)",
+      "Free tier server (rate limited to 1 request/second)",
+      "Name of the administrative boundary",
+      "Name of the place",
+      "Name of the street or road",
+      "Paid tier server (prepaid or subscription)",
+      "Successful response with structured location components",
+      "This API provides a service for reverse geocoding, converting geographic coordinates into human-readable address-like location descriptions. Users can access this functionality for both free and paid usage, accommodating various commercial needs.",
+      "Type of place (for example, village, city, town)"
+    ]
+  }
 }

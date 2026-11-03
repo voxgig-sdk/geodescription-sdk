@@ -11,13 +11,6 @@ export interface LonlongitudeListMatch {
     longitude: number;
     key?: string;
 }
-export interface ReverseGeocoding {
-}
-export interface ReverseGeocodingLoadMatch {
-    key?: string;
-    lat: number;
-    lon: number;
-}
 export interface TextPart {
     boundary?: string;
     level?: string;

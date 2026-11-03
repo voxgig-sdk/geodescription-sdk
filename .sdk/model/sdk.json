@@ -196,158 +196,18 @@
                   "o": "/textParts/lat={latitude}/lon={longitude}",
                   "q": {
                     "exist": [
-                      "key",
                       "latitude",
                       "longitude"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "textParts"
-                    },
-                    {
-                      "lit": "lat={latitude}"
-                    },
-                    {
-                      "lit": "lon={longitude}"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": []
-          }
-        },
-        "reverse_geocoding": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": {},
-          "name": "reverse_geocoding",
-          "op": {
-            "load": {
-              "input": "data",
-              "name": "load",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /text",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "key",
-                        "or": "key",
-                        "r": false,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "ex": 51.3034,
-                        "k": "query",
-                        "n": "lat",
-                        "or": "lat",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": -0.3063,
-                        "k": "query",
-                        "n": "lon",
-                        "or": "lon",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/text",
-                  "q": {
-                    "exist": [
-                      "key",
-                      "lat",
-                      "lon"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "text"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                },
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /text/lat={latitude}/lon={longitude}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "ex": 51.3034,
-                        "k": "param",
-                        "n": "latitude",
-                        "or": "latitude",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": -0.3063,
-                        "k": "param",
-                        "n": "longitude",
-                        "or": "longitude",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      }
-                    ],
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "key",
-                        "or": "key",
-                        "r": false,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/text/lat={latitude}/lon={longitude}",
-                  "q": {
-                    "exist": [
-                      "key",
-                      "latitude",
-                      "longitude"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "text"
                     },
                     {
                       "lit": "lat={latitude}"
@@ -471,12 +331,15 @@
                   "o": "/textParts",
                   "q": {
                     "exist": [
-                      "key",
                       "lat",
                       "lon"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "textParts"
@@ -817,6 +680,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -935,39 +799,6 @@
             }
           ]
         },
-        "BasicReverseGeocodingFlow": {
-          "active": true,
-          "entity": "reverse_geocoding",
-          "key$": "BasicReverseGeocodingFlow",
-          "kind": "basic",
-          "name": "BasicReverseGeocodingFlow",
-          "param": {},
-          "step": [
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "ref": "reverse_geocoding_ref01",
-                "srcdatavar": "reverse_geocoding_ref01_data",
-                "suffix": "_dt0"
-              },
-              "m": {
-                "latitude": "latitude01",
-                "longitude": "longitude01"
-              },
-              "o": "load",
-              "s": [],
-              "v": [
-                {
-                  "apply": "TextFieldMark",
-                  "def": {
-                    "mark": "Mark01-reverse_geocoding_ref01"
-                  }
-                }
-              ]
-            }
-          ]
-        },
         "BasicTextPartFlow": {
           "active": true,
           "entity": "text_part",
@@ -1028,7 +859,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1081,6 +912,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -1311,7 +1147,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -1688,6 +1527,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

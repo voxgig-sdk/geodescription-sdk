@@ -20,7 +20,7 @@ export GEODESCRIPTION_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./geodescription-cli list lonlongitude
-./geodescription-cli list reverse_geocoding
+./geodescription-cli list text_part
 
 # 5. Override the API base URL for a single call
 GEODESCRIPTION_BASE=https://api.example.com ./geodescription-cli list lonlongitude
@@ -106,7 +106,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 3 entities.
+below — this SDK exposes 2 entities.
 
 ## Reference
 
@@ -117,7 +117,6 @@ The CLI registers these boru words, each bound to the SDK:
 | Word     | Signatures                                    | Returns                        |
 |----------|-----------------------------------------------|--------------------------------|
 | `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
-| `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 
 - `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `lonlongitude`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
@@ -160,9 +159,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 3 entities this SDK exposes (any is valid as `<entity>`):
+The 2 entities this SDK exposes (any is valid as `<entity>`):
 
-lonlongitude reverse_geocoding text_part
+lonlongitude text_part
 
 ## Explanation
 

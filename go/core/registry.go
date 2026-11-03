@@ -12,9 +12,7 @@ var NewTestFeatureFunc func() Feature
 
 var NewTimeoutFeatureFunc func() Feature
 
-var NewLonlongitudeEntityFunc func(client *GeodescriptionSDK, entopts map[string]any) GeodescriptionEntity
+var NewLonlongitudeEntityFunc func(client *GeodescriptionSDK, entopts map[string]any) GeodescriptionEntityBase
 
-var NewReverseGeocodingEntityFunc func(client *GeodescriptionSDK, entopts map[string]any) GeodescriptionEntity
-
-var NewTextPartEntityFunc func(client *GeodescriptionSDK, entopts map[string]any) GeodescriptionEntity
+var NewTextPartEntityFunc func(client *GeodescriptionSDK, entopts map[string]any) GeodescriptionEntityBase
 

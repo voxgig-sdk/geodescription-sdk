@@ -20,10 +20,10 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Lonlongitude, ReverseGeocoding and TextPart — that you
+This SDK exposes the API as a small set of **semantic entities** — Lonlongitude and TextPart — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
-support (`list`, `load`):
+support (`list`):
 
 ```ts
 const client = new GeodescriptionSDK()
@@ -46,23 +46,22 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = GeodescriptionSDK.test({
   entity: {
-    lonlongitude: {
-      test01: { id: 'test01' },
+    text_part: {
+      test01: { id: 'test01', lat: 1, lon: 1 },
     },
   },
 })
-const lonlongitudes = await client.Lonlongitude().list()
-// lonlongitudes is an array of Lonlongitude entities, populated with mock data
-// — call lonlongitudes[0].data() for the record itself
-console.log(lonlongitudes)
+const textparts = await client.TextPart().list({ lat: 1, lon: 1 })
+// textparts is an array of TextPart entities, one per mock record
+console.log(textparts.map((textpart) => textpart.data()))
 ```
 
 ### Python
 
 ```python
 client = GeodescriptionSDK.test()
-lonlongitudes = client.Lonlongitude().list()
-print(lonlongitudes)
+textparts = client.TextPart().list({"lat": 1, "lon": 1})
+print([item.data_get() for item in textparts])
 ```
 
 ### PHP
@@ -70,17 +69,17 @@ print(lonlongitudes)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = GeodescriptionSDK::test([
-    "entity" => ["lonlongitude" => ["test01" => []]],
+    "entity" => ["text_part" => ["test01" => ["lat" => 1, "lon" => 1]]],
 ]);
-$lonlongitudes = $client->Lonlongitude()->list();
+$textparts = $client->TextPart()->list(["lat" => 1, "lon" => 1]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Lonlongitude(nil).List(
-    nil, nil,
+result, err := client.TextPart(nil).List(
+    map[string]any{"lat": 1, "lon": 1}, nil,
 )
 ```
 
@@ -89,16 +88,16 @@ result, err := client.Lonlongitude(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = GeodescriptionSDK.test({
-  "entity" => { "lonlongitude" => { "test01" => {} } },
+  "entity" => { "text_part" => { "test01" => { "lat" => 1, "lon" => 1 } } },
 })
-lonlongitudes = client.Lonlongitude.list()
+textparts = client.TextPart.list({ "lat" => 1, "lon" => 1 })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Lonlongitude():list()
+local results, err = client:TextPart():list({ lat = 1, lon = 1 })
 ```
 
 ## Packages
@@ -111,8 +110,8 @@ local results, err = client:Lonlongitude():list()
 | Golang | `github.com/voxgig-sdk/geodescription-sdk/go` | `go get github.com/voxgig-sdk/geodescription-sdk/go@latest` |
 | Ruby | `voxgig-sdk-geodescription-sdk` | publish pending — [install from source](rb/README.md#install) |
 | Lua | `voxgig-sdk-geodescription-sdk` | publish pending — [install from source](lua/README.md#install) |
-| Go CLI | `github.com/voxgig-sdk/geodescription-sdk/go-cli` | `go install github.com/voxgig-sdk/geodescription-sdk/go-cli/cmd/geodescription@latest` |
-| Go MCP server | `github.com/voxgig-sdk/geodescription-sdk/go-mcp` | `go get github.com/voxgig-sdk/geodescription-sdk/go-mcp@latest` |
+| Go CLI | `github.com/voxgig-sdk/geodescription-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/geodescription-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -125,12 +124,14 @@ const client = new GeodescriptionSDK({
   apikey: process.env.GEODESCRIPTION_APIKEY,
 })
 
-// List all lonlongitudes (returns LonlongitudeEntity[] — .data() for the record)
+// List all lonlongitudes (returns LonlongitudeEntity[], one entity per record)
 const lonlongitudes = await client.Lonlongitude().list({ latitude: 1, longitude: 1 })
 for (const lonlongitude of lonlongitudes) {
-  console.log(lonlongitude)
+  console.log(lonlongitude.data())
 }
 ```
+
+The client sends the API key as the `key` query parameter.
 
 See the [TypeScript README](ts/README.md) for the full guide.
 
@@ -144,9 +145,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o geodescription-mcp .
@@ -166,15 +168,14 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 3 entities:
+The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
 | **Lonlongitude** | The Lonlongitude entity (list). | `/textParts/lat={latitude}/lon={longitude}` |
-| **ReverseGeocoding** | The ReverseGeocoding entity (load). | `/text` |
 | **TextPart** | The TextPart entity (list). | `/textParts` |
 
-The operations available across these entities are **load**, **list** — see each entity's
+The operations available across these entities are **list** — see each entity's
 own list above for exactly which it supports.
 
 ## Quickstart in other languages
@@ -189,10 +190,10 @@ client = GeodescriptionSDK({
     "apikey": os.environ.get("GEODESCRIPTION_APIKEY"),
 })
 
-# List all lonlongitudes (returns a list, raises on error)
+# List all lonlongitudes (a list of entities, one per record; raises on error)
 lonlongitudes = client.Lonlongitude().list({"latitude": 1, "longitude": 1})
 for lonlongitude in lonlongitudes:
-    print(lonlongitude)
+    print(lonlongitude.data_get())
 ```
 
 ### PHP
@@ -205,8 +206,8 @@ $client = new GeodescriptionSDK([
     "apikey" => getenv("GEODESCRIPTION_APIKEY"),
 ]);
 
-// List all lonlongitudes (returns an array; throws on error)
-$lonlongitudes = $client->Lonlongitude()->list();
+// List all lonlongitudes (an array of entities, one per record; throws on error)
+$lonlongitudes = $client->Lonlongitude()->list(["latitude" => 1, "longitude" => 1]);
 print_r(array_map(fn($item) => $item->data_get(), $lonlongitudes));
 ```
 
@@ -219,12 +220,14 @@ client := sdk.NewGeodescriptionSDK(map[string]any{
     "apikey": os.Getenv("GEODESCRIPTION_APIKEY"),
 })
 
-// List all lonlongitudes
-lonlongitudes, err := client.Lonlongitude(nil).List(nil, nil)
+// List all lonlongitudes (one entity per record; err is non-nil on failure)
+lonlongitudes, err := client.Lonlongitude(nil).List(map[string]any{"latitude": 1, "longitude": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(lonlongitudes)
+for _, lonlongitude := range lonlongitudes.([]any) {
+    fmt.Println(lonlongitude.(sdk.Entity).Data())
+}
 ```
 
 ### Ruby
@@ -236,23 +239,27 @@ client = GeodescriptionSDK.new({
   "apikey" => ENV["GEODESCRIPTION_APIKEY"],
 })
 
-# List all lonlongitudes (returns an Array; raises on error)
-lonlongitudes = client.Lonlongitude.list
-puts lonlongitudes
+# List all lonlongitudes (an Array of entities, one per record; raises on error)
+lonlongitudes = client.Lonlongitude.list({ "latitude" => 1, "longitude" => 1 })
+lonlongitudes.each { |item| puts item.data_get }
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("geodescription_sdk")
+local json = require("dkjson")
 
 local client = sdk.new({
   apikey = os.getenv("GEODESCRIPTION_APIKEY"),
 })
 
--- List all lonlongitudes
-local lonlongitudes, err = client:Lonlongitude():list()
-print(lonlongitudes)
+-- List all lonlongitudes (an array of entities, one per record; err on failure)
+local lonlongitudes, err = client:Lonlongitude():list({ latitude = 1, longitude = 1 })
+if err then error(err) end
+for _, lonlongitude in ipairs(lonlongitudes) do
+  print(json.encode(lonlongitude:data_get()))
+end
 ```
 
 ## Direct and prepare
@@ -278,10 +285,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -366,23 +372,52 @@ Pass custom features via the `extend` option at construction time.
 This repository contains its own generator (`.sdk/`), so the SDK is
 customizable without forking any upstream tool:
 
-- **The model** (`.sdk/model/`) declares everything this project owns:
-  package names, versions, active features, per-target settings. It is
-  written in [aontu](https://aontu.dev), a JSON-based
+- **The model** (`.sdk/model/`) is what generation reads: the API's
+  entities and operations, the targets, the features, and this project's
+  own settings. It is written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/project.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from
   what a resync would write.
+
+### Project map
+
+| Path | What it holds | Edit it? |
+| --- | --- | --- |
+| `.sdk/model/project.aontu` | This project's own decisions: package names, versions, features and per-target settings | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/text.aontu` | The README wording, in `main.kit.text`: the tagline, the summary and the entity descriptions | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/guide/guide.aontu` | How the spec's paths map onto entities and operations | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/`, the rest | The API model built from the spec, and the target and feature definitions | Not by hand. Generation, `target add` and a new scaffold run rewrite it. |
+| `.sdk/def/` | The OpenAPI spec | Replace it when the API changes. Generation rebuilds the model from it. |
+| `.sdk/src/cmp/<target>/`, `.sdk/tm/<target>/` | The components and templates that generate each target | Only to add a component of your own. `target add` overwrites the copies. |
+| `.sdk/test/` | The shared test cases the generated tests run | No. |
+| `<target>/`, such as `ts/` | One generated SDK per target, with its own tests | No. Generation overwrites it. |
+| `README.md`, `LICENSE`, `Makefile` and the other root files | The repository's generated files | No. Generation overwrites them. |
+
+### Common commands
+
+Run these from `.sdk/`:
+
+```bash
+npm run generate               # regenerate every target from the model
+npm run add-target <target>    # add a target, or resync one after an sdkgen update
+npm run add-feature <feature>  # add a feature to every target
+npx voxgig-sdkgen doctor       # report where .sdk/ differs from what a resync writes
+```
+
+In an SDK directory, `make test` runs that SDK's tests.
 
 How-to: [customize and propagate templates](https://github.com/voxgig/sdkgen/blob/main/docs/how-to/customize-and-propagate-templates.md).
 The full story: [voxgig.com/sdk/custom](https://voxgig.com/sdk/custom).
